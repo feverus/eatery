@@ -1,16 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import store from './store/store';
-import Main from './components/main';
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'mobx-react'
+
+import Main from './components/main'
+
+import foodStore from './store/foodStore'
+
 import './styles/index.css';
+
+const stores = {
+  foodStore,
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
-);
+)
 
 root.render(
-  <Provider store={store}>
+  <Provider {...stores}>
     <Main />
   </Provider>  
-);
+)

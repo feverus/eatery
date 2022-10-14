@@ -1,15 +1,18 @@
-import { connect } from 'react-redux';
-import * as I from '../store/storeInterfaces';
-import {mapStateToPropsMain as mapStateToProps} from '../store/mapStateToProps';
-import {mapDispatchToProps} from '../store/mapDispatchToProps';
+import {observer, inject} from "mobx-react";
 
-type P = I.PropsStateMain & I.PropsDispaich;
+import foodStore from '../store/foodStore'
 
-function Main_i(props:P) {
+const Main = () => {
 	return (
-		<>hello</>
+	  <>
+	  Main	 
+	  {foodStore.menu.map((item, id) => <div key={id}>{item.id}</div>)}
+	  </>
 	)
 }
 
-const Main = connect(mapStateToProps(), mapDispatchToProps)(Main_i);
-export default Main;
+  
+
+export default
+	inject('foodStore')
+	(observer(Main));

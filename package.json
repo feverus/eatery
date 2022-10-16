@@ -4,6 +4,9 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
+    "@blueprintjs/core": "^4.11.3",
+    "@blueprintjs/icons": "^4.7.0",
+    "@blueprintjs/select": "^4.8.3",
     "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",

@@ -16,7 +16,6 @@ export class MenuStore {
     }
     
     loadFoodBase(newFoodBase:Array<I.Food>) {
-        console.log('база food обновлена')
         this.food = newFoodBase
     }
     addFood(newFood:I.Food) {

@@ -1,0 +1,11 @@
+.card {
+    padding: 0.5em 1em;
+}
+.inputCount {
+    width: 3em;
+}
+.cardName {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

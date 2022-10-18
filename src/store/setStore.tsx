@@ -1,13 +1,13 @@
 import {makeAutoObservable, observable, action, autorun} from 'mobx';
 
-import * as I from './storeInterfaces';
-
 export class SetStore {
-    page:string = 'login'
+    page:string = 'food-list'
+    role:string = 'admin'
 
     constructor() {
         makeAutoObservable(this, {
             page: observable,
+            role: observable,
             setPage: action
         })
         autorun(() => console.log('food store autorun'));

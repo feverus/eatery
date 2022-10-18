@@ -6,18 +6,20 @@ import setStore from "../../store/setStore";
 import FoodList from "../foodList";
 
 import {
-    Alignment,
-    Button,
-    Classes,
-    H5,
-    Navbar,
-    NavbarDivider,
-    NavbarGroup,
-    NavbarHeading,
-    Switch,
+    Navbar, NavbarDivider, NavbarGroup, NavbarHeading, FocusStyleManager 
 } from "@blueprintjs/core";
 
 const Main = () => {
+    let displayedPage:JSX.Element
+    switch(setStore.page) {
+        case 'food-list':
+            displayedPage = <FoodList /> 
+            break;
+        default: displayedPage = <FoodList />
+    }
+    
+    FocusStyleManager.onlyShowFocusOnTabs();
+
 	return (
 		<>
 		<Navbar>
@@ -27,7 +29,8 @@ const Main = () => {
             </NavbarGroup>			
 		</Navbar>
 		
-		<FoodList />
+        {displayedPage}
+		
 		</>
 	)
 }

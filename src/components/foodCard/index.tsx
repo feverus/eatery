@@ -1,3 +1,5 @@
+import {observer, inject} from "mobx-react";
+
 import * as I from '../../store/storeInterfaces';
 import useFoodCard from './hook'
 
@@ -7,7 +9,7 @@ import C from '../../styles/foodCard.module.css'
 import Slider from './slider'
 
 const FoodCard = (item:I.Food) => {
-    const [state, api] = useFoodCard()
+    const [state, api] = useFoodCard(item)
     return (    
         <div className={C.card}>
             <Card interactive={true} elevation={Elevation.TWO} >
@@ -28,7 +30,8 @@ const FoodCard = (item:I.Food) => {
                     <ButtonGroup minimal={true}>
                         <Button icon="move">Переместить</Button>
                         <Button icon="duplicate">Дублировать</Button>
-                        <Button icon="edit">Редактировать</Button>
+                        <Button icon="edit"
+                            onClick={() => api.openEditForm(item)}>Редактировать</Button>
                         <Button icon="delete">Удалить</Button>
                     </ButtonGroup>                
                 </ControlGroup>
@@ -37,4 +40,11 @@ const FoodCard = (item:I.Food) => {
         )
 }
 
-export default FoodCard
+
+export default
+	inject('editFormStore')
+	(observer(FoodCard));
+
+function food(food: any): void {
+    throw new Error("Function not implemented.");
+}

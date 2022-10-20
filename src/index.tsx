@@ -5,6 +5,7 @@ import Main from './components/main'
 
 import menuStore from './store/menuStore'
 import setStore from "./store/setStore";
+import editFormStore from "./store/editFormStore";
 
 import './styles/index.css';
 import "normalize.css";
@@ -15,7 +16,8 @@ import "@blueprintjs/select/lib/css/blueprint-select.css";
 
 const stores = {
   menuStore,
-  setStore
+  setStore,
+  editFormStore
 }
 
 const root = ReactDOM.createRoot(

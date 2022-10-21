@@ -44,7 +44,3 @@ const FoodCard = (item:I.Food) => {
 export default
 	inject('editFormStore')
 	(observer(FoodCard));
-
-function food(food: any): void {
-    throw new Error("Function not implemented.");
-}

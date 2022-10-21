@@ -29,9 +29,9 @@ POST https://evgeny.fun/eatery/api/food/ HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Пицца с ананасами",
-    "section": "57599",
-    "price": "333",
+    "name": "Тест 22",
+    "section": "674540",
+    "price": "1212",
     "images":["https://reservationsteps.ru/files/88/05/8805d5006779ae0999a6bde021020d8e_1050x600.jpg","https://reservationsteps.ru/files/97/d9/97d9a0a8a35332c82009e8b36af6d874_1050x600.jpg"],
     "info": "<ul><li>пицца</li><li>ананасы</li><li>ненависть</li></ul>"
 }
@@ -60,12 +60,21 @@ POST https://evgeny.fun/eatery/api/section/ HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Прочее"
+    "name": "ВВВ жидкости",
+    "order": "2"
 }
 
 ###
 
+GET https://evgeny.fun/eatery/api/section
 
+
+###
+
+GET https://evgeny.fun/eatery/api/section/253979
+
+
+###
 
 
 

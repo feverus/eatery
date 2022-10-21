@@ -4,7 +4,7 @@ import * as I from '../../store/storeInterfaces'
 import menuStore from '../../store/menuStore'
 import setStore from "../../store/setStore"
 import editFormStore from "../../store/editFormStore"
-import getFoodApi from '../../api/getApi'
+import {getFoodApi} from '../../api/getApi'
 import useToast from '../toast'
 
 type ControlCallback = () => void;

@@ -6,19 +6,7 @@ import setStore from "../../store/setStore"
 import editFormStore from "../../store/editFormStore"
 import {getFoodApi} from '../../api/getApi'
 import useToast from '../toast'
-
-type ControlCallback = () => void;
-
-type UseFoodCard = (item:I.Food) => [
-        state: {
-            count:number;
-        },
-        api: {
-            add:ControlCallback
-            remove:ControlCallback
-            openEditForm:(item:I.Food) => void
-        }
-    ]
+import { UseFoodCard } from './foodCard.props'
 
 const useFoodCard:UseFoodCard = () => {
     const [count, setCount] = useState(0)

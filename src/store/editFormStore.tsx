@@ -5,13 +5,13 @@ type Data = I.Food|undefined;
 
 export class EditFormStore {    
     open:boolean = false
-    data:Data = undefined
+    formData:Data = undefined
     type:string = 'food'
 
     constructor() {
         makeAutoObservable(this, {
             open: observable,
-            data: observable,
+            formData: observable,
             setData: action,
             openForm: action,
             closeForm: action,
@@ -20,11 +20,21 @@ export class EditFormStore {
     }
 
     setData(data:Data) {
-        this.data = data
+        this.formData = data
     }
     openForm(type:string, data:Data) {
+        console.log('openForm')
+        console.log(data)
         this.type = type
-        this.data = data
+        if (data!==undefined) {
+            this.formData = {id: data.id,
+                name: data.name,
+                section: data.section,
+                price: data.price,
+                images: data.images,
+                info: data.info,
+            }
+        }
         this.open = true
     }
     closeForm() {

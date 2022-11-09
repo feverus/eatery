@@ -1,19 +1,12 @@
+import ky from 'ky'
 import urlApi  from './urlApi';
 
-const deleteApi = async (id:string, endPoint:string): Promise<boolean|string> => {
+export async function deleteApi (id:string, endPoint:string): Promise<boolean|string> {
 	try {
-		const response = await fetch(urlApi+"/"+endPoint+"/"+id, {method: 'DELETE'});
-		if (response.status===200) {
-			return true;
-		} else {
-			return String(response.status);
-		}
+		const answer:any = await ky.delete(urlApi+"/"+endPoint+"/"+id)
+		const json = await answer.json()
+		return json
 	} catch (error) {
-        if (error) {
-            return (error as Error).message;
-        }
+        return (error as Error).message
     }
-	return "";
 }
-
-export default deleteApi;

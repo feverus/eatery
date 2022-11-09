@@ -1,11 +1,8 @@
-import { Card, Elevation} from "@blueprintjs/core";
+import { Card, Elevation} from "@blueprintjs/core"
+import C from './sectionHeader.module.scss'
+import { P } from './sectionHeader.props'
 
-import C from '../../styles/foodCard.module.css'
-
-type P = {
-    item:string
-}
-const SectionHeader = (props:P) => {
+export function SectionHeader(props:P) {
     return (    
         <div className={C.section}>
             <Card elevation={Elevation.TWO}  className={C.sectionCard}>
@@ -16,6 +13,3 @@ const SectionHeader = (props:P) => {
         </div>
     )
 }
-
-
-export default SectionHeader

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'mobx-react'
 
-import Main from './components/main'
+import Main from './components/main/'
 
 import menuStore from './store/menuStore'
 import setStore from "./store/setStore";

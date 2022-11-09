@@ -1,53 +1,31 @@
+import ky from 'ky';
+
 import * as I from '../store/storeInterfaces';
 import urlApi  from './urlApi';
 
 export const getFoodApi = async (): Promise<Array<I.Food>|string> => {
 	try {
-		const response = await fetch(urlApi+"/food", {method: 'GET'});
-		if (response.status===200) {
-			const data = await response.json();
-			return data;
-		} else {
-			return String(response.status);
-		}
+		const json:Array<I.Food> = await ky.get(urlApi+"food").json()
+		return json
 	} catch (error) {
-        if (error) {
-            return (error as Error).message;
-        }
+        return (error as Error).message
     }
-	return "";
 }
 
 export const getSectionApi = async (): Promise<Array<I.Section>|string> => {
 	try {
-		const response = await fetch(urlApi+"/section", {method: 'GET'});
-		if (response.status===200) {
-			const data = await response.json();
-			return data;
-		} else {
-			return String(response.status);
-		}
+		const json:Array<I.Section> = await ky.get(urlApi+"section").json()
+		return json
 	} catch (error) {
-        if (error) {
-            return (error as Error).message;
-        }
+        return (error as Error).message
     }
-	return "";
 }
 
 export const getTagApi = async (): Promise<Array<I.Tag>|string> => {
 	try {
-		const response = await fetch(urlApi+"/tag", {method: 'GET'});
-		if (response.status===200) {
-			const data = await response.json();
-			return data;
-		} else {
-			return String(response.status);
-		}
+		const json:Array<I.Tag> = await ky.get(urlApi+"tag").json()
+		return json
 	} catch (error) {
-        if (error) {
-            return (error as Error).message;
-        }
+        return (error as Error).message
     }
-	return "";
 }

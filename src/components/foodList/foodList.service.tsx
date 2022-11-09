@@ -60,8 +60,7 @@ const useFood = () => {
                             tempFull.push(item)
                         }
                     }
-                )
-                
+                )                
 
                 if (tempFull.length>0) tempFull.shift()
                 setSectionedFood(tempFull)

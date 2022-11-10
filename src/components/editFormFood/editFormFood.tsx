@@ -1,4 +1,5 @@
 import editFormStore from "../../store/editFormStore"
+import menuStore from '../../store/menuStore'
 import * as I from '../../store/storeInterfaces';
 import { useState, useRef, useEffect } from "react";
 import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup } from "@blueprintjs/core";
@@ -57,7 +58,9 @@ export function EditFormFood() {
         uploadFoodApi(data, (data as I.Food).id as string)
         .then(result => {
             console.log(result)
-            if (typeof result!=='string') {     
+            if (typeof result!=='string') {    
+                editFormStore.setData(result)
+                menuStore.editFood(result, (data as I.Food).id as string)
                 showToast('Отредактировано: '+result.id);
             } else {
                 showToast(result);

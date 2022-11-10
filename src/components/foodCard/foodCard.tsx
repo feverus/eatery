@@ -1,12 +1,9 @@
-import {observer, inject} from "mobx-react";
-
 import * as I from '../../store/storeInterfaces';
 import useFoodCard from './foodCard.service'
 import { Intent, Button, Card, Elevation, Divider, ControlGroup, ButtonGroup } from "@blueprintjs/core";
-
 import C from './foodCard.module.scss'
 import Slider from '../slider'
-
+import { deleteApi } from '../../api/deleteApi';
 
 export function FoodCard(item:I.Food) {
     const [state, api] = useFoodCard(item)
@@ -48,7 +45,9 @@ export function FoodCard(item:I.Food) {
                         >
                             Редактировать
                         </Button>
-                        <Button icon="delete">
+                        <Button icon="delete"
+                            onClick={() => deleteApi(item.id, 'food')}
+                        >
                             Удалить
                         </Button>
                     </ButtonGroup>                

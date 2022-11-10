@@ -6,13 +6,11 @@ export async function uploadFoodApi (data:any, id: string): Promise<I.Food|strin
 	const url = (id==="")?
 		urlApi + "food":
 		urlApi + "food/" +id
-	//не передаем id в json, он назначается автоматически 
-	data.id = ""
 
 	try {	
 		let answer:any
-		if (id==="") answer = await ky.post(url, { json: data });
-		else answer = await ky.post(url, { json: data, method: "PUT" })
+		if (id==="") answer = await ky.post(url, { json: {...data, id: ""} });
+		else answer = await ky.put(url, { json: {...data, id: ""}, method:"PUT" })
 		const json = await answer.json()
 		return json
 	} catch (error) {

@@ -32,7 +32,11 @@ export class MenuStore {
     addFood(newFood:I.Food) {
         this.food.push(newFood)
     }
-
+    editFood(editedFood:I.Food, id:string) {
+        this.food.forEach((element, num) => {
+            if (element.id==id) this.food[num] = editedFood
+        })
+    }
 }
 
 const menuStore = new MenuStore()

@@ -18,7 +18,7 @@ const useFood = () => {
             if (typeof result!=='string') {                
                 menuStore.loadFoodBase(result)
                 setFood(result)
-                showToast('база Food обновлена');
+                //showToast('база Food обновлена');
             } else {
                 showToast(result);
             }
@@ -27,7 +27,7 @@ const useFood = () => {
         .then(result => {
             if (typeof result!=='string') {                
                 menuStore.loadTagBase(result)
-                showToast('база Tag обновлена');
+                //showToast('база Tag обновлена');
             } else {
                 showToast(result);
             }
@@ -64,7 +64,7 @@ const useFood = () => {
 
                 if (tempFull.length>0) tempFull.shift()
                 setSectionedFood(tempFull)
-                showToast('база Section обновлена');
+                //showToast('база Section обновлена');
             } else {
                 showToast(result);
             }

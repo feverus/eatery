@@ -23,8 +23,6 @@ export class EditFormStore {
         this.formData = data
     }
     openForm(type:string, data:Data) {
-        console.log('openForm')
-        console.log(data)
         this.type = type
         if (data!==undefined) {
             this.formData = {id: data.id,

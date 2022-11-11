@@ -1,7 +1,20 @@
+
+
 .swiper {
-    height: 300px;
-}
-.swiperSlide {
-    display: flex;
-    justify-content: center;
+    max-height: 250px;  
+    max-width: min(90vw, 500px); 
+    margin: 0!important;
+    .swiperSlide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        max-height: 250px;
+        height: auto;
+        img {
+            display: block;
+            max-width: min(90vw, 500px);
+            max-height: 250px;
+        }
+    }
 }

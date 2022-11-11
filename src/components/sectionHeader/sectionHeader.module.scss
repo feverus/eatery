@@ -1,4 +1,11 @@
 .section {
-    padding: 1em 1em 0.5em;
+    padding: 10px 5px;
     flex: 1 0 100%;
+    .card {
+        margin: 0;
+        padding: 1px 10px;
+        h5 {
+            margin: 10px 0;
+        }
+    }
 }

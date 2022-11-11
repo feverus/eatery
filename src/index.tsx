@@ -7,7 +7,7 @@ import menuStore from './store/menuStore'
 import setStore from "./store/setStore";
 import editFormStore from "./store/editFormStore";
 
-import './styles/index.css';
+import './index.module.scss'
 import "normalize.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";

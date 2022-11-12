@@ -6,7 +6,7 @@ import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import { uploadFoodApi } from "../../api/uploadApi";
+import { uploadFoodApi, uploadImageApi } from "../../api/uploadApi";
 import { UseEditFormFood } from "./editFormFood.props";
 import C from './editFormFood.module.scss'
 import useToast from '../toast'
@@ -57,10 +57,8 @@ const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
         editFormStore.setData({...data as I.Food, info:draftToHtml(convertToRaw(value.getCurrentContent()))})
     }
 
-    const handleApprove = () => {
-        console.log('handleApprove')
-        console.log(data)
-        uploadFoodApi(data, (data as I.Food).id )
+    const handleApprove = async () => {
+        await uploadFoodApi(data, (data as I.Food).id )
         .then(result => {
             console.log(result)
             if (typeof result!=='string') {    
@@ -70,6 +68,10 @@ const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
             } else {
                 showToast(result);
             }
+        })        
+        await uploadImageApi(editFormStore.rawImages, editFormStore.formData.id)
+        .then(result => {
+            console.log(result)
         })
     }
 

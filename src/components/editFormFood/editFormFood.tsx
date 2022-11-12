@@ -6,11 +6,7 @@ import C from './editFormFood.module.scss'
 import useEditFormFood from './editFormFood.service'
 import ImageUploader from "../imageUploader";
 
-export function EditFormFood() {
-    console.log('EditFormFood-')
-    console.log(editFormStore.formData)
-
-    
+export function EditFormFood() {    
     const [state, api] = useEditFormFood(editFormStore.formData)
 
     return (

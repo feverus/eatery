@@ -126,7 +126,7 @@ content-type: application/json
 ###
 
 
-OPTIONS http://localhost/api/food/675531 HTTP/1.1
+POST http://localhost/api/_images/675538 HTTP/1.1
 content-type: application/json
 
 ###

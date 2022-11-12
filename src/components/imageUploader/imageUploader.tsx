@@ -6,9 +6,6 @@ import C from './imageUploader.module.scss'
 import useImageUploader from './imageUploader.service'
 
 export function ImageUploader() {
-	console.log('editFormStore.formData?.images')
-	console.log(editFormStore.formData?.images)
-
 	const [state, api] = useImageUploader()
 
 	return (

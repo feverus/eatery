@@ -5,9 +5,7 @@ import { ImageListType } from "react-images-uploading";
 const useImageUploader:UseImageUploader = () => {
   
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
-      // data for submit
-      console.log(imageList, addUpdateIndex);
-      editFormStore.setImages(imageList as never[]);
+      editFormStore.setImages(imageList);
     }
 
     const state = {

@@ -1,4 +1,5 @@
 import {makeAutoObservable, observable, action, autorun} from 'mobx';
+import { ImageListType } from 'react-images-uploading';
 import * as I from './storeInterfaces';
 
 export class EditFormStore { 
@@ -14,7 +15,7 @@ export class EditFormStore {
     open:boolean = false
     formData:I.Food = this.emptyFood
     type:string = 'food'
-    rawImages: never[] = []
+    rawImages: ImageListType = []
     imagesToDelete: Array<string> = []
 
     constructor() {
@@ -34,7 +35,7 @@ export class EditFormStore {
         this.formData = data
     }
 
-    setImages(imageList: never[]) {
+    setImages(imageList: ImageListType) {
         this.rawImages = imageList
     }
 

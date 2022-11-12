@@ -20,6 +20,10 @@
         }
         .footerButtons {
             padding: 10px 0;
+            flex-wrap: wrap;
+            span {
+                font-size: smaller;
+            }
         }
     }
 }

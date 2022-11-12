@@ -41,8 +41,7 @@ export function FoodCard(item:I.Food) {
                         onClick={api.add}
                     ></Button>
 
-                    <ButtonGroup minimal={true}>
-                        <Button icon="move">Переместить</Button>
+                    <ButtonGroup minimal={true}>                    
                         <Button icon="duplicate">Дублировать</Button>
                         <Button icon="edit"
                             onClick={() => api.openEditForm(item)}

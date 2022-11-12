@@ -1,0 +1,17 @@
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    min-height: 95%;
+    .editorMain {
+        min-height: 200px;
+        border: 1px #c3c3c3 solid;
+    padding: 5px;
+    background-color: #e3e3e3;
+    }
+}
+.hidden {
+    display: none;
+}

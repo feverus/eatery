@@ -10,6 +10,7 @@ import { uploadFoodApi, uploadImageApi } from "../../api/uploadApi";
 import { UseEditFormFood } from "./editFormFood.props";
 import C from './editFormFood.module.scss'
 import useToast from '../toast'
+import { deleteApi, deleteImagesApi } from "../../api/deleteApi";
 
 const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
 
@@ -58,21 +59,38 @@ const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
     }
 
     const handleApprove = async () => {
-        await uploadFoodApi(data, (data as I.Food).id )
+        if ((data as I.Food).id!=='') {
+            await uploadFoodApi(data, (data as I.Food).id )
+            .then(result => {
+                if (typeof result!=='string') {    
+                    editFormStore.setData(result)
+                } else {
+                    showToast(result);
+                }
+            })   
+        }     
+        await uploadImageApi(editFormStore.rawImages, editFormStore.formData.id)
+        .then(result => {
+            if (typeof result!=='string') {
+                const newImages = editFormStore.formData.images.concat(result)
+                editFormStore.setData({...editFormStore.formData, images:newImages})
+            }
+        })
+        if (editFormStore.imagesToDelete.length>0) {
+            await deleteImagesApi(editFormStore.imagesToDelete, editFormStore.formData.id)
+        }
+        await uploadFoodApi(editFormStore.formData, editFormStore.formData.id)
         .then(result => {
             console.log(result)
             if (typeof result!=='string') {    
                 editFormStore.setData(result)
-                menuStore.editFood(result, (data as I.Food).id )
+                menuStore.editFood(result, editFormStore.formData.id )
                 showToast('Отредактировано: '+result.id);
             } else {
                 showToast(result);
             }
-        })        
-        await uploadImageApi(editFormStore.rawImages, editFormStore.formData.id)
-        .then(result => {
-            console.log(result)
-        })
+        }) 
+        editFormStore.closeForm()      
     }
 
     const state = {

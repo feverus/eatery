@@ -5,7 +5,7 @@ import * as I from './storeInterfaces';
 export class MenuStore {
     food:Array<I.Food> = []
     section:Array<I.Section> = []
-    tag:Array<I.Tag> = []
+    tag:Array<I.Tag> = [];
 
     constructor() {
         makeAutoObservable(this, {
@@ -34,8 +34,11 @@ export class MenuStore {
     }
     editFood(editedFood:I.Food, id:string) {
         this.food.forEach((element, num) => {
-            if (element.id==id) this.food[num] = editedFood
+            if (element.id==id) {
+                this.food.splice(num, 0, editedFood)
+            }
         })
+        console.log(this.food)
     }
 }
 

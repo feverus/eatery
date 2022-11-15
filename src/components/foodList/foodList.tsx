@@ -1,12 +1,15 @@
-import useFood from './foodList.service'
+import useFoodList from './foodList.service'
 import FoodCard from '../foodCard/'
 import SectionHeader from '../sectionHeader/'
 import EditForm from '../editForm'
+import menuStore from '../../store/menuStore'
+import { useEffect } from "react";
 import C from './foodList.module.scss'
 
 export function FoodList() {
-    const [food] = useFood()    
+    const [food] = useFoodList(menuStore.food)    
     console.log('FoodList')
+    console.log(menuStore.food)
     console.log(food)
 
     return (

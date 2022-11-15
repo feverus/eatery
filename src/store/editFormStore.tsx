@@ -65,6 +65,9 @@ export class EditFormStore {
 
     closeForm() {
         this.open = false
+        this.rawImages = []
+        this.imagesToDelete = []
+        this.formData = this.emptyFood
     }
 
 }

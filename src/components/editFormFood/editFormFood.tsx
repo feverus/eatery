@@ -49,7 +49,7 @@ export function EditFormFood() {
                         <Button
                             icon="small-cross"
                             onClick={()=>editFormStore.closeForm()}
-                        >Закрыть</Button>
+                        >Отмена</Button>
                     </ButtonGroup>  
                 </ControlGroup>
             </Card>            

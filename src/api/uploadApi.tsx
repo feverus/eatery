@@ -2,6 +2,8 @@ import ky from 'ky';
 import * as I from '../store/storeInterfaces';
 import urlApi  from './urlApi';
 import { ImageListType, ImageType } from 'react-images-uploading';
+import { converterDataURItoBlob } from './converterDataURItoBlob';
+import { timeStamp } from 'console';
 
 export async function uploadFoodApi (data:any, id: string): Promise<I.Food|string> {
 	const url = (id==="")?
@@ -19,42 +21,23 @@ export async function uploadFoodApi (data:any, id: string): Promise<I.Food|strin
 	}
 }
 
-function dataURItoBlob(dataURI:string) {
-    // convert base64/URLEncoded data component to raw binary data held in a string
-    let byteString;
-    if (dataURI.split(',')[0].indexOf('base64') >= 0)
-        byteString = atob(dataURI.split(',')[1]);
-    else
-        byteString = unescape(dataURI.split(',')[1]);
-
-    // separate out the mime component
-    let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-    // write the bytes of the string to a typed array
-    let ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([ia], {type:mimeString});
-}
-
-export async function uploadImageApi (data:ImageListType, id: string): Promise<I.Food|string> {
-
+export async function uploadImageApi (data:ImageListType, id: string): Promise<Array<string>|string > {
 	const url = urlApi + "_images/" +id
-	const formData = new FormData();
-	data.forEach(({ dataURL, file }, index) => {
-		formData.append(index.toString(), dataURItoBlob(dataURL as string))
+	const formData = new FormData()
+	let tempBlob:Blob|undefined
+	data.forEach(async ({ dataURL, file }, index) => {
+		if (dataURL!==undefined)  {
+			tempBlob = converterDataURItoBlob(dataURL)			
+			if (tempBlob!==undefined) formData.append(index.toString(), tempBlob, Date.now().toString() + '_' + index.toString() + '_' + file?.name)
+		}
 	})
-	
-	console.log(url)
-	console.log(formData)
 	try {	
 		let answer:any
-		if (id==="") answer = await ky.post(url, {body: formData})
-		console.log(answer)
-		const json = await answer.json()
-		console.log(json)
+		answer = await ky.post(url, {body: formData})
+		let json = await answer.json()		
+		json.forEach((element:string, num:number) => {
+			json[num] = urlApi + element
+		})
 		return json
 	} catch (error) {
 		return (error as Error).message

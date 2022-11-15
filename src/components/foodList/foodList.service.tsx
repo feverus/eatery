@@ -4,10 +4,11 @@ import * as I from '../../store/storeInterfaces'
 import menuStore from '../../store/menuStore'
 import setStore from "../../store/setStore"
 import {getFoodApi, getSectionApi, getTagApi}  from '../../api/getApi'
+import { FoodList } from "./foodList.props";
 import useToast from '../toast'
 
-const useFood = () => {
-    const [filteredFood, setFood] = useState<Array<I.Food>>([])
+const useFoodList:FoodList = (data) => {
+    const [filteredFood, setFood] = useState<Array<I.Food>>(data)
     const [sectionedFood, setSectionedFood] = useState<Array<I.Food|string>>([])
 
     const [showToast] = useToast()
@@ -35,6 +36,7 @@ const useFood = () => {
     }, [])
 
     useEffect(() => {	
+        console.log('list!')
         getSectionApi()
         .then(result => {
             if (typeof result!=='string') {                
@@ -69,7 +71,7 @@ const useFood = () => {
                 showToast(result);
             }
         })           
-    }, [menuStore.food])
+    }, [data])
 
     
     //хук возвращает отфильтрованное меню
@@ -84,4 +86,4 @@ const useFood = () => {
     )
 }
 
-export default useFood
+export default useFoodList

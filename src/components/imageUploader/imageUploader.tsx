@@ -28,6 +28,8 @@ export function ImageUploader() {
 				value={state.images}
 				onChange={api.onChange}
 				maxNumber={10}
+				acceptType={['png', 'jpg', 'jpeg', 'gif', 'bmp']}
+				maxFileSize={20_000_000}
 			>
 				{({
 					imageList,
@@ -36,7 +38,7 @@ export function ImageUploader() {
 					onImageUpdate,
 					onImageRemove,
 					isDragging,
-					dragProps
+					dragProps					
 				}) => (
 				// write your building UI
 				<div className={C.body}>

@@ -1,5 +1,5 @@
 import * as I from '../../store/storeInterfaces';
-import { EditorState, convertToRaw, ContentState } from "draft-js";
+import { EditorState } from "draft-js";
 
 export type UseEditFormFood = (data:I.Food) => [
     state: {

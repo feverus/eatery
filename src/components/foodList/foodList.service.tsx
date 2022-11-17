@@ -2,77 +2,50 @@ import { useState, useEffect } from 'react'
 
 import * as I from '../../store/storeInterfaces'
 import menuStore from '../../store/menuStore'
-import setStore from "../../store/setStore"
-import {getFoodApi, getSectionApi, getTagApi}  from '../../api/getApi'
 import { FoodList } from "./foodList.props";
-import useToast from '../toast'
 
-const useFoodList:FoodList = (data) => {
-    const [filteredFood, setFood] = useState<Array<I.Food>>(data)
+import editFormStore from '../../store/editFormStore'
+
+const useFoodList:FoodList = () => {
+    const [filteredFood, setFiltereFood] = useState<Array<I.Food>>(menuStore.food)
     const [sectionedFood, setSectionedFood] = useState<Array<I.Food|string>>([])
 
-    const [showToast] = useToast()
-    
     useEffect(() => {
-        getFoodApi()
-        .then(result => {
-            if (typeof result!=='string') {                
-                menuStore.loadFoodBase(result)
-                setFood(result)
-                //showToast('база Food обновлена');
-            } else {
-                showToast(result);
-            }
-        })
-        getTagApi()
-        .then(result => {
-            if (typeof result!=='string') {                
-                menuStore.loadTagBase(result)
-                //showToast('база Tag обновлена');
-            } else {
-                showToast(result);
-            }
-        })                
-    }, [])
+        if (menuStore.food.length>0) {
+            let tempSection:Array<I.Food>|undefined
+            let tempFull:Array<I.Food|string> = ['']
+            let noSectionFinded = false
 
-    useEffect(() => {	
-        console.log('list!')
-        getSectionApi()
-        .then(result => {
-            if (typeof result!=='string') {                
-                menuStore.loadSectionBase(result)
-                let tempSection:Array<I.Food>|undefined
-                let tempFull:Array<I.Food|string> = ['']
-                menuStore.section.forEach(
-                    (item, id) => {
-                        tempSection = filteredFood.filter((el)=>
-                            el.section==item.id)
-                        tempFull.push(item.name)
-                        tempFull = tempFull.concat(tempSection)
-                    }
-                )
-                let noSectionFinded = false
-                filteredFood.forEach(
-                    (item) => {
-                        if (menuStore.section.find(el => el.id==item.section)===undefined) {
-                            if (noSectionFinded === false) {
-                                noSectionFinded = true
-                                tempFull.push('Без категории')
-                            }
-                            tempFull.push(item)
+            menuStore.section.forEach(
+                (item, id) => {
+                    tempSection = menuStore.food.filter((el)=>
+                        el.section==item.id)
+                    tempFull.push(item.name)
+                    tempFull = tempFull.concat(tempSection)
+                }
+            )
+           
+            menuStore.food.forEach(
+                (item) => {
+                    if (menuStore.section.find(el => el.id==item.section)===undefined) {
+                        if (noSectionFinded === false) {
+                            noSectionFinded = true
+                            tempFull.push('Без категории')
                         }
+                        tempFull.push(item)
                     }
-                )                
-
-                if (tempFull.length>0) tempFull.shift()
-                setSectionedFood(tempFull)
-                //showToast('база Section обновлена');
-            } else {
-                showToast(result);
-            }
-        })           
-    }, [data])
-
+                }
+            )                
+    
+            if (tempFull.length>0) tempFull.shift()
+            setFiltereFood(menuStore.food)
+            setSectionedFood(tempFull)
+        }
+    }, [menuStore.food, menuStore.tag, menuStore.section])
+    
+    const openEditForm = () => {
+        editFormStore.openForm('food', undefined)
+    }
     
     //хук возвращает отфильтрованное меню
 
@@ -80,9 +53,12 @@ const useFoodList:FoodList = (data) => {
         filteredFood,
         sectionedFood
     }
+    const api = {
+        openEditForm,
+    }
     
     return (
-        [state,]
+        [state, api]
     )
 }
 

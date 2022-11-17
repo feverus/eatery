@@ -7,6 +7,7 @@ import editFormStore from "../../store/editFormStore"
 import {getFoodApi} from '../../api/getApi'
 import useToast from '../toast'
 import { UseFoodCard } from './foodCard.props'
+import { deleteApi } from "../../api/deleteApi";
 
 const useFoodCard:UseFoodCard = () => {
     const [count, setCount] = useState(0)
@@ -21,13 +22,19 @@ const useFoodCard:UseFoodCard = () => {
         editFormStore.openForm('food', item)
     }
 
+    const handleDelete = (id: string) => {
+        deleteApi(id, 'food')
+        menuStore.removeFood(id)
+    }
+
     const state = {
         count,
     }
     const api = {
         add,
         remove,
-        openEditForm
+        openEditForm,
+        handleDelete,
     }
     
     return (

@@ -1,3 +1,5 @@
+export type ControlCallback = () => void;
+
 export interface Food {
     id: string;
 	name: string;

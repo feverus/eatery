@@ -5,4 +5,4 @@ export default
 	inject('editFormStore')
 	(observer(FoodCard));
 
-export type { UseFoodCard, ControlCallback } from './foodCard.props'
+export type { UseFoodCard } from './foodCard.props'

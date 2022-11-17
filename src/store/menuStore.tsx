@@ -12,7 +12,9 @@ export class MenuStore {
             food: observable,
             section: observable,
             tag: observable,
-            addFood: action
+            addFood: action,
+            editFood: action,
+            removeFood: action,
         })
         autorun(() => console.log('menu store autorun'));
     }
@@ -28,17 +30,24 @@ export class MenuStore {
         this.tag = newTagBase
     }
 
-    
+    //еда
     addFood(newFood:I.Food) {
-        this.food.push(newFood)
+        let copy = JSON.parse(JSON.stringify(this.food));
+        copy.push(newFood)
+        this.food = copy
     }
-    editFood(editedFood:I.Food, id:string) {
-        this.food.forEach((element, num) => {
+    editFood(id:string, editedFood:I.Food|undefined) {
+        let copy = JSON.parse(JSON.stringify(this.food))
+        copy.forEach((element: { id: string; }, num: any) => {
             if (element.id==id) {
-                this.food.splice(num, 0, editedFood)
+                if (editedFood===undefined) copy.splice(num, 1)
+                else copy.splice(num, 1, editedFood)
             }
         })
-        console.log(this.food)
+        this.food = copy
+    }
+    removeFood(id:string) {
+        this.editFood(id, undefined)
     }
 }
 

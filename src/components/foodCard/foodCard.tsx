@@ -4,6 +4,7 @@ import { Intent, Button, Card, Elevation, Divider, ControlGroup, ButtonGroup } f
 import C from './foodCard.module.scss'
 import Slider from '../slider'
 import { deleteApi } from '../../api/deleteApi';
+import setStore from '../../store/setStore';
 
 export function FoodCard(item:I.Food) {
     const [state, api] = useFoodCard(item)
@@ -24,6 +25,9 @@ export function FoodCard(item:I.Food) {
                 <div dangerouslySetInnerHTML={{__html: item.info}} />
                 <Divider />
                 <ControlGroup fill={false} vertical={false} className={C.footerButtons}>
+
+                    {setStore.role=='client' && 
+                    <>
                     <Button 
                         icon="remove"
                         intent={Intent.DANGER}
@@ -40,20 +44,24 @@ export function FoodCard(item:I.Food) {
                         minimal
                         onClick={api.add}
                     ></Button>
+                    </>
+                    }
 
-                    <ButtonGroup minimal={true}>                    
-                        <Button icon="duplicate">Дублировать</Button>
+                    {setStore.role=='admin' && 
+                    <ButtonGroup minimal={true}>
                         <Button icon="edit"
                             onClick={() => api.openEditForm(item)}
                         >
                             Редактировать
                         </Button>
                         <Button icon="delete"
-                            onClick={() => deleteApi(item.id, 'food')}
+                            onClick={() => api.handleDelete(item.id)}
                         >
                             Удалить
                         </Button>
-                    </ButtonGroup>                
+                    </ButtonGroup>
+                    }      
+                             
                 </ControlGroup>
             </Card>
         </div>

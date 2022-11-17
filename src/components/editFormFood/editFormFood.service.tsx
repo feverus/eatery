@@ -10,7 +10,7 @@ import { uploadFoodApi, uploadImageApi } from "../../api/uploadApi";
 import { UseEditFormFood } from "./editFormFood.props";
 import C from './editFormFood.module.scss'
 import useToast from '../toast'
-import { deleteApi, deleteImagesApi } from "../../api/deleteApi";
+import { deleteImagesApi } from "../../api/deleteApi";
 
 const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
 
@@ -59,39 +59,55 @@ const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
     }
 
     const handleApprove = async () => {
-        if ((data as I.Food).id!=='') {
-            await uploadFoodApi(data, (data as I.Food).id )
+        let id:string = ''
+        const newId = ((data as I.Food).id==='') ? true : false
+        let toastMessage = 'Отредактировано: '
+
+        if (newId) {
+            toastMessage = 'Создано: '
+            await uploadFoodApi(data, '' )
             .then(result => {
                 if (typeof result!=='string') {    
-                    editFormStore.setData(result)
+                    id = result.id
                 } else {
                     showToast(result);
                 }
             })   
-        }     
-        await uploadImageApi(editFormStore.rawImages, editFormStore.formData.id)
-        .then(result => {
-            if (typeof result!=='string') {
-                const newImages = editFormStore.formData.images.concat(result)
-                editFormStore.setData({...editFormStore.formData, images:newImages})
-            }
-        })
-        if (editFormStore.imagesToDelete.length>0) {
-            await deleteImagesApi(editFormStore.imagesToDelete, editFormStore.formData.id)
+        } else {
+            id = (data as I.Food).id
+        }  
+        
+        if (editFormStore.rawImages.length>0) {
+            await uploadImageApi(editFormStore.rawImages, id)
+            .then(result => {
+                if (typeof result!=='string') {
+                    const newImages = editFormStore.formData.images.concat(result)
+                    editFormStore.setData({...editFormStore.formData, images:newImages})
+                }
+            })
         }
-        await uploadFoodApi(editFormStore.formData, editFormStore.formData.id)
+
+        if (editFormStore.imagesToDelete.length>0) {
+            await deleteImagesApi(editFormStore.imagesToDelete, id)
+        }     
+
+        await uploadFoodApi(editFormStore.formData, id)
         .then(result => {
             console.log(result)
             if (typeof result!=='string') {    
                 editFormStore.setData(result)
-                menuStore.editFood(result, editFormStore.formData.id )
-                showToast('Отредактировано: '+result.id);
+                if (newId) menuStore.addFood(result)
+                else menuStore.editFood(id, result)
+                showToast(toastMessage + id);
             } else {
                 showToast(result);
             }
         }) 
+
         editFormStore.closeForm()      
     }
+
+
 
     const state = {
         editorToolbarProps,

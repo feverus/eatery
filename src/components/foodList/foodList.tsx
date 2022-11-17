@@ -2,18 +2,21 @@ import useFoodList from './foodList.service'
 import FoodCard from '../foodCard/'
 import SectionHeader from '../sectionHeader/'
 import EditForm from '../editForm'
-import menuStore from '../../store/menuStore'
-import { useEffect } from "react";
 import C from './foodList.module.scss'
+import setStore from '../../store/setStore'
+import { Button } from '@blueprintjs/core'
 
 export function FoodList() {
-    const [food] = useFoodList(menuStore.food)    
-    console.log('FoodList')
-    console.log(menuStore.food)
-    console.log(food)
+    const [food, api] = useFoodList()
 
     return (
         <div className={C.list}>
+            {setStore.role=='admin' && 
+                <Button icon="add"
+                    onClick={() => api.openEditForm()}
+                >
+                    Добавить блюдо
+                </Button>}
             {
             //food.filteredFood.map((item, id) => <FoodCard {...item} key={id} />)
             }

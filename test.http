@@ -126,7 +126,15 @@ content-type: application/json
 ###
 
 
-POST http://localhost/api/_images/675538 HTTP/1.1
+POST http://localhost/api/_logins/ HTTP/1.1
 content-type: application/json
 
+{"token":"01134A7B7237CF6F980D4B936AE2115D"}
+###
+
+
+POST http://localhost/api/_logins/ HTTP/1.1
+content-type: application/json
+
+{"login":"a", "password":"11"}
 ###

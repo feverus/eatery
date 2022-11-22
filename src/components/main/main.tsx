@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import {getFoodApi, getSectionApi, getTagApi}  from '../../api/getApi'
 import useToast from '../toast'
 import { Navbar, NavbarDivider, NavbarGroup, NavbarHeading, FocusStyleManager } from "@blueprintjs/core";
+import Login from '../login';
 
 export function Main() {
     const [showToast] = useToast()
@@ -49,12 +50,15 @@ export function Main() {
         fullGet()
     }, [])
 
-    console.clear()
+    
 
     let displayedPage:JSX.Element
     
-    switch(setStore.page) {
-        case 'food-list':
+    switch(setStore.role) {
+        case '':
+            displayedPage = <Login /> 
+            break;
+        case 'guest':
             displayedPage = <FoodList /> 
             break;
         default: displayedPage = <FoodList />

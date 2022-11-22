@@ -1,9 +1,8 @@
-import ky from 'ky';
-import * as I from '../store/storeInterfaces';
-import urlApi  from './urlApi';
-import { ImageListType, ImageType } from 'react-images-uploading';
-import { converterDataURItoBlob } from './converterDataURItoBlob';
-import { timeStamp } from 'console';
+import ky from 'ky'
+import * as I from '../store/storeInterfaces'
+import urlApi  from './urlApi'
+import { ImageListType } from 'react-images-uploading'
+import { converterDataURItoBlob } from './converterDataURItoBlob'
 
 export async function uploadFoodApi (data:any, id: string): Promise<I.Food|string> {
 	const url = (id==="")?

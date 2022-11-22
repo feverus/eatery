@@ -24,6 +24,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 
+console.clear()
+
 root.render(
   <Provider {...stores}>
     <Main />

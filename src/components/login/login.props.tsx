@@ -1,14 +1,18 @@
 import * as I from '../../store/storeInterfaces';
 
 export type StateType = {
-    showLogin: boolean;
+    inputLogin: string,
+    inputPassword: string,
 };
 
 export type ApiType = {
-    sampleApi: () => void;
+    login: I.ControlCallback,
+    logout: I.ControlCallback,
+    setInputLogin: (value:string) => void,
+    setInputPassword: (value:string) => void,
 };
 
-export type UseMain = () => [
+export type UseLogin = () => [
     state: StateType,
     api: ApiType
 ];

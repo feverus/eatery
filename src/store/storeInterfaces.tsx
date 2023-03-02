@@ -18,3 +18,8 @@ export interface Tag {
 	name: string;
 }
 export type EditFormFoodData = Food|undefined;
+
+export type AuthData = {
+    token: string;
+    role: string;
+}

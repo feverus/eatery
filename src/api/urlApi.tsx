@@ -1,4 +1,4 @@
-//const urlApi="https://evgeny.fun/eatery/api/";
+//const urlApi="https://evgeny.lol/eatery/api/";
 const urlApi="http://localhost/api/";
 
 export default urlApi;

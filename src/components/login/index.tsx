@@ -5,4 +5,4 @@ export default
 	inject('setStore')
 	(observer(Login));
 
-export type { StateType, ApiType, UseMain } from './login.props'
+export type { StateType, ApiType, UseLogin } from './login.props'

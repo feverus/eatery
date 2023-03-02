@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'mobx-react'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Main from './components/main/'
+import Login from './components/login/'
 
 import menuStore from './store/menuStore'
 import setStore from "./store/setStore";
@@ -20,6 +22,17 @@ const stores = {
   editFormStore
 }
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main page='/' />,
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+]);
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
@@ -28,6 +41,6 @@ console.clear()
 
 root.render(
   <Provider {...stores}>
-    <Main />
+    <RouterProvider router={router} />
   </Provider>  
 )

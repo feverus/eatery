@@ -1,1 +1,21 @@
 @import '../../global.modules.scss';
+
+.shell {
+    display: grid;
+    height: 100vh;
+    .card {
+        width: min(90%, 300px);
+        place-self: center;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        input, button:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        .closeButton {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+}

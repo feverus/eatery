@@ -1,101 +1,64 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import * as I from '../../store/storeInterfaces'
 import setStore from '../../store/setStore'
-import { UseMain } from './login.props'
-import { loginWithTokenApi } from '../../api/loginApi'
+import { UseLogin } from './login.props'
+import { loginWithPasswordApi } from '../../api/loginApi'
+import useToast from '../toast'
+import { useNavigate } from "react-router-dom"
+import { setCookie } from 'react-use-cookie'
 
-const useMain:UseMain = () => {    
-    const [showLogin, setShowLogin] = useState(false)
-    const [role, setRole] = useState('')
-    const [token, setToken] = useState('')
+const useLogin:UseLogin = () => { 
+    const navigate = useNavigate()
+    const [showToast] = useToast()
+    const inputLogin = useRef('')
+    const inputPassword = useRef('')
 
-    const $_GET = (key:string) => {
-        const p = window.location.search;
-        const match = p.match(new RegExp(key + '=([^&=]+)'));
-        return match ? match[1] : false;
-    }
-
-    const checkCookieToken = () => {
-        let answer = '', cookie
-        if (document.cookie.length > 0) {
-            let cookies = document.cookie.split(';')            
-            for (let i = 0, len = cookies.length; i < len; i++) {
-                cookie = cookies[i].split('=')
-                if (cookie[0].trim()==='token') answer = cookie[1].trim()
-            }
-        }
-        return answer
-    }
-
-    const newClient = () => {
-        console.log('newClient')
-        setStore.setRole('client')
-    }
-
-    const userLogined = () => {
-        console.log(role + ' logined')
-        setStore.setRole(role)
-    }
-
-    const sampleApi = () => {
-        return
-    }
-
-    useEffect(() => {
-        const loginWithToken = async (cookieToken:string) => {
-            await loginWithTokenApi(cookieToken)
-                .then(result => setRole(result))
-                .catch(result => {
-                    setRole('client' )
-                    setToken(cookieToken)
-                })
-        }
-
+    const login = async () => {
         console.log('login')
+        await loginWithPasswordApi(inputLogin.current || '', inputPassword.current || '')
+        .then(result => {
+            if ((typeof(result)==='string') && (result.search('401 Unauthorized')!==-1)) 
+                showToast('Неверные данные для входа')
+            else {
+                setStore.setRole((result as I.AuthData).role)
+                setCookie('token', (result as I.AuthData).token)
+                navigate('/') 
+            }           
+        })
+        .catch(error => {
+            console.log(error)
+            showToast('Ошибка авторизации')
+        })
+    }
 
-        let cookieToken = checkCookieToken()
-        console.log(cookieToken)
+    const logout = () => {
+        setStore.setRole('client')
+        setCookie('token', '', {days: 0})
+        navigate('/') 
+    }
 
-        if (cookieToken==='') {
-            if ($_GET('login')!==false) {
-                setShowLogin(true)
-            } else {
-                newClient()
-            }
-        } else {
-            loginWithToken(cookieToken)            
-        }
+    const setInputLogin = (value:string) => {
+        inputLogin.current = value
+    }
 
-    }, [])
-
-    useEffect(() => {        
-        const findClientWithToken = async (cookieToken:string) => {
-            await loginWithTokenApi(cookieToken)
-                .then(result => setRole(result))
-                .catch(result => setRole('client' ))
-        }
-        console.log(role)
-
-        if (role!=='') {
-            if (role!=='client') {
-                userLogined()
-            } else {
-                findClientWithToken(token)
-            }
-        }
-    }, [role])
-
+    const setInputPassword = (value:string) => {
+        inputPassword.current = value
+    }
 
     const state = {
-        showLogin: showLogin,
+        inputLogin: inputLogin.current,
+        inputPassword: inputPassword.current,
     }
 
     const api = {
-        sampleApi:sampleApi,
+        login: login,
+        logout: logout,
+        setInputLogin: setInputLogin,
+        setInputPassword: setInputPassword,
     }
 
     return (
         [state, api]
     )
 }
-export default useMain
+export default useLogin

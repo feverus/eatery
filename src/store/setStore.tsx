@@ -1,15 +1,18 @@
 import {makeAutoObservable, observable, action, autorun} from 'mobx';
 
 export class SetStore {
-    page:string = 'Login Screen'
+    page:string = 'Меню'
     role:string = ''
+    token:string = ''
 
     constructor() {
         makeAutoObservable(this, {
             page: observable,
             role: observable,
+            token: observable,
             setRole: action,
             setPage: action,
+            setToken: action,
         })
         autorun(() => console.log('set store autorun'));
     }
@@ -19,6 +22,9 @@ export class SetStore {
     }
     setPage(newPage:string) {
         this.page = newPage
+    }
+    setToken(newToken:string) {
+        this.token = newToken
     }
 }
 

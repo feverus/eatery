@@ -33,6 +33,7 @@ const useLogin:UseLogin = () => {
 
     const logout = () => {
         setStore.setRole('client')
+        setStore.setName('Гость')
         setCookie('token', '', {days: 0})
         navigate('/') 
     }

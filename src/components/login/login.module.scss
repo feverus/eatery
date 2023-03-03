@@ -3,6 +3,7 @@
 .shell {
     display: grid;
     height: 100vh;
+    background: linear-gradient(130deg, $bg1 0%, $bg2 34%, $bg3 71%, $bg4 100%);
     .card {
         width: min(90%, 300px);
         place-self: center;
@@ -12,6 +13,7 @@
         input, button:not(:last-child) {
             margin-bottom: 10px;
         }
+        background: $modalBg;
         .closeButton {
             position: absolute;
             right: 0;

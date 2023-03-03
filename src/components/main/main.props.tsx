@@ -2,11 +2,12 @@ import * as I from '../../store/storeInterfaces';
 
 export type StateType = {
     displayedPage: JSX.Element,
-    loginButtonText: string, 
+    loginButtonText: string,     
+    showAskNameDialog: boolean,
 };
 
 export type ApiType = {
-    
+    go: (name:string)=>void,
 };
 
 export type UseMain = () => [

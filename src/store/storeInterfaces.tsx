@@ -19,7 +19,13 @@ export interface Tag {
 }
 export type EditFormFoodData = Food|undefined;
 
-export type AuthData = {
+export interface AuthData {
     token: string;
     role: string;
+}
+
+export interface OrderData {
+    id: string;
+    name: string;
+    food: Array<string>;
 }

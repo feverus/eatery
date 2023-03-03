@@ -1,23 +1,23 @@
 
-GET https://evgeny.fun/eatery/api/food
+GET https://localhost/api/eatery/api/food
 
 
 ###
 
 
-GET https://evgeny.fun/eatery/api/_versions
+GET http://localhost/eatery/api/_versions
 
 
 ###
 
 
-GET https://evgeny.fun/eatery/api/food/766 HTTP/1.1
+GET http://localhost/eatery/api/food/766 HTTP/1.1
 content-type: application/json
 
 
 ###
 
-DELETE https://evgeny.fun/eatery/api/section/57571 HTTP/1.1
+DELETE http://localhost/eatery/api/section/57571 HTTP/1.1
 content-type: application/json
 
 
@@ -25,7 +25,7 @@ content-type: application/json
 
 
 
-POST https://evgeny.fun/eatery/api/food/ HTTP/1.1
+POST https://localhost/api/food/ HTTP/1.1
 content-type: application/json
 
 {
@@ -41,7 +41,7 @@ content-type: application/json
 
 
 
-PUT https://evgeny.fun/eatery/api/food/765 HTTP/1.1
+PUT http://localhost/eatery/api/food/765 HTTP/1.1
 content-type: application/json
 
 {
@@ -56,7 +56,7 @@ content-type: application/json
 
 
 
-POST https://evgeny.fun/eatery/api/section/ HTTP/1.1
+POST http://localhost/eatery/api/section/ HTTP/1.1
 content-type: application/json
 
 {
@@ -66,12 +66,54 @@ content-type: application/json
 
 ###
 
-GET https://evgeny.fun/eatery/api/section
+GET http://localhost/eatery/api/section
 
 
 ###
 
-GET https://evgeny.fun/eatery/api/section/253979
+GET http://localhost/eatery/api/section/253979
+
+
+###
+
+PUT http://localhost/api/order/1 HTTP/1.1
+content-type: application/json
+
+{
+    "food": [
+        {"foodId": "2",
+        "price": "50"},
+        {"foodId": "3",
+        "price": "50"}
+    ],
+    "any": "aaa"
+}
+
+###
+
+POST http://localhost/api/order/ HTTP/1.1
+
+{"name": "Evgeny"}
+###
+
+GET http://localhost/api/order/gWpBTkdWQJi HTTP/1.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GET http://localhost/eatery/api/food/
 
 
 ###
@@ -79,30 +121,7 @@ GET https://evgeny.fun/eatery/api/section/253979
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-GET https://evgeny.fun/eatery/api/food/
-
-
-###
-
-
-
-
-POST https://evgeny.fun/eatery/api/food/ HTTP/1.1
+POST http://localhost/eatery/api/food/ HTTP/1.1
 content-type: application/json
 
 {
@@ -121,7 +140,7 @@ content-type: application/json
 PUT http://localhost/api/food/675538 HTTP/1.1
 content-type: application/json
 
-{"id":"","name":"Тест 2","section":"253979","price":"1212","images":["https://evgeny.fun/eatery/test_images/1.jpg","https://evgeny.fun/eatery/test_images/2.jpg"],"info":"<ul><li>пицца</li><li>ананасы</li><li>ненависть</li></ul>"}
+{"id":"","name":"Тест 2","section":"253979","price":"1212","images":["http://localhost/eatery/test_images/1.jpg","http://localhost/eatery/test_images/2.jpg"],"info":"<ul><li>пицца</li><li>ананасы</li><li>ненависть</li></ul>"}
 
 ###
 

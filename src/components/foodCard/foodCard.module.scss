@@ -1,9 +1,12 @@
+@import '../../global.modules.scss';
+
 .section {
     padding: 10px 5px;
     .card {
         margin: 0;
         padding: 1px 10px!important;
         max-width: 500px;    
+        background: $modalBg;
         h5 {
             margin: 10px 0;
         }

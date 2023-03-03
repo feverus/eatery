@@ -1,5 +1,8 @@
+@import '../../global.modules.scss';
+
 .list {
     display: flex;    
     flex-direction: row;
     flex-wrap: wrap;
+    background: linear-gradient(130deg, $bg2 0%, $bg3 100%);
 }

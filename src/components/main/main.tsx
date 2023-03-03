@@ -1,10 +1,12 @@
 import * as I from '../../store/storeInterfaces'
 import setStore from "../../store/setStore"
 import useMain from './main.service'
+import { AskNameDialog } from './askNameDialog'
 
 import {Link} from 'react-router-dom'
 
-import { Navbar, NavbarDivider, NavbarGroup, NavbarHeading, FocusStyleManager } from "@blueprintjs/core"
+import { Navbar, NavbarDivider, NavbarGroup, NavbarHeading, FocusStyleManager, Icon } from "@blueprintjs/core"
+import C from './main.module.scss'
 
 export function Main(props: {page:string}) {  
     const [state, api] = useMain()
@@ -14,9 +16,15 @@ export function Main(props: {page:string}) {
 	return (
 		<>
 		<Navbar>
-			<NavbarGroup>
-                        <NavbarHeading >
-                            {setStore.page + ' > ' + setStore.role}
+			<NavbarGroup className={C.navbar}>
+                        <NavbarHeading>
+                            <Icon icon="person"/>
+                            <span>{setStore.name}</span>
+                        </NavbarHeading>
+                        <NavbarDivider />
+                        <NavbarHeading >                            
+                            <Icon icon="page-layout"/>
+                            {setStore.page }
                         </NavbarHeading>
                         <NavbarDivider />
                         <NavbarHeading >                          
@@ -27,6 +35,8 @@ export function Main(props: {page:string}) {
 		
         {state.displayedPage}
 		
+        {state.showAskNameDialog && <AskNameDialog go={api.go} />}
+        
 		</>
 	)
 }

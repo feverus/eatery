@@ -3,6 +3,7 @@ import {makeAutoObservable, observable, action, autorun} from 'mobx';
 export class SetStore {
     page:string = 'Меню'
     role:string = ''
+    name:string = ''
     token:string = ''
 
     constructor() {
@@ -19,6 +20,9 @@ export class SetStore {
     
     setRole(newRole:string) {
         this.role = newRole
+    }
+    setName(newName:string) {
+        this.name = newName
     }
     setPage(newPage:string) {
         this.page = newPage

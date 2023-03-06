@@ -29,3 +29,16 @@ export const getTagApi = async (): Promise<Array<I.Tag>|string> => {
         return (error as Error).message
     }
 }
+
+export const getVersionsApi = async (): Promise<Array<I.VersionsItem>|string> => {
+	try {
+		let result = []
+		const json:Object = await ky.get(urlApi+"_versions").json()
+		for (let [key, value] of Object.entries(json)) {
+			result.push({name: key, version: value})
+		}
+		return result
+	} catch (error) {
+        return (error as Error).message
+    }
+}

@@ -1,11 +1,11 @@
 
-GET https://localhost/api/eatery/api/food
+GET https://localhost/api/tag
 
 
 ###
 
 
-GET http://localhost/eatery/api/_versions
+GET http://localhost/api/_versions
 
 
 ###

@@ -5,14 +5,19 @@ import menuStore from '../../store/menuStore'
 import FoodList from "../foodList"
 import { UseMain } from './main.props'
 import { loginWithTokenApi } from '../../api/loginApi'
-import {getFoodApi, getSectionApi, getTagApi }  from '../../api/getApi'
+import {getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '../../api/getApi'
 import { getOrderApi, createOrderApi }  from '../../api/orderApi'
 import useToast from '../toast'
 import { setCookie } from 'react-use-cookie'
+import { useDb } from '../../db'
 
 const useMain:UseMain = () => {
     const [showToast] = useToast()
     const [showAskNameDialog, setShowAskNameDialog] = useState(false)
+    const [dbState, dbApi] = useDb()
+
+    console.log('dbState')
+    console.log(dbState)
 
     let displayedPage:JSX.Element = <FoodList />
     const loginButtonText = (setStore.role==='client')
@@ -102,37 +107,77 @@ const useMain:UseMain = () => {
 
     const fullGet = async () => {
         let food: I.Food[] = [], tag: I.Tag[] = [], section: I.Section[] = []
-        let resultMessage = 'Базы обновлены'
+        let resultMessage = ''
+        let needGetFromApi:Array<string> = []
 
-        await getFoodApi()
+        await getVersionsApi()
         .then(result => {
-            if (typeof result!=='string') {               
-                food = result
+            if (typeof result!=='string') {
+                if (dbState.versions === undefined) return            
+
+                if ((dbState.versions.length === 0)) {
+                    result.forEach(item => needGetFromApi.push(item.name))
+                    dbApi.putItems('versions', result)                    
+                } else {
+                    result.forEach((item, index) => {
+                        let dbVersion = dbState.versions?.find(v => v.name === item.name)
+                        if (dbVersion === undefined) dbVersion = {name: item.name, version: -1}
+
+                        if (item.version > dbVersion.version) needGetFromApi.push(item.name)
+                    })
+                }
             } else {
                 resultMessage = result
             }
         })
-        await getTagApi()
-        .then(result => {
-            if (typeof result!=='string') {               
-                tag = result
-            } else {
-                resultMessage = resultMessage + ' | ' + result
-            }
-        })  
-        await getSectionApi()
-        .then(result => {
-            if (typeof result!=='string') {                
-                section = result
-            } else {
-                resultMessage = resultMessage + ' | ' + result
-            }
-        })
-                    
+         
+        if (needGetFromApi.includes('food'))
+            await getFoodApi()
+            .then(result => {
+                if (typeof result!=='string') {               
+                    food = result
+                } else {
+                    resultMessage =  resultMessage + ' | ' + result
+                }
+            })
+        else if (dbState.food!==undefined )
+            food = dbState.food
+
+        if (needGetFromApi.includes('tag'))
+            await getTagApi()
+            .then(result => {
+                if (typeof result!=='string') {               
+                    tag = result
+                } else {
+                    resultMessage = resultMessage + ' | ' + result
+                }
+            }) 
+        else if (dbState.tag!==undefined )
+            tag = dbState.tag 
+
+        if (needGetFromApi.includes('section'))
+            await getSectionApi()
+            .then(result => {
+                if (typeof result!=='string') {                
+                    section = result
+                } else {
+                    resultMessage = resultMessage + ' | ' + result
+                }
+            })
+        else if (dbState.section!==undefined )
+        section = dbState.section 
+
+        if ((needGetFromApi.length > 0) && (resultMessage === '')) resultMessage = 'Базы обновлены'
+
+        dbApi.putItems('food', food)
+        dbApi.putItems('tag', tag)
+        dbApi.putItems('section', section)
+
         menuStore.loadFoodBase(food)
         menuStore.loadTagBase(tag)
         menuStore.loadSectionBase(section)
-        showToast(resultMessage)           
+
+        if (resultMessage !== '') showToast(resultMessage)           
     }
 
     useEffect(() => {
@@ -146,7 +191,7 @@ const useMain:UseMain = () => {
             tryToFindUser(cookieToken)
         }
 
-    }, [])
+    }, [dbState.versions])
 
     const state = {
         displayedPage: displayedPage,
@@ -163,3 +208,7 @@ const useMain:UseMain = () => {
     )
 }
 export default useMain
+
+function baseName(baseName: any, keyof: any, getApi: { food: () => Promise<string | I.Food[]>; tag: () => Promise<string | I.Tag[]>; section: () => Promise<string | I.Section[]> }) {
+    throw new Error('Function not implemented.')
+}

@@ -21,13 +21,13 @@ export class MenuStore {
     
     //загрузка полных баз
     loadFoodBase(newFoodBase:Array<I.Food>) {
-        this.food = newFoodBase
+        if (newFoodBase.length > 0) this.food = newFoodBase
     }    
     loadSectionBase(newSectionBase:Array<I.Section>) {
-        this.section = newSectionBase
+        if (newSectionBase.length > 0) this.section = newSectionBase
     }
     loadTagBase(newTagBase:Array<I.Tag>) {
-        this.tag = newTagBase
+        if (newTagBase.length > 0) this.tag = newTagBase
     }
 
     //еда

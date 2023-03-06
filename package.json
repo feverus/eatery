@@ -17,6 +17,8 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/react-draft-wysiwyg": "^1.13.4",
+    "dexie": "^3.2.3",
+    "dexie-react-hooks": "^1.1.1",
     "draftjs-to-html": "^0.9.1",
     "ky": "^0.31.4",
     "mobx": "^6.6.2",

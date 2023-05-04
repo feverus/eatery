@@ -1,10 +1,9 @@
-import * as I from '../../store/storeInterfaces';
+import * as I from '~Store/storeInterfaces'
+import setStore from '~Store/setStore'
 import useFoodCard from './foodCard.service'
 import { Intent, Button, Card, Elevation, Divider, ControlGroup, ButtonGroup } from "@blueprintjs/core";
 import C from './foodCard.module.scss'
-import Slider from '../slider'
-import { deleteApi } from '../../api/deleteApi';
-import setStore from '../../store/setStore';
+import Slider from '~Components/slider'
 
 export function FoodCard(item:I.Food) {
     const [state, api] = useFoodCard(item)
@@ -50,12 +49,12 @@ export function FoodCard(item:I.Food) {
                     {setStore.role=='admin' && 
                     <ButtonGroup minimal={true}>
                         <Button icon="edit"
-                            onClick={() => api.openEditForm(item)}
+                            onClick={api.openEditForm}
                         >
                             Редактировать
                         </Button>
                         <Button icon="delete"
-                            onClick={() => api.handleDelete(item.id)}
+                            onClick={api.handleDelete}
                         >
                             Удалить
                         </Button>

@@ -1,4 +1,4 @@
-import * as I from '../../store/storeInterfaces';
+import * as I from '~Store/storeInterfaces';
 
 export type UseFoodCard = (item: I.Food) => [
     state: {
@@ -7,7 +7,7 @@ export type UseFoodCard = (item: I.Food) => [
     api: {
         add: I.ControlCallback;
         remove: I.ControlCallback;
-        openEditForm: (item: I.Food) => void;        
-        handleDelete: (id: string) => void;
+        openEditForm: I.ControlCallback;        
+        handleDelete: I.ControlCallback;
     }
 ];

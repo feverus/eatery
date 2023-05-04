@@ -1,10 +1,10 @@
-import useFoodList from './foodList.service'
-import FoodCard from '../foodCard/'
-import SectionHeader from '../sectionHeader/'
-import EditForm from '../editForm'
+import setStore from '~Store/setStore'
+import FoodCard from '~Components/foodCard/'
+import EditForm from '~Components/editForm'
+import SectionHeader from '~Components/sectionHeader/'
 import C from './foodList.module.scss'
-import setStore from '../../store/setStore'
 import { Button } from '@blueprintjs/core'
+import useFoodList from './foodList.service'
 
 export function FoodList() {
     const [food, api] = useFoodList()

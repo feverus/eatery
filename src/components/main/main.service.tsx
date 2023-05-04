@@ -1,23 +1,20 @@
 import { useState, useEffect } from 'react'
-import * as I from '../../store/storeInterfaces'
-import setStore from '../../store/setStore'
-import menuStore from '../../store/menuStore'
-import FoodList from "../foodList"
-import { UseMain } from './main.props'
-import { loginWithTokenApi } from '../../api/loginApi'
-import {getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '../../api/getApi'
-import { getOrderApi, createOrderApi }  from '../../api/orderApi'
-import useToast from '../toast'
 import { setCookie } from 'react-use-cookie'
-import { useDb } from '../../db'
+import * as I from '~Store/storeInterfaces'
+import setStore from '~Store/setStore'
+import FoodList from "~Components/foodList"
+import useToast from '~Components/toast'
+import menuStore from '~Store/menuStore'
+import { loginWithTokenApi } from '~Api/loginApi'
+import { getOrderApi, createOrderApi }  from '~Api/orderApi'
+import {getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
+import { useDb } from '~/db'
+import { UseMain } from './main.props'
 
 const useMain:UseMain = () => {
     const [showToast] = useToast()
     const [showAskNameDialog, setShowAskNameDialog] = useState(false)
     const [dbState, dbApi] = useDb()
-
-    console.log('dbState')
-    console.log(dbState)
 
     let displayedPage:JSX.Element = <FoodList />
     const loginButtonText = (setStore.role==='client')
@@ -87,10 +84,11 @@ const useMain:UseMain = () => {
             .then(result => {
                 if ((typeof(result)==='string') && (result.search('400 Bad Request')!==-1)) {
                     console.log('order not found')
-                    setStore.setRole('client' )
+                    setStore.setRole('client')
                     newClient()
                 } else {
                     console.log('Привет, '+(result as I.OrderData).name)
+                    setStore.setRole('client')
                     setStore.setName((result as I.OrderData).name)
                 }
             })                
@@ -130,7 +128,6 @@ const useMain:UseMain = () => {
                 resultMessage = result
             }
         })
-         
         if (needGetFromApi.includes('food'))
             await getFoodApi()
             .then(result => {
@@ -208,7 +205,3 @@ const useMain:UseMain = () => {
     )
 }
 export default useMain
-
-function baseName(baseName: any, keyof: any, getApi: { food: () => Promise<string | I.Food[]>; tag: () => Promise<string | I.Tag[]>; section: () => Promise<string | I.Section[]> }) {
-    throw new Error('Function not implemented.')
-}

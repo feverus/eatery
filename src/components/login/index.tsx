@@ -1,4 +1,4 @@
-import {observer, inject} from "mobx-react";
+import {observer, inject} from "mobx-react"
 import {Login} from './login'
 
 export default

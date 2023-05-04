@@ -1,10 +1,10 @@
-import editFormStore from "../../store/editFormStore"
+import editFormStore from "~Store/editFormStore"
 import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup } from "@blueprintjs/core";
 import { Editor } from 'react-draft-wysiwyg';
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import C from './editFormFood.module.scss'
 import useEditFormFood from './editFormFood.service'
-import ImageUploader from "../imageUploader";
+import ImageUploader from "~Components/imageUploader";
 
 export function EditFormFood() {    
     const [state, api] = useEditFormFood(editFormStore.formData)

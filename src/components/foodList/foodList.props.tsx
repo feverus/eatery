@@ -1,4 +1,4 @@
-import * as I from '../../store/storeInterfaces';
+import * as I from '~Store/storeInterfaces';
 
 export type FoodList = () => [
     state: {

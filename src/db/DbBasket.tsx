@@ -1,4 +1,4 @@
-import * as I from '../store/storeInterfaces'
+import * as I from '~Store/storeInterfaces'
 import * as P from './db.props'
 
 import Dexie, { Table } from 'dexie'

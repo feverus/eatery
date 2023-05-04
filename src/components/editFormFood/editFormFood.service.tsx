@@ -1,16 +1,16 @@
-import editFormStore from "../../store/editFormStore"
-import menuStore from '../../store/menuStore'
-import * as I from '../../store/storeInterfaces';
+import editFormStore from "~Store/editFormStore"
+import menuStore from '~Store/menuStore'
+import * as I from '~Store/storeInterfaces';
 import { useState } from "react";
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import { uploadFoodApi, uploadImageApi } from "../../api/uploadApi";
+import { uploadFoodApi, uploadImageApi } from "~/api/uploadApi";
 import { UseEditFormFood } from "./editFormFood.props";
 import C from './editFormFood.module.scss'
-import useToast from '../toast'
-import { deleteImagesApi } from "../../api/deleteApi";
+import useToast from '~Components/toast'
+import { deleteImagesApi } from "~Api/deleteApi";
 
 const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
 

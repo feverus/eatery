@@ -13,8 +13,8 @@ export class EditFormStore {
     }
 
     open:boolean = false
-    formData:I.Food = this.emptyFood
     type:string = 'food'
+    formData:I.Food = this.emptyFood
     rawImages: ImageListType = []
     imagesToDelete: Array<string> = []
 

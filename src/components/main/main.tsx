@@ -1,5 +1,5 @@
-import * as I from '../../store/storeInterfaces'
-import setStore from "../../store/setStore"
+import * as I from '~Store/storeInterfaces'
+import setStore from "~Store/setStore"
 import useMain from './main.service'
 import { AskNameDialog } from './askNameDialog'
 
@@ -17,19 +17,19 @@ export function Main(props: {page:string}) {
 		<>
 		<Navbar>
 			<NavbarGroup className={C.navbar}>
-                        <NavbarHeading>
-                            <Icon icon="person"/>
-                            <span>{setStore.name}</span>
-                        </NavbarHeading>
-                        <NavbarDivider />
-                        <NavbarHeading >                            
-                            <Icon icon="page-layout"/>
-                            {setStore.page }
-                        </NavbarHeading>
-                        <NavbarDivider />
-                        <NavbarHeading >                          
-                            <Link to={'/login'}>{state.loginButtonText}</Link>
-                        </NavbarHeading>                        
+                <NavbarHeading>
+                    <Icon icon="person"/>
+                    <span>{setStore.name}</span>
+                </NavbarHeading>
+                <NavbarDivider />
+                <NavbarHeading >                            
+                    <Icon icon="page-layout"/>
+                    {setStore.page }
+                </NavbarHeading>
+                <NavbarDivider />
+                <NavbarHeading >                          
+                    <Link to={'/login'}>{state.loginButtonText}</Link>
+                </NavbarHeading>                        
             </NavbarGroup>			
 		</Navbar>
 		

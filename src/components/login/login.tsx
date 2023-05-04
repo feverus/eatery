@@ -1,8 +1,8 @@
 import useLogin from "./login.service";
-import { Button, Card, Elevation, Icon, InputGroup } from "@blueprintjs/core";
+import { Button, Card, Elevation, Icon, InputGroup } from "@blueprintjs/core"
 import {Link} from 'react-router-dom'
 import C from './login.module.scss'
-import setStore from "../../store/setStore";
+import setStore from "~Store/setStore"
 
 export function Login() {
 	const [state, api] = useLogin() 

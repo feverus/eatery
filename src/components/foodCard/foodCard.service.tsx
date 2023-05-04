@@ -1,30 +1,31 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-import * as I from '../../store/storeInterfaces'
-import menuStore from '../../store/menuStore'
-import setStore from "../../store/setStore"
-import editFormStore from "../../store/editFormStore"
-import {getFoodApi} from '../../api/getApi'
-import useToast from '../toast'
+import * as I from '~Store/storeInterfaces'
+import menuStore from '~Store/menuStore'
+import editFormStore from "~Store/editFormStore"
+import { deleteApi } from "~Api/deleteApi"
 import { UseFoodCard } from './foodCard.props'
-import { deleteApi } from "../../api/deleteApi";
+import { useDb } from '~/db'
 
-const useFoodCard:UseFoodCard = () => {
-    const [count, setCount] = useState(0)
+const useFoodCard:UseFoodCard = (item:I.Food) => {
+    const [dbState, dbApi] = useDb()
+    const itemInBasket = dbApi.findInBasketById(item.id)
+    const count = (itemInBasket===undefined) ? 0 : itemInBasket.count
 
     const add = () => {
-        setCount(count+1)
+        dbApi.incBasketItem(item.id)
     }
     const remove = () => {
-        if (count>0) setCount(count-1)
+        if (count > 0)
+            dbApi.decBasketItem(item.id)
     }
-    const openEditForm = (item:I.Food) => {
+    const openEditForm = () => {
         editFormStore.openForm('food', item)
     }
 
-    const handleDelete = (id: string) => {
-        deleteApi(id, 'food')
-        menuStore.removeFood(id)
+    const handleDelete = () => {
+        deleteApi(item.id, 'food')
+        menuStore.removeFood(item.id)
     }
 
     const state = {

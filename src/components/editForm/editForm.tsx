@@ -1,5 +1,5 @@
-import EditFormFood from "../editFormFood";
-import editFormStore from "../../store/editFormStore"
+import EditFormFood from "~Components/editFormFood"
+import editFormStore from "~Store/editFormStore"
 
 export function EditForm() {
     if (editFormStore.open===true) {

@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
-import * as I from '../../store/storeInterfaces'
-import setStore from '../../store/setStore'
-import { UseLogin } from './login.props'
-import { loginWithPasswordApi } from '../../api/loginApi'
-import useToast from '../toast'
 import { useNavigate } from "react-router-dom"
 import { setCookie } from 'react-use-cookie'
+import * as I from '~Store/storeInterfaces'
+import setStore from '~Store/setStore'
+import { loginWithPasswordApi } from '~Api/loginApi'
+import useToast from '~Components/toast'
+import { UseLogin } from './login.props'
 
 const useLogin:UseLogin = () => { 
     const navigate = useNavigate()

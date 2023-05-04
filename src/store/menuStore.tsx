@@ -3,15 +3,15 @@ import {makeAutoObservable, observable, action, autorun} from 'mobx';
 import * as I from './storeInterfaces';
 
 export class MenuStore {
+    tag:Array<I.Tag> = [];
     food:Array<I.Food> = []
     section:Array<I.Section> = []
-    tag:Array<I.Tag> = [];
 
     constructor() {
         makeAutoObservable(this, {
+            tag: observable,
             food: observable,
             section: observable,
-            tag: observable,
             addFood: action,
             editFood: action,
             removeFood: action,
@@ -36,16 +36,21 @@ export class MenuStore {
         copy.push(newFood)
         this.food = copy
     }
+    
     editFood(id:string, editedFood:I.Food|undefined) {
         let copy = JSON.parse(JSON.stringify(this.food))
+
         copy.forEach((element: { id: string; }, num: any) => {
-            if (element.id==id) {
-                if (editedFood===undefined) copy.splice(num, 1)
-                else copy.splice(num, 1, editedFood)
+            if (element.id === id) {
+                if (editedFood === undefined)
+                    copy.splice(num, 1)
+                else
+                    copy.splice(num, 1, editedFood)
             }
         })
         this.food = copy
     }
+
     removeFood(id:string) {
         this.editFood(id, undefined)
     }

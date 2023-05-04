@@ -1,4 +1,4 @@
-import {observer, inject} from "mobx-react";
+import {observer, inject} from "mobx-react"
 import {ImageUploader} from './imageUploader'
 
 export default

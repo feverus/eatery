@@ -1,6 +1,6 @@
-import editFormStore from "../../store/editFormStore"
-import { UseImageUploader } from "./imageUploader.props";
-import { ImageListType } from "react-images-uploading";
+import editFormStore from "~Store/editFormStore"
+import { UseImageUploader } from "./imageUploader.props"
+import { ImageListType } from "react-images-uploading"
 
 const useImageUploader:UseImageUploader = () => {
   

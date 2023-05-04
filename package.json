@@ -4,6 +4,8 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
+    "@craco/types": "^7.1.0",
     "@blueprintjs/core": "^4.11.3",
     "@blueprintjs/icons": "^4.7.0",
     "@blueprintjs/select": "^4.8.3",
@@ -26,7 +28,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
-    "react-html-parser": "^2.0.2",
     "react-images-uploading": "^3.1.7",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
@@ -37,10 +38,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject"
   },
   "eslintConfig": {
     "extends": [
@@ -63,7 +64,6 @@
   "devDependencies": {
     "@types/draftjs-to-html": "^0.8.1",
     "@types/html-to-draftjs": "^1.4.0",
-    "@types/react-html-parser": "^2.0.2",
     "sass": "^1.55.0",
     "typescript-plugin-css-modules": "^3.4.0"
   },

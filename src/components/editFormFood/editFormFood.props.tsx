@@ -1,4 +1,4 @@
-import * as I from '../../store/storeInterfaces';
+import * as I from '~Store/storeInterfaces';
 import { EditorState } from "draft-js";
 
 export type UseEditFormFood = (data:I.Food) => [

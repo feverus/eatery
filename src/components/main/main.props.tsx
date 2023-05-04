@@ -1,5 +1,3 @@
-import * as I from '../../store/storeInterfaces';
-
 export type StateType = {
     displayedPage: JSX.Element,
     loginButtonText: string,     
@@ -7,7 +5,7 @@ export type StateType = {
 };
 
 export type ApiType = {
-    go: (name:string)=>void,
+    go: (name:string) => void,
 };
 
 export type UseMain = () => [

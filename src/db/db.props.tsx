@@ -1,4 +1,4 @@
-import * as I from '../store/storeInterfaces'
+import * as I from '~Store/storeInterfaces'
 
 export type OrderItem = {
     id: string;
@@ -11,6 +11,7 @@ export type ApiType = {
     decBasketItem: (id: string) => void;
     deleteBasketItem: (id: string) => void;
     putItems: (base: string, items: I.SomeDataFromApi) => void;
+    findInBasketById: (id: string) => OrderItem | undefined;
 
 };
 

@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 
-import * as I from '../../store/storeInterfaces'
-import menuStore from '../../store/menuStore'
-import { FoodList } from "./foodList.props";
-
-import editFormStore from '../../store/editFormStore'
+import * as I from '~Store/storeInterfaces'
+import menuStore from '~Store/menuStore'
+import editFormStore from '~Store/editFormStore'
+import { FoodList } from "./foodList.props"
 
 const useFoodList:FoodList = () => {
     const [filteredFood, setFiltereFood] = useState<Array<I.Food>>(menuStore.food)

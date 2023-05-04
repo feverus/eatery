@@ -1,7 +1,7 @@
 import { Button, Card, Elevation, Icon, InputGroup } from "@blueprintjs/core"
 import { useState } from 'react'
 import C from './main.module.scss'
-import { cleanInput } from "../../api/functions"
+import { cleanInput } from "~Api/functions"
 
 export function AskNameDialog(props:{go: (name:string)=>void}) {
     const [name, setName] = useState('')

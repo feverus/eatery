@@ -1,7 +1,7 @@
-import editFormStore from "../../store/editFormStore"
-import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup, Icon } from "@blueprintjs/core";
+import editFormStore from "~Store/editFormStore"
+import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup, Icon } from "@blueprintjs/core"
 
-import ImageUploading from "react-images-uploading";
+import ImageUploading from "react-images-uploading"
 import C from './imageUploader.module.scss'
 import useImageUploader from './imageUploader.service'
 

@@ -1,6 +1,4 @@
-import * as I from '../store/storeInterfaces'
-import * as P from './db.props'
-
+import * as I from '~Store/storeInterfaces'
 import { UseDb } from './db.props'
 import { dbMenu } from './DbMenu'
 import { dbBasket } from './DbBasket'
@@ -19,24 +17,8 @@ export const useDb:UseDb = () => {
 
     const createBasketItem = (id: string) => {
         dbBasket.basket.add({
-            id: id, count: 0
+            id: id, count: 1
         })
-    }
-
-    const incBasketItem = (id: string) => {
-        const finded = findInBasketById(id)
-        if (finded) 
-            dbBasket.basket
-                .where({id: id})
-                .modify({id: id, count: finded.count + 1})
-    }
-
-    const decBasketItem = (id: string) => {
-        const finded = findInBasketById(id)
-        if (finded) 
-            dbBasket.basket
-                .where({id: id})
-                .modify({id: id, count: finded.count - 1})
     }
 
     const deleteBasketItem = (id: string) => {
@@ -45,16 +27,46 @@ export const useDb:UseDb = () => {
             .delete()   
     }
 
+    const incBasketItem = (id: string) => {
+        const finded = findInBasketById(id)
+        if (finded) 
+            dbBasket.basket
+                .where({id: id})
+                .modify({id: id, count: finded.count + 1})
+        else
+            createBasketItem(id)
+    }
+
+    const decBasketItem = (id: string) => {
+        const finded = findInBasketById(id)
+        if (finded) 
+            if (finded.count === 1) 
+                deleteBasketItem(id)
+            else
+                dbBasket.basket
+                    .where({id: id})
+                    .modify({id: id, count: finded.count - 1})
+    }
+
+
     const putItems = (base: string, items: I.SomeDataFromApi) => {
         switch (base) {
             case 'food':
-                dbMenu.food.bulkAdd(items as I.Food[]); break;
+                dbMenu.food.clear()
+                dbMenu.food.bulkAdd(items as I.Food[])
+                break;
             case 'section':
-                dbMenu.section.bulkAdd(items as I.Section[]); break;
+                dbMenu.section.clear()
+                dbMenu.section.bulkAdd(items as I.Section[])
+                break;
             case 'tag':
-                dbMenu.tag.bulkAdd(items as I.Tag[]); break;
+                dbMenu.tag.clear()
+                dbMenu.tag.bulkAdd(items as I.Tag[])
+                break;
             case 'versions':
-                dbMenu.versions.bulkAdd(items as I.VersionsItem[]); break;
+                dbMenu.versions.clear()
+                dbMenu.versions.bulkAdd(items as I.VersionsItem[])
+                break;
         }
     }
     
@@ -67,6 +79,7 @@ export const useDb:UseDb = () => {
     }
     
     const api = {
+        findInBasketById: findInBasketById,
         createBasketItem: createBasketItem,
         incBasketItem: incBasketItem,
         decBasketItem: decBasketItem,

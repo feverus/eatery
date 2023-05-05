@@ -1,15 +1,9 @@
-import * as I from '~Store/storeInterfaces'
-import { UseDb } from './db.props'
-import { dbMenu } from './DbMenu'
+import { UseDbBasket } from './db.props'
 import { dbBasket } from './DbBasket'
 import { useLiveQuery } from 'dexie-react-hooks'
 
-export const useDb:UseDb = () => {     
+export const useDbBasket:UseDbBasket = () => {     
     const basket = useLiveQuery(() => {return dbBasket.basket.toArray()})
-    const food = useLiveQuery(() => {return dbMenu.food.toArray()})
-    const section = useLiveQuery(() => {return dbMenu.section.toArray()})
-    const tag = useLiveQuery(() => {return dbMenu.tag.toArray()})
-    const versions = useLiveQuery(() => {return dbMenu.versions.toArray()})
 
     const findInBasketById = (id: string) => {
         return basket?.find(item => item.id === id)
@@ -47,35 +41,9 @@ export const useDb:UseDb = () => {
                     .where({id: id})
                     .modify({id: id, count: finded.count - 1})
     }
-
-
-    const putItems = (base: string, items: I.SomeDataFromApi) => {
-        switch (base) {
-            case 'food':
-                dbMenu.food.clear()
-                dbMenu.food.bulkAdd(items as I.Food[])
-                break;
-            case 'section':
-                dbMenu.section.clear()
-                dbMenu.section.bulkAdd(items as I.Section[])
-                break;
-            case 'tag':
-                dbMenu.tag.clear()
-                dbMenu.tag.bulkAdd(items as I.Tag[])
-                break;
-            case 'versions':
-                dbMenu.versions.clear()
-                dbMenu.versions.bulkAdd(items as I.VersionsItem[])
-                break;
-        }
-    }
     
     const state = {
         basket: basket,
-        food: food,
-        section: section,
-        tag: tag,
-        versions: versions,
     }
     
     const api = {
@@ -84,7 +52,6 @@ export const useDb:UseDb = () => {
         incBasketItem: incBasketItem,
         decBasketItem: decBasketItem,
         deleteBasketItem: deleteBasketItem,
-        putItems: putItems,
     }
 
     return (

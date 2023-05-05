@@ -5,10 +5,10 @@ import menuStore from '~Store/menuStore'
 import editFormStore from "~Store/editFormStore"
 import { deleteApi } from "~Api/deleteApi"
 import { UseFoodCard } from './foodCard.props'
-import { useDb } from '~/db'
+import { useDbBasket } from '~/db'
 
 const useFoodCard:UseFoodCard = (item:I.Food) => {
-    const [dbState, dbApi] = useDb()
+    const [dbState, dbApi] = useDbBasket()
     const itemInBasket = dbApi.findInBasketById(item.id)
     const count = (itemInBasket===undefined) ? 0 : itemInBasket.count
 

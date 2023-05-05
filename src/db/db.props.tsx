@@ -5,25 +5,36 @@ export type OrderItem = {
     count: number;
 }
 
-export type ApiType = {
-    createBasketItem: (id: string) => void;
-    incBasketItem: (id: string) => void;
-    decBasketItem: (id: string) => void;
-    deleteBasketItem: (id: string) => void;
+export type ApiTypeMenu = {
     putItems: (base: string, items: I.SomeDataFromApi) => void;
-    findInBasketById: (id: string) => OrderItem | undefined;
-
 };
 
-export type StateType = {
-    basket: OrderItem[] | undefined,
+export type StateTypeMenu = {
     food: I.Food[] | undefined,
     tag: I.Tag[] | undefined,
     section: I.Section[] | undefined,
     versions: I.VersionsItem[] | undefined,
 } 
 
-export type UseDb = () => [
-    state: StateType,
-    api: ApiType
+export type UseDbMenu = () => [
+    state: StateTypeMenu,
+    api: ApiTypeMenu
+];
+
+
+export type ApiTypeBasket = {
+    createBasketItem: (id: string) => void;
+    incBasketItem: (id: string) => void;
+    decBasketItem: (id: string) => void;
+    deleteBasketItem: (id: string) => void;
+    findInBasketById: (id: string) => OrderItem | undefined;
+};
+
+export type StateTypeBasket = {
+    basket: OrderItem[] | undefined,
+} 
+
+export type UseDbBasket = () => [
+    state: StateTypeBasket,
+    api: ApiTypeBasket
 ];

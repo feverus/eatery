@@ -8,7 +8,7 @@ import useToast from '~Components/toast'
 import { loginWithTokenApi } from '~Api/loginApi'
 import { getOrderApi, createOrderApi }  from '~Api/orderApi'
 import { getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
-import { useDbMenu } from '~/db'
+import { useDbMenu, useDbBasket } from '~/db'
 import { UseMain } from './main.props'
 
 const checkCookieToken = () => {
@@ -47,9 +47,18 @@ const loginWithToken = async (cookieToken:string) => {
 
 const useMain:UseMain = () => {
 	const [showToast] = useToast()
+	const [dbStateMenu, dbApiMenu] = useDbMenu()
+  const [dbStateBasket, dbApiBasket] = useDbBasket()
+
 	const [showAskNameDialog, setShowAskNameDialog] = useState(false)
   const [cookieToken, setCookieToken] = useState<undefined | string>(undefined)
-	const [dbState, dbApi] = useDbMenu()
+
+  const defaultStatus = {
+    basket: 'Корзина пуста',
+    order: 'Ничего не заказано'
+  }
+  const [basketStatus, setBasketStatus] = useState(defaultStatus.basket)
+  const [orderStatus, setOrderStatus] = useState(defaultStatus.order)
 
 	let displayedPage:JSX.Element = <FoodList />
 	const loginButtonText = (setStore.role==='client')
@@ -90,6 +99,7 @@ const useMain:UseMain = () => {
           } else {
             console.log('Привет, '+(result as I.OrderData).name)
             setStore.setRole('client')
+            setStore.setOrder((result as I.OrderData).food)
             setStore.setName((result as I.OrderData).name)
           }
         })                
@@ -113,14 +123,14 @@ const useMain:UseMain = () => {
 		await getVersionsApi()
 		.then(result => {
 			if (typeof result!=='string') {
-				if (dbState.versions === undefined) return            
+				if (dbStateMenu.versions === undefined) return            
 
-				if ((dbState.versions.length === 0)) {
+				if ((dbStateMenu.versions.length === 0)) {
 					result.forEach(item => needGetFromApi.push(item.name))
-					dbApi.putItems('versions', result)                    
+					dbApiMenu.putItems('versions', result)                    
 				} else {
 					result.forEach((item, index) => {
-						let dbVersion = dbState.versions?.find(v => v.name === item.name)
+						let dbVersion = dbStateMenu.versions?.find(v => v.name === item.name)
 						if (dbVersion === undefined) dbVersion = {name: item.name, version: -1}
 
 						if (item.version > dbVersion.version) needGetFromApi.push(item.name)
@@ -140,8 +150,8 @@ const useMain:UseMain = () => {
 					resultMessage =  resultMessage + ' | ' + result
 				}
 			})
-		else if (dbState.food!==undefined )
-			food = dbState.food
+		else if (dbStateMenu.food!==undefined )
+			food = dbStateMenu.food
 
 		if (needGetFromApi.includes('tag'))
 			await getTagApi()
@@ -152,8 +162,8 @@ const useMain:UseMain = () => {
 					resultMessage = resultMessage + ' | ' + result
 				}
 			}) 
-		else if (dbState.tag!==undefined )
-			tag = dbState.tag 
+		else if (dbStateMenu.tag!==undefined )
+			tag = dbStateMenu.tag 
 
 		if (needGetFromApi.includes('section'))
 			await getSectionApi()
@@ -164,14 +174,14 @@ const useMain:UseMain = () => {
 					resultMessage = resultMessage + ' | ' + result
 				}
 			})
-		else if (dbState.section!==undefined )
-		section = dbState.section 
+		else if (dbStateMenu.section!==undefined )
+		section = dbStateMenu.section 
 
 		if ((needGetFromApi.length > 0) && (resultMessage === '')) resultMessage = 'Базы обновлены'
 
-		dbApi.putItems('food', food)
-		dbApi.putItems('tag', tag)
-		dbApi.putItems('section', section)
+		dbApiMenu.putItems('food', food)
+		dbApiMenu.putItems('tag', tag)
+		dbApiMenu.putItems('section', section)
 
 		menuStore.loadFoodBase(food)
 		menuStore.loadTagBase(tag)
@@ -194,12 +204,24 @@ const useMain:UseMain = () => {
 			tryToFindUser()
 		}
 
-	}, [dbState.versions])
+	}, [dbStateMenu.versions])
+
+  useEffect(() => {
+    if (dbStateBasket.basket !== undefined) {      
+      setBasketStatus((dbStateBasket.count === 0)?
+        defaultStatus.basket
+        :
+        dbStateBasket.count.toString() + '/' + dbStateBasket.total.toString() + '₽')
+    }
+  }, [dbStateBasket.count, dbStateBasket.total])
+  
 
 	const state = {
 		displayedPage: displayedPage,
 		loginButtonText: loginButtonText,
 		showAskNameDialog: showAskNameDialog,
+    basketStatus: basketStatus,
+    orderStatus: orderStatus,
 	}
 
 	const api = {

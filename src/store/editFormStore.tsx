@@ -1,4 +1,4 @@
-import {makeAutoObservable, observable, action, autorun} from 'mobx';
+import {makeAutoObservable, observable, action} from 'mobx';
 import { ImageListType } from 'react-images-uploading';
 import * as I from './storeInterfaces';
 
@@ -28,7 +28,6 @@ export class EditFormStore {
             openForm: action,
             closeForm: action,
         })
-        autorun(() => console.log('food store autorun'));
     }
 
     setData(data:I.Food) {

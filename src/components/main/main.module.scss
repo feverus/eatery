@@ -2,13 +2,18 @@
 
 .navbar {
     display: flex;
+    justify-content: flex-start;
     >div[class$=bp4-navbar-heading] {
         display: flex;
         flex-direction: row;
-        flex: 1 0 100px;
+        flex: 1 0 50px;
         align-items: center;
-        justify-content: space-evenly;
-    }
+        justify-content: space-between;
+        white-space: nowrap;
+        span {
+            margin: 0 10px 0 0;
+        }
+    }   
 }
 .shell {
     display: grid;

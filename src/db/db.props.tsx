@@ -32,6 +32,8 @@ export type ApiTypeBasket = {
 
 export type StateTypeBasket = {
     basket: OrderItem[] | undefined,
+    total: number,
+    count: number,
 } 
 
 export type UseDbBasket = () => [

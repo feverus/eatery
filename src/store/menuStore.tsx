@@ -1,6 +1,5 @@
-import {makeAutoObservable, observable, action, autorun} from 'mobx';
-
-import * as I from './storeInterfaces';
+import {makeAutoObservable, observable, action} from 'mobx'
+import * as I from './storeInterfaces'
 
 export class MenuStore {
     tag:Array<I.Tag> = [];
@@ -16,7 +15,6 @@ export class MenuStore {
             editFood: action,
             removeFood: action,
         })
-        autorun(() => console.log('menu store autorun'));
     }
     
     //загрузка полных баз

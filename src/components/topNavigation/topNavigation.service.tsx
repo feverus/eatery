@@ -10,34 +10,63 @@ import { UseTopNavigation } from './topNavigation.props'
 import { TopNavWidget } from './components/topNavWidget'
 
 const useTopNavigation:UseTopNavigation = () => {
-  const [dbStateBasket, dbApiBasket] = useDbBasket()
-
+  const currency = '₽'
+  
   const defaultStatus = {
     basket: 'Корзина пуста',
     order: 'Ничего не заказано'
   }
+
+  const [dbStateBasket, dbApiBasket] = useDbBasket()
   const [basketStatus, setBasketStatus] = useState(defaultStatus.basket)
   const [orderStatus, setOrderStatus] = useState(defaultStatus.order)
+  const [orderClassName, setOrderClassName] = useState('')
+  const [loginButtonText, setLoginButtonText] = useState('Войти')
 
   useEffect(() => {
     if (dbStateBasket.basket !== undefined) {
       setBasketStatus((dbStateBasket.count === 0)?
         defaultStatus.basket
         :
-        dbStateBasket.count.toString() + '/' + dbStateBasket.total.toString() + '₽')
+        dbStateBasket.count.toString() + ' / ' + dbStateBasket.total.toString() + currency)
     }
   }, [dbStateBasket.count, dbStateBasket.total])
+
+  useEffect(() => {
+    switch (setStore.orderStatus) {
+      case 1:
+        setOrderStatus('Готовится / ' + setStore.orderTotal.toString() + currency)
+        setOrderClassName('progress')
+        break;
+      case 2:
+        setOrderStatus('Выдан полностью / ' + setStore.orderTotal.toString() + currency)
+        setOrderClassName('ready')
+        break;
+      case 4:
+        setOrderStatus('Возникла проблема')
+        setOrderClassName('error')
+        break;
+    
+      default:
+        setOrderStatus(defaultStatus.order)
+        setOrderClassName('')
+        break;
+    }
   
-	const loginButtonText = (setStore.role==='client')
+  }, [setStore.orderStatus, setStore.orderTotal])
+  
+  useEffect(() => {
+    setLoginButtonText((setStore.role==='client')
 		? 'Войти'
-		: 'Сменить пользователя' 
+		: 'Сменить пользователя')
+  }, [setStore.role])
 
   const basketWidget = (setStore.role==='client')
     ? <TopNavWidget icon={"shopping-cart"} url={'/basket'} title={basketStatus} />
     : <></>
     
   const orderWidget = (setStore.role==='client')
-    ? <TopNavWidget icon={"shop"} url={'/order'} title={orderStatus} />
+    ? <TopNavWidget icon={"shop"} url={'/order'} title={orderStatus} className={orderClassName} />
     : <></>
 
 	const state = {

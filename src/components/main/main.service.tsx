@@ -195,6 +195,24 @@ const useMain:UseMain = () => {
 
 	}, [dbStateMenu.versions])
 
+	useEffect(() => {
+		let timerUpdateOrder: number | NodeJS.Timeout
+    if (setStore.role === 'client') {
+			timerUpdateOrder = setInterval(async () => {
+				await getOrderApi(setStore.token)
+				.then(result => {
+					setStore.setOrder((result as I.OrderData).food)
+				})
+				.catch(error => {  
+          console.log(error)
+        })
+			}, 1000)
+		}
+		return(
+			() => clearInterval(timerUpdateOrder)
+		)
+  })
+
 	const state = {
 		displayedPage: displayedPage,
 		showAskNameDialog: showAskNameDialog,

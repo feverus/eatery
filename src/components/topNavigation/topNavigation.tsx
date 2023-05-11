@@ -21,7 +21,6 @@ export function TopNavigation() {
                 <NavbarDivider />
                 
                 {state.orderWidget}
-                
                 {state.basketWidget}
 
                 <NavbarHeading>

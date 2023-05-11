@@ -1,0 +1,11 @@
+@import '~/global.modules.scss';
+
+.progress {
+    background-color: rgb(253, 255, 118);
+}
+.ready {
+    background-color: rgb(118, 255, 118);
+}
+.error {
+    background-color: rgb(255, 139, 118);
+}

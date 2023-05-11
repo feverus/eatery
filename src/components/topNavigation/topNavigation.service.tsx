@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Navbar, NavbarGroup } from "@blueprintjs/core"
 import setStore from '~Store/setStore'
 import useToast from '~Components/toast'
 import { loginWithTokenApi } from '~Api/loginApi'
@@ -6,6 +7,7 @@ import { getOrderApi, createOrderApi }  from '~Api/orderApi'
 import { getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
 import { useDbBasket } from '~/db'
 import { UseTopNavigation } from './topNavigation.props'
+import { TopNavWidget } from './components/topNavWidget'
 
 const useTopNavigation:UseTopNavigation = () => {
   const [dbStateBasket, dbApiBasket] = useDbBasket()
@@ -17,12 +19,8 @@ const useTopNavigation:UseTopNavigation = () => {
   const [basketStatus, setBasketStatus] = useState(defaultStatus.basket)
   const [orderStatus, setOrderStatus] = useState(defaultStatus.order)
 
-	const loginButtonText = (setStore.role==='client')
-		? 'Войти'
-		: 'Сменить пользователя' 
-
   useEffect(() => {
-    if (dbStateBasket.basket !== undefined) {      
+    if (dbStateBasket.basket !== undefined) {
       setBasketStatus((dbStateBasket.count === 0)?
         defaultStatus.basket
         :
@@ -30,11 +28,22 @@ const useTopNavigation:UseTopNavigation = () => {
     }
   }, [dbStateBasket.count, dbStateBasket.total])
   
+	const loginButtonText = (setStore.role==='client')
+		? 'Войти'
+		: 'Сменить пользователя' 
+
+  const basketWidget = (setStore.role==='client')
+    ? <TopNavWidget icon={"shopping-cart"} url={'/basket'} title={basketStatus} />
+    : <></>
+    
+  const orderWidget = (setStore.role==='client')
+    ? <TopNavWidget icon={"shop"} url={'/order'} title={orderStatus} />
+    : <></>
 
 	const state = {
 		loginButtonText: loginButtonText,
-    basketStatus: basketStatus,
-    orderStatus: orderStatus,
+    basketWidget: basketWidget,
+    orderWidget: orderWidget,
 	}
 
 	const api = {

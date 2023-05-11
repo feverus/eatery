@@ -39,7 +39,7 @@ const useTopNavigation:UseTopNavigation = () => {
         setOrderClassName('progress')
         break;
       case 2:
-        setOrderStatus('Выдан полностью / ' + setStore.orderTotal.toString() + currency)
+        setOrderStatus('Выдан / ' + setStore.orderTotal.toString() + currency)
         setOrderClassName('ready')
         break;
       case 4:

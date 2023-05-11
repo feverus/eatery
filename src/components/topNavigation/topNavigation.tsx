@@ -7,8 +7,8 @@ import useTopNavigation from './topNavigation.service'
 export function TopNavigation() {
     const [state, api] = useTopNavigation()
     return (
-        <Navbar>
-            <NavbarGroup className={C.navbar}>
+        <Navbar className={C.navbar}>
+            <NavbarGroup className={C.group}>
                 <NavbarHeading>
                     <Icon icon="person" />
                     {setStore.name}

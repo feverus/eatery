@@ -1,9 +1,6 @@
 export type StateType = {
     displayedPage: JSX.Element,
-    loginButtonText: string,     
     showAskNameDialog: boolean,
-    orderStatus: string,
-    basketStatus: string,
 };
 
 export type ApiType = {

@@ -8,7 +8,7 @@ import useToast from '~Components/toast'
 import { loginWithTokenApi } from '~Api/loginApi'
 import { getOrderApi, createOrderApi }  from '~Api/orderApi'
 import { getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
-import { useDbMenu, useDbBasket } from '~/db'
+import { useDbMenu } from '~/db'
 import { UseMain } from './main.props'
 
 const checkCookieToken = () => {
@@ -48,22 +48,11 @@ const loginWithToken = async (cookieToken:string) => {
 const useMain:UseMain = () => {
 	const [showToast] = useToast()
 	const [dbStateMenu, dbApiMenu] = useDbMenu()
-  const [dbStateBasket, dbApiBasket] = useDbBasket()
 
 	const [showAskNameDialog, setShowAskNameDialog] = useState(false)
   const [cookieToken, setCookieToken] = useState<undefined | string>(undefined)
 
-  const defaultStatus = {
-    basket: 'Корзина пуста',
-    order: 'Ничего не заказано'
-  }
-  const [basketStatus, setBasketStatus] = useState(defaultStatus.basket)
-  const [orderStatus, setOrderStatus] = useState(defaultStatus.order)
-
 	let displayedPage:JSX.Element = <FoodList />
-	const loginButtonText = (setStore.role==='client')
-		? 'Войти'
-		: 'Сменить пользователя' 
 
 	const newClient = () => {
 		console.log('new Client')
@@ -206,22 +195,9 @@ const useMain:UseMain = () => {
 
 	}, [dbStateMenu.versions])
 
-  useEffect(() => {
-    if (dbStateBasket.basket !== undefined) {      
-      setBasketStatus((dbStateBasket.count === 0)?
-        defaultStatus.basket
-        :
-        dbStateBasket.count.toString() + '/' + dbStateBasket.total.toString() + '₽')
-    }
-  }, [dbStateBasket.count, dbStateBasket.total])
-  
-
 	const state = {
 		displayedPage: displayedPage,
-		loginButtonText: loginButtonText,
 		showAskNameDialog: showAskNameDialog,
-    basketStatus: basketStatus,
-    orderStatus: orderStatus,
 	}
 
 	const api = {

@@ -1,6 +1,6 @@
 export type ControlCallback = () => void;
 
-interface ItemWithId {
+export interface ItemWithId {
     id: string;
 	name: string;
 }

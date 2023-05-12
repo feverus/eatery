@@ -1,5 +1,5 @@
 import setStore from '~Store/setStore'
-import FoodCard from '~Components/foodCard/'
+import { FoodCard } from './components/foodCard'
 import EditForm from '~Components/editForm'
 import SectionHeader from '~Components/sectionHeader/'
 import C from './foodList.module.scss'

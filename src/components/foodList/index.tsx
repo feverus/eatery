@@ -1,6 +1,5 @@
-import {observer, inject} from "mobx-react";
+import {observer} from "mobx-react"
 import {FoodList} from './foodList'
 
-export default
-	inject('menuStore')
-	(observer(FoodList));
+export {FoodCard, useFoodCard} from './components/foodCard'
+export default (observer(FoodList));

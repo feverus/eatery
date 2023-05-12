@@ -1,22 +1,17 @@
 import { useState, useEffect } from 'react'
-import { Navbar, NavbarGroup } from "@blueprintjs/core"
 import setStore from '~Store/setStore'
-import useToast from '~Components/toast'
-import { loginWithTokenApi } from '~Api/loginApi'
-import { getOrderApi, createOrderApi }  from '~Api/orderApi'
-import { getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
 import { useDbBasket } from '~/db'
 import { UseTopNavigation } from './topNavigation.props'
 import { TopNavWidget } from './components/topNavWidget'
 
-const useTopNavigation:UseTopNavigation = () => {
-  const currency = '₽'
+const currency = '₽'
   
-  const defaultStatus = {
-    basket: 'Корзина пуста',
-    order: 'Ничего не заказано'
-  }
+const defaultStatus = {
+  basket: 'Корзина пуста',
+  order: 'Ничего не заказано'
+}
 
+const useTopNavigation:UseTopNavigation = () => {
   const [dbStateBasket, dbApiBasket] = useDbBasket()
   const [basketStatus, setBasketStatus] = useState(defaultStatus.basket)
   const [orderStatus, setOrderStatus] = useState(defaultStatus.order)
@@ -28,7 +23,7 @@ const useTopNavigation:UseTopNavigation = () => {
       setBasketStatus((dbStateBasket.count === 0)?
         defaultStatus.basket
         :
-        dbStateBasket.count.toString() + ' / ' + dbStateBasket.total.toString() + currency)
+        dbStateBasket.count.toString() + ' / ' + dbStateBasket.total.toString() + ' '+ currency)
     }
   }, [dbStateBasket.count, dbStateBasket.total])
 
@@ -49,7 +44,7 @@ const useTopNavigation:UseTopNavigation = () => {
     
       default:
         setOrderStatus(defaultStatus.order)
-        setOrderClassName('')
+        setOrderClassName('clear')
         break;
     }
   
@@ -66,7 +61,7 @@ const useTopNavigation:UseTopNavigation = () => {
     : <></>
     
   const orderWidget = (setStore.role==='client')
-    ? <TopNavWidget icon={"shop"} url={'/order'} title={orderStatus} className={orderClassName} />
+    ? <TopNavWidget icon={"shop"} url={'/basket'} title={orderStatus} className={orderClassName} />
     : <></>
 
 	const state = {

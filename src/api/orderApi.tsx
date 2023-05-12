@@ -5,13 +5,15 @@ import urlApi  from './urlApi'
 /** конвертирует несколько массивов с данными (id товаров, стоимость, статусы) в один массив объектов */
 const convertRawToStore = (json:I.OrderFromApi):I.OrderData => {
 	let result:I.OrderData = {id: json.id, name: json.name, version: json.version, food: []}
-	json.foodid.forEach((id, n) => {
-		result.food.push({
-			"foodid": json.foodid[n],
-			"price": json.price[n],
-			"status": json.status[n]
+	if (json.foodid!==undefined) {
+		json.foodid.forEach((id, n) => {
+			result.food.push({
+				"foodid": json.foodid[n],
+				"price": json.price[n],
+				"status": json.status[n]
+			})
 		})
-	})
+	}
 	return result
 }
 

@@ -3,8 +3,7 @@ import { NavbarDivider, NavbarHeading, Icon } from "@blueprintjs/core";
 import { WidgetType } from '../topNavigation.props';
 import C from './topNavWidget.module.scss'
 
-export function TopNavWidget({ icon, url, title, className='' }: WidgetType) {
-  console.log(C[className])
+export function TopNavWidget({ icon, url, title, className='clear' }: WidgetType) {
   return (
     <>
       <NavbarHeading className={C[className]}>

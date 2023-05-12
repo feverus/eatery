@@ -1,0 +1,35 @@
+@import '~/global.modules.scss';
+
+.section {
+  padding: 10px 5px;
+  width: 100%;
+  display: flex;    
+  justify-content: center;
+  .card {
+      margin: 0;
+      padding: 1px 10px!important;
+      width: min(500px, calc(100% - 20px));    
+      background: $modalBg;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      h5 {
+        margin: 10px 0;
+        flex: 1 0 auto;
+        @media (max-width: 500px) {
+            flex: 1 0 300px;
+        }
+      }
+      .price {
+        flex: 0 0 100px; 
+      }
+      .count {
+        flex: 0 0 50px; 
+      }
+      .buttonSpace {
+        width: 29px;
+      }
+  }
+}

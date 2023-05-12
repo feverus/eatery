@@ -7,25 +7,36 @@ import { deleteApi } from "~Api/deleteApi"
 import { UseFoodCard } from './foodCard.props'
 import { useDbBasket } from '~/db'
 
-const useFoodCard:UseFoodCard = (item:I.Food) => {
+export const useFoodCard:UseFoodCard = (id:string) => {
     const [dbState, dbApi] = useDbBasket()
-    const itemInBasket = dbApi.findInBasketById(item.id)
+    const itemInBasket = dbApi.findInBasketById(id)
     const count = (itemInBasket===undefined) ? 0 : itemInBasket.count
 
     const add = () => {
-        dbApi.incBasketItem(item.id)
+        dbApi.incBasketItem(id)
     }
+
     const remove = () => {
         if (count > 0)
-            dbApi.decBasketItem(item.id)
+            dbApi.decBasketItem(id)
     }
+
+    const removeAll = () => {
+        if (count > 0)
+            dbApi.deleteBasketItem(id)
+    }
+    
+    const clear = () => {
+        dbApi.clearBasket()
+    }
+
     const openEditForm = () => {
-        editFormStore.openForm('food', item)
+        editFormStore.openForm('food', menuStore.food.find(item => item.id ===id))
     }
 
     const handleDelete = () => {
-        deleteApi(item.id, 'food')
-        menuStore.removeFood(item.id)
+        deleteApi(id, 'food')
+        menuStore.removeFood(id)
     }
 
     const state = {
@@ -34,6 +45,8 @@ const useFoodCard:UseFoodCard = (item:I.Food) => {
     const api = {
         add,
         remove,
+        removeAll,
+        clear,
         openEditForm,
         handleDelete,
     }
@@ -42,5 +55,3 @@ const useFoodCard:UseFoodCard = (item:I.Food) => {
         [state,api]
     )
 }
-
-export default useFoodCard

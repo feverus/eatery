@@ -23,11 +23,12 @@ export type UseDbMenu = () => [
 
 
 export type ApiTypeBasket = {
+    findInBasketById: (id: string) => OrderItem | undefined;
     createBasketItem: (id: string) => void;
     incBasketItem: (id: string) => void;
     decBasketItem: (id: string) => void;
     deleteBasketItem: (id: string) => void;
-    findInBasketById: (id: string) => OrderItem | undefined;
+    clearBasket: () => void;
 };
 
 export type StateTypeBasket = {

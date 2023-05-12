@@ -3,12 +3,13 @@ import { setCookie } from 'react-use-cookie'
 import * as I from '~Store/storeInterfaces'
 import setStore from '~Store/setStore'
 import menuStore from '~Store/menuStore'
-import FoodList from "~Components/foodList"
 import useToast from '~Components/toast'
+import FoodList from "~Components/foodList"
+import BasketList from '~Components/basketList'
 import { loginWithTokenApi } from '~Api/loginApi'
 import { getOrderApi, createOrderApi }  from '~Api/orderApi'
 import { getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
-import { useDbMenu } from '~/db'
+import { useDbMenu, useDbBasket } from '~/db'
 import { UseMain } from './main.props'
 
 const checkCookieToken = () => {
@@ -45,17 +46,22 @@ const loginWithToken = async (cookieToken:string) => {
 		})
 }
 
-const useMain:UseMain = () => {
+const definePage = (page:string):JSX.Element => {
+	if (page==='basket') return <BasketList />
+	return <FoodList />
+}
+
+const useMain:UseMain = (page) => {
 	const [showToast] = useToast()
 	const [dbStateMenu, dbApiMenu] = useDbMenu()
+	const [dbStateBasket, dbApiBasket] = useDbBasket()
 
 	const [showAskNameDialog, setShowAskNameDialog] = useState(false)
   const [cookieToken, setCookieToken] = useState<undefined | string>(undefined)
 
-	let displayedPage:JSX.Element = <FoodList />
-
 	const newClient = () => {
 		console.log('new Client')
+		{/*dbApiBasket.clearBasket()*/}
 		setStore.setRole('client')
 		setShowAskNameDialog(true)
 	}
@@ -196,25 +202,28 @@ const useMain:UseMain = () => {
 	}, [dbStateMenu.versions])
 
 	useEffect(() => {
-		let timerUpdateOrder: number | NodeJS.Timeout
-    if (setStore.role === 'client') {
-			timerUpdateOrder = setInterval(async () => {
-				await getOrderApi(setStore.token)
-				.then(result => {
-					setStore.setOrder((result as I.OrderData).food)
-				})
-				.catch(error => {  
-          console.log(error)
-        })
-			}, 1000)
+		if (setStore.token!=='') {
+			let timerUpdateOrder: number | NodeJS.Timeout
+			if (setStore.role === 'client') {
+				timerUpdateOrder = setInterval(async () => {
+					await getOrderApi(setStore.token)
+					.then(result => {
+						setStore.setOrder((result as I.OrderData).food)
+					})
+					.catch(error => {  
+						console.log(error)
+					})
+				}, 1000)
+			}
+			return(
+				() => clearInterval(timerUpdateOrder)
+			)			
 		}
-		return(
-			() => clearInterval(timerUpdateOrder)
-		)
-  })
 
+  }, [setStore.token])
+	
 	const state = {
-		displayedPage: displayedPage,
+		displayedPage: definePage(page),
 		showAskNameDialog: showAskNameDialog,
 	}
 

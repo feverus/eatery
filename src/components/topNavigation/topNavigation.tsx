@@ -3,6 +3,7 @@ import { Navbar, NavbarDivider, NavbarGroup, NavbarHeading, Icon } from "@bluepr
 import setStore from "~Store/setStore"
 import C from './topNavigation.module.scss'
 import useTopNavigation from './topNavigation.service'
+import { TopNavWidget } from './components/topNavWidget'
 
 export function TopNavigation() {
     const [state, api] = useTopNavigation()
@@ -14,6 +15,11 @@ export function TopNavigation() {
                     {setStore.name}
                 </NavbarHeading>
                 <NavbarDivider />
+
+                {setStore.page !== 'Меню' && 
+                    <TopNavWidget icon={"home"} url={'/'} title={"Меню"} />
+                }
+
                 <NavbarHeading>
                     <Icon icon="page-layout" />
                     {setStore.page}

@@ -1,6 +1,6 @@
 import * as I from '~Store/storeInterfaces';
 
-export type FoodList = () => [
+export type UseFoodList = () => [
     state: {
         filteredFood:Array<I.Food>,
         sectionedFood:Array<I.Food|string>,

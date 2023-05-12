@@ -2,12 +2,17 @@ import { useState, useEffect } from 'react'
 
 import * as I from '~Store/storeInterfaces'
 import menuStore from '~Store/menuStore'
+import setStore from '~Store/setStore'
 import editFormStore from '~Store/editFormStore'
-import { FoodList } from "./foodList.props"
+import { UseFoodList } from "./foodList.props"
 
-const useFoodList:FoodList = () => {
+const useFoodList:UseFoodList = () => {
     const [filteredFood, setFiltereFood] = useState<Array<I.Food>>(menuStore.food)
     const [sectionedFood, setSectionedFood] = useState<Array<I.Food|string>>([])
+
+    useEffect(() => {
+        setStore.setPage('Меню')
+    }, [])
 
     useEffect(() => {
         if (menuStore.food.length>0) {

@@ -4,3 +4,7 @@ $bg3: #654eb5;
 $bg4: #060a18;
 
 $modalBg: #aeb0b3;
+
+.pageBG {
+  background: linear-gradient(130deg, $bg2 0%, $bg3 100%);
+}

@@ -25,6 +25,10 @@ export const useDbBasket:UseDbBasket = () => {
 			.delete()   
 	}
 
+	const clearBasket = () => {
+		dbBasket.basket.clear() 
+	}
+
 	const incBasketItem = (id: string) => {
 		const finded = findInBasketById(id)
 		if (finded) 
@@ -73,6 +77,7 @@ export const useDbBasket:UseDbBasket = () => {
 		incBasketItem: incBasketItem,
 		decBasketItem: decBasketItem,
 		deleteBasketItem: deleteBasketItem,
+		clearBasket: clearBasket,
 	}
 
 	return (

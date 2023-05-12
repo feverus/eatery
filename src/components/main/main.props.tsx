@@ -7,7 +7,7 @@ export type ApiType = {
     go: (name:string) => void,
 };
 
-export type UseMain = () => [
+export type UseMain = (page: string) => [
     state: StateType,
     api: ApiType
 ];

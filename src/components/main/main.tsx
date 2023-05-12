@@ -4,7 +4,7 @@ import { AskNameDialog } from './askNameDialog'
 import TopNavigation from '~Components/topNavigation'
 
 export function Main(props: {page:string}) {  
-	const [state, api] = useMain()
+	const [state, api] = useMain(props.page)
 	
 	FocusStyleManager.onlyShowFocusOnTabs();
 

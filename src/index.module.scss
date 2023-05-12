@@ -23,8 +23,9 @@ body {
   background: #FBFDFE;
   -webkit-tap-highlight-color: rgba(131, 70, 70, 0);
   overflow-x: hidden;
-  >div {
+  >div:first-child {
     display: flex;
     flex-direction: column;
+    min-height: 100%;
   }
 }

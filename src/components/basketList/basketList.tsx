@@ -12,7 +12,10 @@ export function BasketList() {
     return (
         <div className={C.list}>
             {state.basketItems.map(item => 
-                <BasketCard {...item} key={'BasketCard' + item.id} />)
+                <BasketCard item={item} key={'BasketCard' + item.id} />)
+            }
+            {state.orderItems.map(item => 
+                <BasketCard item={item} withButtons={false} key={'OrderCard' + item.id + item.status + item.price} />)
             }
         </div>
     )

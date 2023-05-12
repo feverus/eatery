@@ -220,7 +220,7 @@ const useMain:UseMain = (page) => {
 			)			
 		}
 
-  }, [setStore.token])
+  }, [setStore.token, setStore.role])
 	
 	const state = {
 		displayedPage: definePage(page),

@@ -19,5 +19,5 @@ export type WidgetType = {
     icon: BlueprintIcons_16Id | MaybeElement,
     url: string,
     title: string,
-    className?: string,
+    className?: boolean,
 }

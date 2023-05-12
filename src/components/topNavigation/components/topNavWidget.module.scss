@@ -3,11 +3,11 @@
 .clear {
 }
 .progress {
-    background-color: rgb(253, 255, 118);
+    @extend .progressBG;
 }
 .ready {
-    background-color: rgb(118, 255, 118);
+    @extend .readyBG;
 }
 .error {
-    background-color: rgb(255, 139, 118);
+    @extend .errorBG;
 }

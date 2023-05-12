@@ -2,7 +2,7 @@ import * as I from '~Store/storeInterfaces'
 
 export type BasketListItem = I.ItemWithId & {
     price: number,
-    oldPrice?: number,
+    oldPrice: number,
     count: number,
     status: number,
 }
@@ -10,6 +10,7 @@ export type BasketListItem = I.ItemWithId & {
 export type UseBasketList = () => [
     state: {
         basketItems: BasketListItem[],
+        orderItems: BasketListItem[],
     },
     api: {
     }

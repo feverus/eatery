@@ -15,7 +15,6 @@ const useTopNavigation:UseTopNavigation = () => {
   const [dbStateBasket, dbApiBasket] = useDbBasket()
   const [basketStatus, setBasketStatus] = useState(defaultStatus.basket)
   const [orderStatus, setOrderStatus] = useState(defaultStatus.order)
-  const [orderClassName, setOrderClassName] = useState('')
   const [loginButtonText, setLoginButtonText] = useState('Войти')
 
   useEffect(() => {
@@ -31,20 +30,16 @@ const useTopNavigation:UseTopNavigation = () => {
     switch (setStore.orderStatus) {
       case 1:
         setOrderStatus('Готовится / ' + setStore.orderTotal.toString() + currency)
-        setOrderClassName('progress')
         break;
       case 2:
         setOrderStatus('Выдан / ' + setStore.orderTotal.toString() + currency)
-        setOrderClassName('ready')
         break;
       case 4:
         setOrderStatus('Возникла проблема')
-        setOrderClassName('error')
         break;
     
       default:
         setOrderStatus(defaultStatus.order)
-        setOrderClassName('clear')
         break;
     }
   
@@ -61,7 +56,7 @@ const useTopNavigation:UseTopNavigation = () => {
     : <></>
     
   const orderWidget = (setStore.role==='client')
-    ? <TopNavWidget icon={"shop"} url={'/basket'} title={orderStatus} className={orderClassName} />
+    ? <TopNavWidget icon={"shop"} url={'/basket'} title={orderStatus}  className={true}/>
     : <></>
 
 	const state = {

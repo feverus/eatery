@@ -8,3 +8,13 @@ $modalBg: #aeb0b3;
 .pageBG {
   background: linear-gradient(130deg, $bg2 0%, $bg3 100%);
 }
+
+.progressBG {
+  background-color: rgb(253, 255, 118);
+}
+.readyBG {
+  background-color: rgb(118, 255, 118);
+}
+.errorBG {
+  background-color: rgb(255, 139, 118);
+}

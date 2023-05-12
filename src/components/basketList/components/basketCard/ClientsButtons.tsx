@@ -10,7 +10,6 @@ type P = {
 }
 
 export function ClientsButtons(props: P) {
-  console.log(props)
   return (
     <>
       <Button

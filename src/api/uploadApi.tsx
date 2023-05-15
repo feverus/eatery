@@ -1,4 +1,4 @@
-import ky from 'ky'
+import ky from './_ky'
 import * as I from '../store/storeInterfaces'
 import urlApi  from './urlApi'
 import { ImageListType } from 'react-images-uploading'
@@ -12,7 +12,7 @@ export async function uploadFoodApi (data:any, id: string): Promise<I.Food|strin
 	try {	
 		let answer:any
 		if (id==="") answer = await ky.post(url, { json: {...data, id: ""} });
-		else answer = await ky.put(url, { json: {...data, id: ""}, method:"PUT" })
+		else answer = await ky.put(url, { json: {...data, id: ""}, method:"PUT"})
 		const json = await answer.json()
 		return json
 	} catch (error) {

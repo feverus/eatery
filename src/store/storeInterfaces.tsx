@@ -3,6 +3,7 @@ export type ControlCallback = () => void;
 export interface ItemWithId {
     id: string;
 	name: string;
+    version: number;
 }
 
 export interface Food extends ItemWithId {
@@ -17,13 +18,9 @@ export interface Section extends ItemWithId {
 export interface Tag extends ItemWithId {
 }
 
-export interface VersionsItem {
-    name: string;
-    version: number;
-}
+export type VersionsItem = Omit<ItemWithId , 'id'>
 
-export type SomeDataFromApi = Food[] |  Section[] | Tag[] | VersionsItem[];
-export type BaseDataFromApi = Exclude<SomeDataFromApi, VersionsItem[]>
+export type SomeDataFromApi = Food[] |  Section[] | Tag[] | VersionsItem[]
 
 export type EditFormFoodData = Food | undefined;
 

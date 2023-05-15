@@ -71,6 +71,7 @@ const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
             .then(result => {
                 if (typeof result!=='string') {    
                     id = result.id
+                    editFormStore.setData({...editFormStore.formData, 'version': editFormStore.formData.version + 1})
                 } else {
                     showToast(result);
                 }
@@ -93,8 +94,8 @@ const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
             await deleteImagesApi(editFormStore.imagesToDelete, id)
         }     
 
-        const oldVersion = dbStateMenu.versions?.find(v => v.name === 'food')?.version || 0
-        await uploadFoodApi({...editFormStore.formData, 'versions': oldVersion + 1}, id)
+
+        await uploadFoodApi(editFormStore.formData, id)
         .then(result => {
             console.log(result)
             if (typeof result!=='string') {    

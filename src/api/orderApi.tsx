@@ -1,4 +1,4 @@
-import ky from 'ky'
+import ky from './_ky'
 import * as I from '../store/storeInterfaces'
 import urlApi  from './urlApi'
 

@@ -1,4 +1,4 @@
-import ky from 'ky'
+import ky from './_ky'
 import urlApi  from './urlApi';
 
 export async function deleteApi (id:string, endPoint:string): Promise<boolean|string> {

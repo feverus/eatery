@@ -10,6 +10,7 @@ export class EditFormStore {
         price: 0,
         images: [],
         info: '',
+        version: 0,
     }
 
     open:boolean = false
@@ -54,6 +55,7 @@ export class EditFormStore {
                 price: data.price,
                 images: data.images,
                 info: data.info,
+                version: data.version + 1,
             }
         } else this.formData = this.emptyFood
 

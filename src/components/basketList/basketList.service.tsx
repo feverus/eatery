@@ -22,13 +22,14 @@ const useBasketList:UseBasketList = () => {
                 const food = menuStore.food.find(food => food.id === item.id)
                 if (food!==undefined)
                 temp.push({
-                        id: item.id,
-                        name: food.name,
-                        price: food.price,
-                        oldPrice: food.price,
-                        count: item.count,
-                        status: 0
-                    })
+                    id: item.id,
+                    name: food.name,
+                    price: food.price,
+                    oldPrice: food.price,
+                    count: item.count,
+                    status: 0,
+                    version: 0
+                })
             })
             setBasketItems(temp)
         }      
@@ -52,7 +53,8 @@ const useBasketList:UseBasketList = () => {
                             price: item.price,
                             oldPrice: (item.price === food.price) ? item.price : food.price,
                             count: 1,
-                            status: item.status
+                            status: item.status,
+                            version: 0
                         })            
                 }
             })

@@ -19,23 +19,32 @@ import "@blueprintjs/select/lib/css/blueprint-select.css";
 const stores = {
   menuStore,
   setStore,
-  editFormStore
+  editFormStore,
 }
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Main page='/' />,
-  },
-  {
-    path: "basket",
-    element: <Main page='basket' />,
-  },
-  {
-    path: "login",
-    element: <Login />,
-  },
-]);
+    {
+      path: "/",
+      element: <Main page='/' />,
+    },
+    {
+      path: "basket",
+      element: <Main page='basket' />,
+    },
+    {
+      path: "login",
+      element: <Login />,
+    },
+    {
+      path: "food/:id",
+      element: <Main page='foodDetail' />,
+      loader: ({params}) => {return params.id || 'error404'},
+    },
+  ],
+    {
+      basename: "/eatery",
+    }
+)
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,18 +1,21 @@
-import editFormStore from "~Store/editFormStore"
-import menuStore from '~Store/menuStore'
 import * as I from '~Store/storeInterfaces';
+import menuStore from '~Store/menuStore'
+import editFormStore from "~Store/editFormStore"
 import { useState } from "react";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import { uploadFoodApi, uploadImageApi } from "~/api/uploadApi";
+import { uploadFoodApi, uploadImageApi } from "~Api/uploadApi";
+import { deleteImagesApi } from "~Api/deleteApi";
+import useToast from '~Components/toast'
 import { UseEditFormFood } from "./editFormFood.props";
 import C from './editFormFood.module.scss'
-import useToast from '~Components/toast'
-import { deleteImagesApi } from "~Api/deleteApi";
+import { useDbMenu } from '~/db'
 
 const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
+    const [dbStateMenu, dbApiMenu] = useDbMenu()
+    const [showToast] = useToast()
 
     const editorToolbarProps = {
         inline: {
@@ -36,8 +39,7 @@ const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
         image: { className: C.hidden },
         
     }
-
-    const [showToast] = useToast()
+   
     if (data===undefined) data = editFormStore.emptyFood
 
     //эта жуть конвертирует строку в специальный формат для редактора
@@ -91,7 +93,8 @@ const useEditFormFood:UseEditFormFood = (data:I.EditFormFoodData) => {
             await deleteImagesApi(editFormStore.imagesToDelete, id)
         }     
 
-        await uploadFoodApi(editFormStore.formData, id)
+        const oldVersion = dbStateMenu.versions?.find(v => v.name === 'food')?.version || 0
+        await uploadFoodApi({...editFormStore.formData, 'versions': oldVersion + 1}, id)
         .then(result => {
             console.log(result)
             if (typeof result!=='string') {    

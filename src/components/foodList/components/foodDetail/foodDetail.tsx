@@ -1,33 +1,34 @@
+import { Intent, Button, Card, Elevation, Divider, ControlGroup, ButtonGroup } from "@blueprintjs/core";
+import C from './foodDetail.module.scss'
+import { useLoaderData } from 'react-router-dom';
 import * as I from '~Store/storeInterfaces'
 import setStore from '~Store/setStore'
-import {useFoodCard} from './foodCard.service'
-import { Intent, Button, Card, Elevation, Divider, ControlGroup, ButtonGroup } from "@blueprintjs/core";
-import C from './foodCard.module.scss'
+import menuStore from "~/store/menuStore";
 import Slider from '~Components/slider'
-import {Link} from 'react-router-dom'
+import {useFoodCard} from '~Components/foodList'
 
-export function FoodCard(item:I.Food) {
+type P = {
+    item:I.Food
+}
+
+export function ShowDetail({item}: P) {    
     const [state, api] = useFoodCard(item.id)
-
+    
     return (
         <div className={C.section}>
-            
             <Card
-                interactive={false}
+                interactive={true}
                 elevation={Elevation.ZERO}
                 className={C.card}
             >
-                <Link to = {`food/${item.id}`}>
-                    <div className={C.name}>
-                        <h5>{item.name}</h5>
-                        <span>{item.price} руб.</span>
-                    </div>
-                </Link>
-
-                <Link to = {`food/${item.id}`}>
-                    {item.images.length > 0 && <img src={item.images[0]}/>}
-                </Link>
-
+                <div className={C.name}>
+                    <h5>{item.id} - {item.name}</h5>
+                    <span>{item.price} руб.</span>
+                </div>
+                <Divider />
+                <Slider images={item.images} />
+                <div dangerouslySetInnerHTML={{__html: item.info}} />
+                <Divider />
                 <ControlGroup fill={false} vertical={false} className={C.footerButtons}>
 
                     {setStore.role=='client' && 
@@ -70,4 +71,14 @@ export function FoodCard(item:I.Food) {
             </Card>
         </div>
     )
+}
+
+export function FoodDetail() {
+    const loaderData = useLoaderData()
+    const food = menuStore.food.find(food => food.id === loaderData)
+
+    if (food?.id === undefined)
+        return <>404</>
+    else
+        return <ShowDetail item={food} />
 }

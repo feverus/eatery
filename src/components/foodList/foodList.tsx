@@ -18,12 +18,13 @@ export function FoodList() {
                     Добавить блюдо
                 </Button>}
             {
-            //food.filteredFood.map((item, id) => <FoodCard {...item} key={id} />)
+
             }
             {food.sectionedFood.map((item, id) => (typeof item === 'string')?
-                <SectionHeader item={item} key={id} />:
-                <FoodCard {...item} key={id} />)}
-
+                <SectionHeader item={item} key={id} />
+                :
+                <FoodCard {...item} key={id} />)
+            }
             <EditForm />
         </div>
     )

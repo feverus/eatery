@@ -4,7 +4,7 @@ import * as I from '~Store/storeInterfaces'
 import setStore from '~Store/setStore'
 import menuStore from '~Store/menuStore'
 import useToast from '~Components/toast'
-import FoodList from "~Components/foodList"
+import FoodList, { FoodDetail } from "~Components/foodList"
 import BasketList from '~Components/basketList'
 import { loginWithTokenApi } from '~Api/loginApi'
 import { getOrderApi, createOrderApi }  from '~Api/orderApi'
@@ -48,6 +48,7 @@ const loginWithToken = async (cookieToken:string) => {
 
 const definePage = (page:string):JSX.Element => {
 	if (page==='basket') return <BasketList />
+	if (page==='foodDetail') return <FoodDetail />
 	return <FoodList />
 }
 

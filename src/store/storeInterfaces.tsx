@@ -13,7 +13,7 @@ export interface Food extends ItemWithId {
     info: string;
 }
 export interface Section extends ItemWithId {
-    order: number;
+    position: number;
 }
 export interface Tag extends ItemWithId {
 }
@@ -22,7 +22,7 @@ export type VersionsItem = Omit<ItemWithId , 'id'>
 
 export type SomeDataFromApi = Food[] |  Section[] | Tag[] | VersionsItem[]
 
-export type EditFormFoodData = Food | undefined;
+export type EditFormFoodData = Food | Section | Tag | undefined
 
 export interface AuthData {
     token: string;

@@ -1,5 +1,5 @@
 import ky from './_ky'
-import * as I from '../store/storeInterfaces'
+import * as I from '~Store/storeInterfaces'
 import urlApi  from './urlApi'
 
 export async function loginWithTokenApi (token: string): Promise<I.AuthData | string> {

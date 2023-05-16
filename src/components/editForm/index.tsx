@@ -1,6 +1,5 @@
-import {observer, inject} from "mobx-react";
+import {observer} from "mobx-react"
 import {EditForm} from './editForm'
 
 export default
-	inject('editFormStore')
-	(observer(EditForm));
+	(observer(EditForm))

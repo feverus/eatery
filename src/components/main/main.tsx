@@ -1,6 +1,6 @@
 import { FocusStyleManager } from "@blueprintjs/core"
 import useMain from './main.service'
-import { AskNameDialog } from './askNameDialog'
+import { AskNameDialog } from './components/askNameDialog'
 import TopNavigation from '~Components/topNavigation'
 
 export function Main(props: {page:string}) {  

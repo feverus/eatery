@@ -6,6 +6,6 @@ export type UseFoodList = () => [
         sectionedFood:Array<I.Food|string>,
     },
     api: {
-        openEditForm: I.ControlCallback
+        openEditForm: (formType: string) => void,
     }
 ];

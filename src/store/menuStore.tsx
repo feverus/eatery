@@ -22,7 +22,8 @@ export class MenuStore {
         if (newFoodBase.length > 0) this.food = newFoodBase
     }    
     loadSectionBase(newSectionBase:Array<I.Section>) {
-        if (newSectionBase.length > 0) this.section = newSectionBase
+        if (newSectionBase.length > 0)
+            this.section = newSectionBase.sort((a,b) => a.position - b.position)
     }
     loadTagBase(newTagBase:Array<I.Tag>) {
         if (newTagBase.length > 0) this.tag = newTagBase
@@ -52,6 +53,33 @@ export class MenuStore {
     removeFood(id:string) {
         this.editFood(id, undefined)
     }
+
+    //категории
+    addSection(newSection:I.Section) {
+        let copy = JSON.parse(JSON.stringify(this.section));
+        copy.push(newSection)
+        this.section = copy
+    }
+    
+    editSection(id:string, editedSection:I.Section|undefined) {
+        let copy = JSON.parse(JSON.stringify(this.section))
+
+        copy.forEach((element: { id: string; }, num: any) => {
+            if (element.id === id) {
+                if (editedSection === undefined)
+                    copy.splice(num, 1)
+                else
+                    copy.splice(num, 1, editedSection)
+            }
+        })
+        this.section = copy
+    }
+
+    removeSection(id:string) {
+        this.editSection(id, undefined)
+    }
+
+
 }
 
 const menuStore = new MenuStore()

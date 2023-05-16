@@ -6,3 +6,5 @@ export const statusClasses:GenericObject = {
   '2':'ready',
   '4':'error',
 }
+
+export const ORDER_RECIEVE_TIMEOUT = 10000;

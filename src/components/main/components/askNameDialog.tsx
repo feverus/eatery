@@ -1,10 +1,16 @@
-import { Button, Card, Elevation, Icon, InputGroup } from "@blueprintjs/core"
+import { Button, Card, Elevation, InputGroup } from "@blueprintjs/core"
 import { useState } from 'react'
-import C from './main.module.scss'
+import C from '../main.module.scss'
 import { cleanInput } from "~Api/functions"
 
+
 export function AskNameDialog(props:{go: (name:string)=>void}) {
-    const [name, setName] = useState('')
+	const [name, setName] = useState('')
+
+	const checkNameAndGo = (name:string) => {
+		if (name === '') setName('Гость')
+		props.go(name)
+	}
 
 	return (
 		<div className={C.shell}>
@@ -19,7 +25,7 @@ export function AskNameDialog(props:{go: (name:string)=>void}) {
                     value = {name}
 				/>				
 				<Button
-					onClick={event => props.go(name)}
+					onClick={event => checkNameAndGo(name)}
 					intent={'success'}
 				>
 					Поехали!

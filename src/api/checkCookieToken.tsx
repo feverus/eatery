@@ -1,11 +1,16 @@
+import setStore from "~Store/setStore"
+
 export const checkCookieToken = () => {
-	let answer = '', cookie;
+	if (setStore.token!=='')
+		return setStore.token
+
+	let answer = '', cookie
 	if (document.cookie.length > 0) {
 		let cookies = document.cookie.split(';');
 		for (let i = 0, len = cookies.length; i < len; i++) {
-			cookie = cookies[i].split('=');
+			cookie = cookies[i].split('=')
 			if (cookie[0].trim() === 'token')
-				answer = cookie[1].trim();
+				answer = cookie[1].trim()
 		}
 	}
 	

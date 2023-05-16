@@ -1,6 +1,6 @@
 import ky from './_ky';
 
-import * as I from '../store/storeInterfaces';
+import * as I from '~Store/storeInterfaces';
 import urlApi  from './urlApi';
 
 export const getFoodApi = async (): Promise<Array<I.Food>|string> => {

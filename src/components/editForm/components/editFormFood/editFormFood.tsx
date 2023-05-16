@@ -4,10 +4,11 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import C from './editFormFood.module.scss'
 import useEditFormFood from './editFormFood.service'
-import ImageUploader from "~Components/imageUploader";
+import ImageUploader from "~/components/editForm/components/imageUploader";
+import * as I from '~Store/storeInterfaces'
 
 export function EditFormFood() {    
-    const [state, api] = useEditFormFood(editFormStore.formData)
+    const [state, api] = useEditFormFood(editFormStore.formData as I.Food)
 
     return (
         <Overlay

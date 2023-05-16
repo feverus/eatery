@@ -2,10 +2,10 @@
 
 .card {
     position: absolute;
-    top: 50%;
+    top: 10px;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 95%;
+    transform: translate(-50%, 0);
+    width: min(calc(100% - 20px), 1000px);
     min-height: 95%;
     .editorMain {
         min-height: 200px;

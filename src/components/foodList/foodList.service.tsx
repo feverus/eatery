@@ -47,8 +47,8 @@ const useFoodList:UseFoodList = () => {
         }
     }, [menuStore.food, menuStore.tag, menuStore.section])
     
-    const openEditForm = () => {
-        editFormStore.openForm('food', undefined)
+    const openEditForm = (formType: string) => {
+        editFormStore.openForm(formType, undefined)
     }
     
     //хук возвращает отфильтрованное меню

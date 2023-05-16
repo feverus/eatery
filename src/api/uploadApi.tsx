@@ -1,5 +1,5 @@
 import ky from './_ky'
-import * as I from '../store/storeInterfaces'
+import * as I from '~Store/storeInterfaces'
 import urlApi  from './urlApi'
 import { ImageListType } from 'react-images-uploading'
 import { converterDataURItoBlob } from './converterDataURItoBlob'
@@ -8,6 +8,38 @@ export async function uploadFoodApi (data:any, id: string): Promise<I.Food|strin
 	const url = (id==="")?
 		urlApi + "food":
 		urlApi + "food/" +id
+
+	try {	
+		let answer:any
+		if (id==="") answer = await ky.post(url, { json: {...data, id: ""} });
+		else answer = await ky.put(url, { json: {...data, id: ""}, method:"PUT"})
+		const json = await answer.json()
+		return json
+	} catch (error) {
+		return (error as Error).message
+	}
+}
+
+export async function uploadSectionApi (data:any, id: string): Promise<I.Section|string> {
+	const url = (id==="")?
+		urlApi + "section":
+		urlApi + "section/" +id
+
+	try {	
+		let answer:any
+		if (id==="") answer = await ky.post(url, { json: {...data, id: ""} });
+		else answer = await ky.put(url, { json: {...data, id: ""}, method:"PUT"})
+		const json = await answer.json()
+		return json
+	} catch (error) {
+		return (error as Error).message
+	}
+}
+
+export async function uploadTagApi (data:any, id: string): Promise<I.Tag|string> {
+	const url = (id==="")?
+		urlApi + "tag":
+		urlApi + "tag/" +id
 
 	try {	
 		let answer:any

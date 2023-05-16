@@ -1,0 +1,32 @@
+@import '~/global.modules.scss';
+
+.outCard {
+  display: flex;
+  justify-content: center;
+  .card {
+    position: absolute;
+    top: 10px;
+    //left: 50%;
+    //transform: translate(-50%, 0);
+    width: min(calc(100% - 20px), 1000px);
+
+    .item {
+      border: 1px #c3c3c3 solid;
+      padding: 10px;
+      margin: 5px 0;
+      background-color: #e3e3e3;
+
+      .inputGroup {
+        width: calc(100% - 60px);
+
+        input {
+          width: calc(100% - 60px);
+        }
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}

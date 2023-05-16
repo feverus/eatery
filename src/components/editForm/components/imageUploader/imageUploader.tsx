@@ -1,17 +1,18 @@
 import editFormStore from "~Store/editFormStore"
-import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup, Icon } from "@blueprintjs/core"
-
+import * as I from '~Store/storeInterfaces'
+import { Button, Icon } from "@blueprintjs/core"
 import ImageUploading from "react-images-uploading"
 import C from './imageUploader.module.scss'
 import useImageUploader from './imageUploader.service'
 
 export function ImageUploader() {
 	const [state, api] = useImageUploader()
+	const fd = (editFormStore.formData as I.Food)
 
 	return (
 	  <div className={C.allImages}>
 		<div className={C.partImages}>
-			{editFormStore.formData?.images && editFormStore.formData.images.map((src, index) => (
+			{fd.images && fd.images.map((src, index) => (
 				<div key={index} className={C.item}>
 					<img src={src} alt="" key={index} />
 					<div className={C.buttons}>

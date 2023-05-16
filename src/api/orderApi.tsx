@@ -1,5 +1,5 @@
 import ky from './_ky'
-import * as I from '../store/storeInterfaces'
+import * as I from '~Store/storeInterfaces'
 import urlApi  from './urlApi'
 
 /** конвертирует несколько массивов с данными (id товаров, стоимость, статусы) в один массив объектов */

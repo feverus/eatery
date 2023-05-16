@@ -3,6 +3,7 @@ import { setCookie } from 'react-use-cookie'
 import * as I from '~Store/storeInterfaces'
 import setStore from '~Store/setStore'
 import menuStore from '~Store/menuStore'
+import { ORDER_RECIEVE_TIMEOUT } from '~Store/consts'
 import useToast from '~Components/toast'
 import FoodList, { FoodDetail } from "~Components/foodList"
 import BasketList from '~Components/basketList'
@@ -202,7 +203,7 @@ const useMain:UseMain = (page) => {
 					.catch(error => {  
 						console.log(error)
 					})
-				}, 1000)
+				}, ORDER_RECIEVE_TIMEOUT)
 			}
 			return(
 				() => clearInterval(timerUpdateOrder)

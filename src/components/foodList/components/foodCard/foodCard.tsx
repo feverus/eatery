@@ -1,9 +1,8 @@
 import * as I from '~Store/storeInterfaces'
 import setStore from '~Store/setStore'
 import {useFoodCard} from './foodCard.service'
-import { Intent, Button, Card, Elevation, Divider, ControlGroup, ButtonGroup } from "@blueprintjs/core";
+import { Intent, Button, Card, Elevation, ControlGroup, ButtonGroup } from "@blueprintjs/core";
 import C from './foodCard.module.scss'
-import Slider from '~Components/slider'
 import {Link} from 'react-router-dom'
 
 export function FoodCard(item:I.Food) {

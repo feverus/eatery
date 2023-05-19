@@ -1,12 +1,12 @@
 import editFormStore from "~Store/editFormStore"
-import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup } from "@blueprintjs/core";
+import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup } from "@blueprintjs/core"
 import C from './editFormSection.module.scss'
 import useDragable from "./editFormSection.dragable"
 import useEditFormSection from './editFormSection.service'
 import { SectionItemEditorListType } from "./editFormSection.props"
 import React from "react"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { SectionItemEditor } from './SectionItemEditor';
+import { SectionItemEditor } from './SectionItemEditor'
 
 const SectionItemEditorList = React.memo(
   function SectionItemEditorList({ sections, api }:SectionItemEditorListType) {
@@ -49,8 +49,9 @@ export function EditFormSection() {
 			>
 			<Card className={C.card}>
 				<h3>Список категорий</h3>
+        <p>Перетаскивайте блоки для изменения порядка отображения категорий в меню.</p>
 
-        <DragDropContext onDragEnd={() => dragApi.onDragEnd}>
+        <DragDropContext onDragEnd={dragApi.onDragEnd}>
           <Droppable droppableId="list">
             {provided => (
               <div ref={provided.innerRef} {...provided.droppableProps}>

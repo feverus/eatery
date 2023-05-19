@@ -37,6 +37,7 @@ export function SectionItemEditor({ id = '', api }: SectionItemEditorType) {
       <InputGroup
         className={C.inputGroup}
         value={value}
+        placeholder={'Введите имя новой категории'}
         onChange={e => setValue(e.target.value)} />
       <Button
         icon="cloud-upload"

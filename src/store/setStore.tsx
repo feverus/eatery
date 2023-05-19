@@ -6,6 +6,7 @@ export class SetStore {
     role:string = ''
     name:string = ''
     token:string = ''
+    disabledInteractions: boolean = false
     order:I.OrderDataItem[] = []
 
     constructor() {
@@ -49,6 +50,10 @@ export class SetStore {
     }
     setToken(newToken:string) {
         this.token = newToken
+    }
+    setDisabledInteractions(mode:boolean) {
+        console.log('setDisabledInteractions', mode)
+        this.disabledInteractions = mode
     }
     setOrder(newOrder:I.OrderDataItem[]) {
         this.order = newOrder

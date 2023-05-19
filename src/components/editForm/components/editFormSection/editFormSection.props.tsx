@@ -1,4 +1,5 @@
 import * as I from '~Store/storeInterfaces'
+import { DropResult } from "react-beautiful-dnd"
 
 export type UseEditFormSectionApi = {
   handleDelete: (id: string) => void,
@@ -13,7 +14,7 @@ export type UseDragable = () => [
   },
   dragApi: {
     setState: (newState:I.Section[]) => void;
-    onDragEnd: (result: { destination: { index: any; }; source: { index: any; }; }) => void;
+    onDragEnd: (result: DropResult ) => void;
   }
 ]
 

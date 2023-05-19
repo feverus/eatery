@@ -21,6 +21,7 @@ const useLogin:UseLogin = () => {
                 showToast('Неверные данные для входа')
             else {
                 setStore.setRole((result as I.AuthData).role)
+                setStore.setName((result as I.AuthData).role)
                 setCookie('token', (result as I.AuthData).token)
                 navigate('/') 
             }           

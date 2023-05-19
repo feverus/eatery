@@ -1,4 +1,4 @@
-import {observer, inject} from "mobx-react"
+import {observer} from "mobx-react"
 import {TopNavigation} from './topNavigation'
 
 export default

@@ -10,11 +10,13 @@ export class MenuStore {
         makeAutoObservable(this, {
             tag: observable,
             food: observable,
-            section: observable,
             addFood: action,
             editFood: action,
             removeFood: action,
         })
+        this.section = observable.array(
+            this.section, {deep:true}
+        )
     }
     
     //загрузка полных баз
@@ -23,7 +25,7 @@ export class MenuStore {
     }    
     loadSectionBase(newSectionBase:Array<I.Section>) {
         if (newSectionBase.length > 0)
-            this.section = newSectionBase.sort((a,b) => a.position - b.position)
+            this.section = JSON.parse(JSON.stringify(newSectionBase.sort((a,b) => a.position - b.position)))
     }
     loadTagBase(newTagBase:Array<I.Tag>) {
         if (newTagBase.length > 0) this.tag = newTagBase

@@ -3,6 +3,7 @@ import * as I from '~Store/storeInterfaces'
 import urlApi  from './urlApi'
 import { ImageListType } from 'react-images-uploading'
 import { converterDataURItoBlob } from './converterDataURItoBlob'
+import setStore from "~Store/setStore"
 
 export async function uploadFoodApi (data:any, id: string): Promise<I.Food|string> {
 	const url = (id==="")?
@@ -34,6 +35,21 @@ export async function uploadSectionApi (data:any, id: string): Promise<I.Section
 	} catch (error) {
 		return (error as Error).message
 	}
+}
+
+export function uploadAllSectionApi (sections: I.Section[]): string {
+	let result = 'Success'
+	setStore.setDisabledInteractions(true)
+
+	Promise.all(sections.map(item => uploadSectionApi(item, item.id)))
+	.then(() => {
+		setStore.setDisabledInteractions(false)
+	})
+	.catch((error) => {
+		setStore.setDisabledInteractions(false)
+		result = error.message
+	})
+	return result
 }
 
 export async function uploadTagApi (data:any, id: string): Promise<I.Tag|string> {

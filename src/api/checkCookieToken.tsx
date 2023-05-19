@@ -13,8 +13,6 @@ export const checkCookieToken = () => {
 				answer = cookie[1].trim()
 		}
 	}
-	
-	console.log('cookie token: ' + answer)
 
 	return answer
 }

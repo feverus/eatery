@@ -172,7 +172,10 @@ const useMain:UseMain = (page) => {
 		menuStore.loadTagBase(tag)
 		menuStore.loadSectionBase(section)
 
-		if (resultMessage !== '') showToast(resultMessage)           
+		if (resultMessage !== '') {
+			showToast(resultMessage)
+			setStore.setDisabledInteractions(false)
+		}          
 	}
 
   useEffect(() => {

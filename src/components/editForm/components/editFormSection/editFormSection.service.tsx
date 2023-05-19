@@ -1,9 +1,7 @@
-import { useState } from "react"
 import * as I from '~Store/storeInterfaces'
 import menuStore from '~Store/menuStore'
-import editFormStore from "~Store/editFormStore"
 import { deleteApi } from "~Api/deleteApi"
-import { uploadSectionApi } from "~Api/uploadApi"
+import { uploadAllFoodApi, uploadSectionApi } from "~Api/uploadApi"
 import useToast from '~Components/toast'
 import { UseEditFormSection } from "./editFormSection.props"
 
@@ -28,7 +26,19 @@ const useEditFormSection:UseEditFormSection = () => {
     }
 
     const handleDelete = (id: string) => {
+        let newFood: I.Food[] = [], changedIds: string[] = []  
+
+        menuStore.food.forEach(item => {
+            console.log(item.section, id)
+            if (item.section === id) {
+                newFood.push({...item, section: '', version: item.version + 1})
+                changedIds.push(item.id)
+            }
+        })
+
         deleteApi(id, 'section')
+        uploadAllFoodApi(newFood, changedIds)
+        
         menuStore.removeSection(id)
     }
 

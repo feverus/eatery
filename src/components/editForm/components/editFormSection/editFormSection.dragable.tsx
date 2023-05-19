@@ -8,14 +8,18 @@ import { UseDragable } from "./editFormSection.props"
 
 /** меняет местами два элемента и обновляет версии */
 const reorder = (list: I.Section[], startIndex: number, endIndex: number) => {
+  const changedIds: string[] = []
+
   if (startIndex > endIndex) {
     list[startIndex].position = list[endIndex].position
     for (let index = endIndex; index < startIndex; index++) {
+      changedIds.push(list[index].id)
       list[index].position = list[index].position + 1      
     }
   } else {    
     list[startIndex].position = list[endIndex].position + 1
     for (let index = startIndex; index <= endIndex; index++) {
+      changedIds.push(list[index].id)
       list[index].position = list[index].position - 1     
     }  
   }
@@ -24,7 +28,7 @@ const reorder = (list: I.Section[], startIndex: number, endIndex: number) => {
     item.version = item.version + 1
   })
 
-  return list
+  return {list, changedIds}
 }
 
 const useDragable:UseDragable = () => {
@@ -41,8 +45,8 @@ const useDragable:UseDragable = () => {
         result.destination.index
       )
             
-      showToast(uploadAllSectionApi(sections))
-      menuStore.loadSectionBase(sections)
+      showToast(uploadAllSectionApi(sections.list, sections.changedIds))
+      menuStore.loadSectionBase(sections.list)
     }
 
     useEffect(() => {

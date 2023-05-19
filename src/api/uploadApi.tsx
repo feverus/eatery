@@ -21,6 +21,19 @@ export async function uploadFoodApi (data:any, id: string): Promise<I.Food|strin
 	}
 }
 
+export function uploadAllFoodApi (foods: I.Food[], ids:string[]): string {
+	let result = 'Success'
+	setStore.setDisabledInteractions(true)
+
+	Promise.all(foods.map(item => ids.includes(item.id) && uploadFoodApi(item, item.id)))
+	.then()
+	.catch((error) => {
+		result = error.message
+	})
+	.finally(() => setStore.setDisabledInteractions(false))
+	return result
+}
+
 export async function uploadSectionApi (data:any, id: string): Promise<I.Section|string> {
 	const url = (id==="")?
 		urlApi + "section":
@@ -37,18 +50,16 @@ export async function uploadSectionApi (data:any, id: string): Promise<I.Section
 	}
 }
 
-export function uploadAllSectionApi (sections: I.Section[]): string {
+export function uploadAllSectionApi (sections: I.Section[], ids:string[]): string {
 	let result = 'Success'
 	setStore.setDisabledInteractions(true)
 
-	Promise.all(sections.map(item => uploadSectionApi(item, item.id)))
-	.then(() => {
-		setStore.setDisabledInteractions(false)
-	})
+	Promise.all(sections.map(item => ids.includes(item.id) && uploadSectionApi(item, item.id)))
+	.then()
 	.catch((error) => {
-		setStore.setDisabledInteractions(false)
 		result = error.message
 	})
+	.finally(() => setStore.setDisabledInteractions(false))
 	return result
 }
 

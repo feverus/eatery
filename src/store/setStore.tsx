@@ -6,7 +6,7 @@ export class SetStore {
     role:string = ''
     name:string = ''
     token:string = ''
-    disabledInteractions: boolean = false
+    disabledInteractions: boolean = true
     order:I.OrderDataItem[] = []
 
     constructor() {

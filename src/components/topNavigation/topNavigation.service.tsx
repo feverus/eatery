@@ -18,6 +18,20 @@ const useTopNavigation:UseTopNavigation = () => {
   const [loginButtonText, setLoginButtonText] = useState('Войти')
 
   useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 800) {
+        setStore.setMobileView(false)
+      } else {
+        setStore.setMobileView(true)
+      }       
+    }
+  
+    onResize()
+    window.addEventListener("resize", onResize)
+    return () => window.removeEventListener("resize", onResize)
+  }, [])
+
+  useEffect(() => {
     if (dbStateBasket.basket !== undefined) {
       setBasketStatus((dbStateBasket.count === 0)?
         defaultStatus.basket

@@ -11,7 +11,7 @@ export function Slider(props:SliderProps) {
   const slideArray = (props.images.length>0)?
     props.images.map((src, id) => 
       <SwiperSlide
-          key={id}
+          key={'slide_' + src}
           className={C.swiperSlide}
       >
           <img src={src} />

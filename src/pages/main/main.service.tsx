@@ -164,18 +164,19 @@ const useMain:UseMain = (page) => {
 
 		if ((needGetFromApi.length > 0) && (resultMessage === '')) resultMessage = 'Базы обновлены'
 
+		if (resultMessage !== '') {
+			showToast(resultMessage)
+		}     
+		
 		dbApiMenu.putItems('food', food)
 		dbApiMenu.putItems('tag', tag)
 		dbApiMenu.putItems('section', section)
-
+		
 		menuStore.loadFoodBase(food)
 		menuStore.loadTagBase(tag)
 		menuStore.loadSectionBase(section)
-
-		if (resultMessage !== '') {
-			showToast(resultMessage)
-			setStore.setDisabledInteractions(false)
-		}          
+		
+		setStore.setDisabledInteractions(false)
 	}
 
   useEffect(() => {

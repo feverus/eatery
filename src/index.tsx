@@ -2,12 +2,12 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'mobx-react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Main from './components/main/'
-import Login from './components/login/'
+import Main from '~Pages/main/'
+import Login from '~Pages/login/'
 
-import menuStore from './store/menuStore'
-import setStore from "./store/setStore";
-import editFormStore from "./store/editFormStore";
+import setStore from "~Store/setStore";
+import menuStore from '~Store/menuStore'
+import editFormStore from "~Store/editFormStore";
 
 import './index.module.scss'
 import "normalize.css";
@@ -32,13 +32,13 @@ const router = createBrowserRouter([
       element: <Main page='basket' />,
     },
     {
-      path: "login",
-      element: <Login />,
-    },
-    {
       path: "food/:id",
       element: <Main page='foodDetail' />,
-      loader: ({params}) => {return params.id || 'error404'},
+      loader: ({params}) => {return params.id ?? 'error404'},
+    },
+    {
+      path: "login",
+      element: <Login />,
     },
   ],
     {

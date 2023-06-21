@@ -31,6 +31,7 @@ export const useFoodCard:UseFoodCard = (id:string) => {
     }
 
     const openEditForm = () => {
+        console.log('openEditForm')
         editFormStore.openForm('food', menuStore.food.find(item => item.id ===id))
     }
 

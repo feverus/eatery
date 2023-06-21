@@ -8,18 +8,21 @@ export class SetStore {
     token:string = ''
     disabledInteractions: boolean = true
     order:I.OrderDataItem[] = []
+    mobileView: boolean = false
 
     constructor() {
         makeAutoObservable(this, {
             page: observable,
             role: observable,
             token: observable,
+            mobileView: observable,
             orderTotal: computed,
             orderStatus: computed,
             setRole: action,
             setPage: action,
             setToken: action,
             setOrder: action,
+            setMobileView: action,
         })
         this.order = observable.array(
             this.order, {deep:true}
@@ -31,7 +34,6 @@ export class SetStore {
     }
 
     get orderStatus() {
-        let status = 0
         if (this.order.length === 0) return 0
         if (this.order.every((food) => food.status === 0)) return 0
         if (this.order.every((food) => food.status === 2)) return 2
@@ -52,11 +54,13 @@ export class SetStore {
         this.token = newToken
     }
     setDisabledInteractions(mode:boolean) {
-        console.log('setDisabledInteractions', mode)
         this.disabledInteractions = mode
     }
     setOrder(newOrder:I.OrderDataItem[]) {
         this.order = newOrder
+    }
+    setMobileView(newView:boolean) {
+        this.mobileView = newView
     }
 }
 

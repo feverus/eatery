@@ -10,6 +10,7 @@ export interface Food extends ItemWithId {
     section: string;
     price: number;
     images: Array<string>;
+    tags: Array<string>;
     info: string;
 }
 export interface Section extends ItemWithId {

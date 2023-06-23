@@ -27,16 +27,18 @@ const useEditFormSection:UseEditFormTag = () => {
 	const add = (names: string[]) => {
 		let itemsToAdd:I.Tag[] = []
 
+		//не добавляем уже существующий тэг
 		names = names.filter(name => data.find(item => item.name===name) === undefined)
-		const promiseArray = names.map(name => 
+		const namesToApprove = names.map(name => 
 			handleApprove({id: '', name: name, version: 0})
 		)
 
-		Promise.all(promiseArray)
-		.then(values => values.map(
+		Promise.all(namesToApprove)
+		.then(values => values.forEach(
 			value => {if (value.id !== '') itemsToAdd.push(value)}
 		))
 		.then(res => setData([...data.slice(), ...itemsToAdd]))		
+		.catch(error => console.log(error))
 	}
 
 	const remove = (name: string) => {		
@@ -60,6 +62,7 @@ const useEditFormSection:UseEditFormTag = () => {
 			.then(res=> {
 				setData([...data.filter(item => item.id !== findedOld.id), newItem])
 			})
+			.catch(error => console.log(error))
 		}
 	}
 
@@ -80,6 +83,7 @@ const useEditFormSection:UseEditFormTag = () => {
 				showToast(result);
 			}
 		})
+		.catch(error => console.log(error))
 
 		return answer
 	}

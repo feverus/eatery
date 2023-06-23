@@ -10,7 +10,7 @@ import { deleteImagesApi } from "~Api/deleteApi"
 import { uploadFoodApi, uploadImageApi } from "~Api/uploadApi"
 import useToast from '~Components/toast'
 import C from './editFormFood.module.scss'
-import { SectionSelectItem, UseEditFormFood } from "./editFormFood.props"
+import { SectionSelectItem, TagSelectItem, UseEditFormFood } from "./editFormFood.props"
 
 const editorToolbarProps = {
 	inline: {
@@ -43,6 +43,7 @@ const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 	let [editorState, setEditorState] = useState<EditorState>(EditorState.createWithContent(ContentState.createFromBlockArray(htmlToDraft(data.info).contentBlocks)))
 
 	const [sections, setSections] = useState<SectionSelectItem[]>([])
+	const [tags, setTags] = useState<TagSelectItem[]>([])
 
 	useEffect(() => {        
 		setSections(menuStore.section.map((item, index) => ({
@@ -51,6 +52,14 @@ const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 			rank: index + 1
 		})))    
 	}, [menuStore.section])	
+
+	useEffect(() => {        
+		setTags(menuStore.tag.map((item, index) => ({
+			title: item.name,
+			id: item.id,
+			rank: index + 1
+		})))    
+	}, [menuStore.tag])	
 
 	const handleInputChange = (field: string, value: string) => {
 		switch (field) {
@@ -61,6 +70,14 @@ const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 				editFormStore.setData({...state.data, price:Number(value)}); break;        
 			case 'section':
 				editFormStore.setData({...state.data, section:value}); break;        
+			case 'tag':
+				const finded = state.data.tags.find(id => id === value)
+				const newTags = (finded === undefined) ?
+					[...state.data.tags, value]
+					:
+					state.data.tags.filter(t => t !== value)
+				editFormStore.setData({...state.data, tags:newTags})
+				break;        
 			default: break;
 		}
 	}
@@ -107,7 +124,6 @@ const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 
 		await uploadFoodApi(editFormStore.formData, id)
 		.then(result => {
-			console.log(result)
 			if (typeof result!=='string') {    
 				editFormStore.setData({...result, 'version': fd.version + 1})
 				if (newId) menuStore.addFood(result)
@@ -126,6 +142,7 @@ const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 		editorState,
 		data,
 		sections,
+		tags: tags.slice().sort((a,b) => a.title.localeCompare(b.title)),
 	}
 
 	const api = {

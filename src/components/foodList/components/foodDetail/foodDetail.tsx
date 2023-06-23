@@ -1,12 +1,12 @@
-import { Intent, Button, Card, Elevation, Divider, ControlGroup, ButtonGroup } from "@blueprintjs/core";
+import { Intent, Button, Card, Elevation, Divider, ControlGroup, ButtonGroup, TagInput } from "@blueprintjs/core";
 import C from './foodDetail.module.scss'
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom'
 import * as I from '~Store/storeInterfaces'
 import setStore from '~Store/setStore'
-import menuStore from "~/store/menuStore";
+import menuStore from "~Store/menuStore"
 import Slider from '~Components/slider'
-import {useFoodCard} from '~Components/foodList'
 import EditForm from '~Components/editForm'
+import {useFoodCard} from '~Components/foodList'
 
 type P = {
 	item:I.Food
@@ -26,9 +26,24 @@ export function ShowDetail({item}: P) {
 					<h5>{item.id} - {item.name}</h5>
 					<span>{item.price} руб.</span>
 				</div>
+
 				<Divider />
+
 				<Slider images={item.images} />
+
 				<div dangerouslySetInnerHTML={{__html: item.info}} />
+
+				<TagInput
+					fill={true}
+					addOnBlur={true}
+					addOnPaste={true}
+					className={C.tagInput}
+					leftIcon={"tag"}
+					placeholder="Пустой список тэгов"
+					values={item.tags.map(id => menuStore.tag.find(tag => tag.id === id)?.name)}
+					disabled
+        />
+
 				<Divider />
 				<ControlGroup fill={false} vertical={false} className={C.footerButtons}>
 

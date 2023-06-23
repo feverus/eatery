@@ -5,13 +5,31 @@ export interface SectionSelectItem {
     id: string;
     rank: number;
 } 
+export interface TagSelectItem {
+    title: string;
+    id: string;
+    rank: number;
+} 
+
+export interface CategorySelectProps {
+    items: SectionSelectItem[];
+    selectedId: string;
+    onSelect: (field: string, value: string) => void;
+}
+export interface TagSelectProps {
+    items: SectionSelectItem[];
+    selectedIds: string[];
+    onSelect: (field: string, value: string) => void;
+}
+
 
 export type UseEditFormFood = (data:I.Food) => [
     state: {
         editorToolbarProps: Object;
-        editorState:EditorState;
-        data:I.Food;
-        sections:SectionSelectItem[];
+        editorState: EditorState;
+        data: I.Food;
+        sections: SectionSelectItem[];
+        tags: TagSelectItem[];
     },
     api: {
         handleInputChange: (field: string, value: string) => void;
@@ -19,9 +37,3 @@ export type UseEditFormFood = (data:I.Food) => [
         handleApprove: I.ControlCallback;  
     }
 ];
-
-export interface CategorySelectProps {
-    items: SectionSelectItem[];
-    selectedId: string;
-    onSelect: (field: string, value: string) => void;
-}

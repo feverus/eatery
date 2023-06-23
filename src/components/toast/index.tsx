@@ -1,5 +1,5 @@
 import {Position, Toaster, Intent } from "@blueprintjs/core";
-import { BlueprintIcons_16Id } from '@blueprintjs/icons/lib/esm/generated-icons/16px/blueprint-icons-16';
+import { BlueprintIcons_16Id } from '@blueprintjs/icons/lib/esm/generated/16px/blueprint-icons-16';
 
 /** Singleton toaster instance. Create separate instances for different options. */
 export const AppToaster = Toaster.create({   

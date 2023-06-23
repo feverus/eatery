@@ -1,5 +1,5 @@
 import { MaybeElement } from "@blueprintjs/core"
-import { BlueprintIcons_16Id } from "@blueprintjs/icons/lib/esm/generated-icons/16px/blueprint-icons-16"
+import { BlueprintIcons_16Id } from "@blueprintjs/icons/lib/esm/generated/16px/blueprint-icons-16"
 
 export type StateType = {
     orderWidget: JSX.Element,

@@ -1,65 +1,13 @@
 import * as I from '~Store/storeInterfaces'
 import editFormStore from "~Store/editFormStore"
 import ImageUploader from "~Components/editForm/components/imageUploader"
-import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup, MenuItem } from "@blueprintjs/core"
-import { ItemRenderer, Select2 } from "@blueprintjs/select"
+import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup } from "@blueprintjs/core"
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import C from './editFormFood.module.scss'
 import useEditFormFood from './editFormFood.service'
-import { SectionSelectItem, CategorySelectProps } from './editFormFood.props' 
-import { useEffect, useState } from 'react'
-
-const renderSections: ItemRenderer<SectionSelectItem> = (item, { handleClick, handleFocus, modifiers, query }) => {
-	return (
-		<MenuItem
-			active={modifiers.active}
-			disabled={modifiers.disabled}
-			key={item.rank}
-			//label={item.title}
-			onClick={handleClick}
-			onFocus={handleFocus}
-			roleStructure="listoption"
-			text={item.title}
-		/>
-	)
-}
-
-const CategorySelect = (props: CategorySelectProps) => {
-	const {items, selectedId, onSelect} = props
-	const [selected, setSelected] = useState<SectionSelectItem | undefined>()
-
-	useEffect(() => {
-		if (items.length > 0) 
-			if (selectedId==='') setSelected(items[0])
-			else {
-				setSelected(items.find(item => item.id === selectedId))
-				onSelect('section', selectedId)
-			}
-	}, [items])	
-
-	return (
-		<Select2<SectionSelectItem>
-			items={items}
-			activeItem={selected}
-			fill={true}
-			filterable={false}
-			itemRenderer={renderSections}
-			noResults={<MenuItem disabled={true} text="No results." roleStructure="listoption" />}
-			onItemSelect={setSelected}
-			onActiveItemChange={(item) => onSelect('section', item?.id ?? '')}
-			popoverProps={{matchTargetWidth:true}}
-			className={C.select}
-		>
-			<Button
-				text={selected?.title}
-				rightIcon="double-caret-vertical"
-				placeholder="Выбрать категорию" 
-				className={C.button}
-			/>
-		</Select2>
-	)
-}
+import { CategorySelect } from './components/CategorySelect'
+import { TagSelect } from './components/TagSelect'
 
 export function EditFormFood() {    
 	const [state, api] = useEditFormFood(editFormStore.formData as I.Food)
@@ -104,6 +52,13 @@ export function EditFormFood() {
 					onEditorStateChange={(value) => api.handleEditorChange(value)}
 					toolbar={state.editorToolbarProps}
 					/>
+
+				<h3>Тэги</h3>
+				<TagSelect
+					items={state.tags}
+					selectedIds={state.data.tags}
+					onSelect={api.handleInputChange}
+				/>
 
 				<Divider />
 

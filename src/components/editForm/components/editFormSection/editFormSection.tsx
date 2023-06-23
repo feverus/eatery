@@ -46,7 +46,7 @@ export function EditFormSection() {
 			isOpen={true}
 			className={Classes.OVERLAY_SCROLL_CONTAINER + ' ' + C.outCard}
 			onClose={()=>editFormStore.closeForm()}
-			>
+		>
 			<Card className={C.card}>
 				<h3>Список категорий</h3>
         <p>Перетаскивайте блоки для изменения порядка отображения категорий в меню.</p>

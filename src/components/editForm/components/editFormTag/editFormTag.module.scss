@@ -1,19 +1,21 @@
 @import '~/global.modules.scss';
 
-.card {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: min(calc(100% - 20px), 1000px);
-    .editorMain {
-        min-height: 200px;
-        border: 1px #c3c3c3 solid;
-        padding: 5px;
-        background-color: #e3e3e3;
-    }
-    .editButton {
-        cursor: text;
+.outCard {
+    display: flex;
+    justify-content: center;
+    .card {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: min(calc(100% - 20px), 1000px);
+        .tagInput {
+            margin: 20px 0;
+            padding: 10px;
+            .editButton {
+                cursor: text;
+            }
+        }
     }
 }
 .hidden {
@@ -25,7 +27,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #0009;
+    background-color: #0006;
+    backdrop-filter: blur(3px);
     >*{
         margin-right: 20px;
     }

@@ -27,17 +27,19 @@ const useEditFormSection:UseEditFormTag = () => {
 	const add = (names: string[]) => {
 		let itemsToAdd:I.Tag[] = []
 
-		names.forEach(name => {
-			if (data.find(item => item.name===name) === undefined) 
+		names = names.filter(name => data.find(item => item.name===name) === undefined)
+		const promiseArray = names.map(name => 
 			handleApprove({id: '', name: name, version: 0})
-			.then(res => {if (res.id !== '') itemsToAdd.push(res)})
-		})
+		)
 
-		setData([...data, ...itemsToAdd])
+		Promise.all(promiseArray)
+		.then(values => values.map(
+			value => {if (value.id !== '') itemsToAdd.push(value)}
+		))
+		.then(res => setData([...data.slice(), ...itemsToAdd]))		
 	}
 
 	const remove = (name: string) => {		
-
 		const finded = data.find(item => item.name===name)
 
 		if (finded !== undefined) {

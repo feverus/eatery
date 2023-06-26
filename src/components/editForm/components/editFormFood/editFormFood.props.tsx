@@ -22,14 +22,11 @@ export interface TagSelectProps {
     onSelect: (field: string, value: string) => void;
 }
 
-
 export type UseEditFormFood = (data:I.Food) => [
     state: {
         editorToolbarProps: Object;
         editorState: EditorState;
         data: I.Food;
-        sections: SectionSelectItem[];
-        tags: TagSelectItem[];
     },
     api: {
         handleInputChange: (field: string, value: string) => void;

@@ -1,5 +1,5 @@
-import {observer} from "mobx-react"
-import {EditFormTag} from './editFormTag'
 
-export default
-	(observer(EditFormTag));
+import EditFormTag from './editFormTag'
+import * as IeditFormTag from './editFormTag.props'
+
+export { EditFormTag, IeditFormTag }

@@ -1,0 +1,22 @@
+@import '~/global.modules.scss';
+
+.filter {
+	//@extend .pageBG;
+	display: flex;    
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	flex: 0 0 100%;
+	padding: 10px;
+	.form {
+		background-color: #fff5;
+	}
+	.group {
+		padding: 10px;
+		display: flex;
+		align-items: flex-start;
+		>* {
+			padding-bottom: 10px;
+		}
+	}
+}

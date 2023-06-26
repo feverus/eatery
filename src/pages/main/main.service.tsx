@@ -44,14 +44,12 @@ const definePage = (page:string):JSX.Element => {
 const useMain:UseMain = (page) => {
 	const [showToast] = useToast()
 	const [dbStateMenu, dbApiMenu] = useDbMenu()
-	const [dbStateBasket, dbApiBasket] = useDbBasket()
 
 	const [showAskNameDialog, setShowAskNameDialog] = useState(false)
   const [cookieToken, setCookieToken] = useState<undefined | string>(undefined)
 
 	const newClient = () => {
 		console.log('new Client')
-		{/*dbApiBasket.clearBasket()*/}
 		setStore.setRole('client')
 		setShowAskNameDialog(true)
 	}

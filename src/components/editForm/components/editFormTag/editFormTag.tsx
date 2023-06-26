@@ -1,3 +1,4 @@
+import {observer} from "mobx-react"
 import editFormStore from "~Store/editFormStore"
 import { Button, Classes, Overlay, Card, ControlGroup, ButtonGroup, TagInput, InputGroup, TagProps, Intent, Callout } from "@blueprintjs/core"
 import C from './editFormTag.module.scss'
@@ -21,7 +22,7 @@ const EditableTag = (props: EditableTagProps) => {
 	)
 }
 
-export function EditFormTag() {    
+function EditFormTag() {    
 	const [state, api] = useEditFormSection()
 
 	return (
@@ -94,3 +95,6 @@ export function EditFormTag() {
 
 	)
 }
+
+export default
+	(observer(EditFormTag));

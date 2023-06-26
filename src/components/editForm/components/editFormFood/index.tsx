@@ -1,5 +1,7 @@
-import {observer} from "mobx-react"
-import {EditFormFood} from './editFormFood'
+import EditFormFood from './editFormFood'
+import * as IeditFormFood from './editFormFood.props'
 
-export default
-	(observer(EditFormFood));
+export { EditFormFood, IeditFormFood }
+export { CategorySelect } from "./CategorySelect"
+export { TagSelect } from "./TagSelect"
+export { useTags, useSections } from "./editFormFood.service"

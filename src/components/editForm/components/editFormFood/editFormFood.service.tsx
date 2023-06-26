@@ -34,16 +34,8 @@ const editorToolbarProps = {
 	image: { className: C.hidden },    
 }
 
-const useEditFormFood:UseEditFormFood = (data:I.Food) => {
-	const [showToast] = useToast()
-	
-	if (data===undefined) data = editFormStore.emptyFood
-
-	//эта жуть конвертирует строку в специальный формат для редактора
-	let [editorState, setEditorState] = useState<EditorState>(EditorState.createWithContent(ContentState.createFromBlockArray(htmlToDraft(data.info).contentBlocks)))
-
+export const useSections = () => {
 	const [sections, setSections] = useState<SectionSelectItem[]>([])
-	const [tags, setTags] = useState<TagSelectItem[]>([])
 
 	useEffect(() => {        
 		setSections(menuStore.section.map((item, index) => ({
@@ -53,13 +45,35 @@ const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 		})))    
 	}, [menuStore.section])	
 
-	useEffect(() => {        
-		setTags(menuStore.tag.map((item, index) => ({
-			title: item.name,
-			id: item.id,
-			rank: index + 1
-		})))    
+	return sections
+}
+
+export const useTags = () => {
+	const [tags, setTags] = useState<TagSelectItem[]>([])
+
+	useEffect(() => {     
+		let newTags = menuStore.tag.map(
+			(item, index) => ({
+				title: item.name,
+				id: item.id,
+				rank: index + 1
+			}))
+		.slice()
+		.sort((a,b) => a.title.localeCompare(b.title)) 
+
+		setTags(newTags)
 	}, [menuStore.tag])	
+
+	return tags
+}
+
+export const useEditFormFood:UseEditFormFood = (data:I.Food) => {
+	const [showToast] = useToast()
+	
+	if (data===undefined) data = editFormStore.emptyFood
+
+	//эта жуть конвертирует строку в специальный формат для редактора
+	let [editorState, setEditorState] = useState<EditorState>(EditorState.createWithContent(ContentState.createFromBlockArray(htmlToDraft(data.info).contentBlocks)))
 
 	const handleInputChange = (field: string, value: string) => {
 		switch (field) {
@@ -141,8 +155,6 @@ const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 		editorToolbarProps,
 		editorState,
 		data,
-		sections,
-		tags: tags.slice().sort((a,b) => a.title.localeCompare(b.title)),
 	}
 
 	const api = {
@@ -155,5 +167,3 @@ const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 		[state,api]
 	)
 }
-
-export default useEditFormFood

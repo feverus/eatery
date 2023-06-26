@@ -1,16 +1,19 @@
+import {observer} from "mobx-react"
 import * as I from '~Store/storeInterfaces'
 import editFormStore from "~Store/editFormStore"
-import ImageUploader from "~Components/editForm/components/imageUploader"
+import {ImageUploader} from "~Components/editForm"
 import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup } from "@blueprintjs/core"
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import C from './editFormFood.module.scss'
-import useEditFormFood from './editFormFood.service'
-import { CategorySelect } from './components/CategorySelect'
-import { TagSelect } from './components/TagSelect'
+import { useEditFormFood, useSections, useTags } from './editFormFood.service'
+import { CategorySelect } from './CategorySelect'
+import { TagSelect } from './TagSelect'
 
 export function EditFormFood() {    
 	const [state, api] = useEditFormFood(editFormStore.formData as I.Food)
+	const sections = useSections()
+	const tags = useTags()
 
 	return (
 		<Overlay
@@ -28,7 +31,7 @@ export function EditFormFood() {
 
 				<h3>Категория</h3>  
 				<CategorySelect
-					items={state.sections}
+					items={sections}
 					selectedId={state.data.section}
 					onSelect={api.handleInputChange}
 				/>
@@ -55,7 +58,7 @@ export function EditFormFood() {
 
 				<h3>Тэги</h3>
 				<TagSelect
-					items={state.tags}
+					items={tags}
 					selectedIds={state.data.tags}
 					onSelect={api.handleInputChange}
 				/>
@@ -78,3 +81,5 @@ export function EditFormFood() {
 		</Overlay>
 	)
 }
+
+export default (observer(EditFormFood))

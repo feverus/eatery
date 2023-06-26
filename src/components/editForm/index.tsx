@@ -1,5 +1,7 @@
-import {observer} from "mobx-react"
-import {EditForm} from './editForm'
+import EditForm from './editForm'
 
-export default
-	(observer(EditForm))
+export { EditForm }
+export { EditFormFood, IeditFormFood, CategorySelect, TagSelect, useTags, useSections } from './components/editFormFood'
+export { EditFormSection, IeditFormSection } from "./components/editFormSection"
+export { EditFormTag, IeditFormTag } from "./components/editFormTag"
+export { ImageUploader, IimageUploader } from "./components/imageUploader"

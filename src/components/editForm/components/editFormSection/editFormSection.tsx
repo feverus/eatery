@@ -7,6 +7,7 @@ import { SectionItemEditorListType } from "./editFormSection.props"
 import React from "react"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { SectionItemEditor } from './SectionItemEditor'
+import {observer} from "mobx-react"
 
 const SectionItemEditorList = React.memo(
   function SectionItemEditorList({ sections, api }:SectionItemEditorListType) {
@@ -37,7 +38,7 @@ const SectionItemEditorList = React.memo(
   }
 )
 
-export function EditFormSection() {    
+function EditFormSection() {    
 	const api = useEditFormSection()
   const [dragState, dragApi] = useDragable()
 
@@ -80,3 +81,6 @@ export function EditFormSection() {
 		</Overlay>
 	)
 }
+
+export default
+	(observer(EditFormSection));

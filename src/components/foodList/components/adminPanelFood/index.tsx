@@ -1,0 +1,1 @@
+export { AdminPanelFood } from "./adminPanelFood"

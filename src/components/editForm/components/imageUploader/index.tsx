@@ -1,5 +1,4 @@
-import {observer} from "mobx-react"
-import {ImageUploader} from './imageUploader'
+import ImageUploader from './imageUploader'
+import * as IimageUploader from './imageUploader.props'
 
-export default
-	(observer(ImageUploader))
+export { ImageUploader, IimageUploader }

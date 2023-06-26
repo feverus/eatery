@@ -1,5 +1,4 @@
-import {observer} from "mobx-react"
-import {EditFormSection} from './editFormSection'
+import EditFormSection from './editFormSection'
+import * as IeditFormSection from './editFormSection.props'
 
-export default
-	(observer(EditFormSection));
+export { EditFormSection, IeditFormSection }

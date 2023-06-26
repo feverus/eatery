@@ -1,36 +1,50 @@
 import setStore from '~Store/setStore'
-import { FoodCard } from './components/foodCard'
-import EditForm from '~Components/editForm'
+import { EditForm } from '~Components/editForm'
 import SectionHeader from '~Components/sectionHeader/'
+import FilterPanel from './components/filterPanel'
+import { FoodCard } from './components/foodCard'
+import { AdminPanelFood } from './components/adminPanelFood'
 import C from './foodList.module.scss'
-import { Alignment, Button, ButtonGroup } from '@blueprintjs/core'
 import useFoodList from './foodList.service'
+import { NonIdealState, NonIdealStateIconSize } from '@blueprintjs/core'
+import { LARGE } from '@blueprintjs/core/lib/esm/common/classes'
 
 export function FoodList() {
 	const [food, api] = useFoodList()
 
+	const showFiltered = food.filteredFood.length > 0 ?
+		food.filteredFood.map((item) => <FoodCard {...item} key={item.id} />)
+		:
+		<NonIdealState
+			icon={'search'}
+			iconSize={NonIdealStateIconSize.STANDARD}
+			title='Поиск не дал результатов'
+			description='Попробуйте задать менее стргие критерии для поиска'
+			className={C.notFound}
+		/>
+
+	const showAll = food.sectionedFood.length > 0 ? 
+		food.sectionedFood.map((item) => (typeof item === 'string') ?
+			<SectionHeader item={item} key={'header_' + item} />
+			:
+			<FoodCard {...item} key={item.id} />)
+		:
+		<NonIdealState
+			icon={'bug'}
+			iconSize={NonIdealStateIconSize.STANDARD}
+			title='Ошибка получения меню'
+			description='Попробуйте открыть страницу в режиме инкогнито или удалить cookies и сохраненные данные'
+			className={C.notFound}
+		/>
+
 	return (
 		<div className={C.list}>
-			{setStore.role=='admin' && 
-				<ButtonGroup alignText={Alignment.CENTER} vertical={setStore.mobileView}>
-					<Button icon="add" onClick={() => api.openEditForm('food')} >
-						Добавить блюдо
-					</Button>
-					<Button icon="edit" onClick={() => api.openEditForm('section')} >
-						Управление категориями
-					</Button>
-					<Button icon="edit" onClick={() => api.openEditForm('tag')} >
-						Управление тэгами
-					</Button>
+			{setStore.role=='admin' &&  AdminPanelFood(api)}
 
-				</ButtonGroup>
-			}
+			<FilterPanel />
 
-			{food.sectionedFood.map((item) => (typeof item === 'string')?
-				<SectionHeader item={item} key={'header_'+item} />
-				:
-				<FoodCard {...item} key={item.id} />)
-			}
+			{setStore.foodFilterActive ? showFiltered : showAll}
+
 			<EditForm />
 		</div>
 	)

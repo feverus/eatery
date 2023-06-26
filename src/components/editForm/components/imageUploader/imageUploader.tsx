@@ -1,3 +1,4 @@
+import {observer} from "mobx-react"
 import editFormStore from "~Store/editFormStore"
 import * as I from '~Store/storeInterfaces'
 import { Button, Icon } from "@blueprintjs/core"
@@ -5,7 +6,7 @@ import ImageUploading from "react-images-uploading"
 import C from './imageUploader.module.scss'
 import useImageUploader from './imageUploader.service'
 
-export function ImageUploader() {
+function ImageUploader() {
 	const [state, api] = useImageUploader()
 	const fd = (editFormStore.formData as I.Food)
 
@@ -71,3 +72,6 @@ export function ImageUploader() {
 	  </div>
 	)
 }
+
+export default
+	(observer(ImageUploader))

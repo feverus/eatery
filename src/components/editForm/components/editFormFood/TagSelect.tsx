@@ -1,7 +1,7 @@
 import { MenuItem } from "@blueprintjs/core";
 import { ItemPredicate, ItemRendererProps, MultiSelect } from "@blueprintjs/select";
-import C from '../editFormFood.module.scss';
-import { SectionSelectItem, TagSelectItem, TagSelectProps } from '../editFormFood.props';
+import C from './editFormFood.module.scss';
+import { SectionSelectItem, TagSelectItem, TagSelectProps } from './editFormFood.props';
 import { useEffect, useState } from 'react';
 
 const renderTag = (item: TagSelectItem, { handleClick, handleFocus, modifiers, query }: ItemRendererProps<HTMLLIElement>, selected: boolean) => {
@@ -33,8 +33,8 @@ export const TagSelect = (props: TagSelectProps) => {
 	const [selected, setSelected] = useState<SectionSelectItem[]>([])
 
 	useEffect(() => {
-		if (items.length > 0 && selectedIds.length > 0)
-				setSelected(items.filter(item => selectedIds.includes(item.id)))
+		if (items.length > 0)
+			setSelected(items.filter(item => selectedIds.includes(item.id)))
 	}, [items, selectedIds])
 
 	return (
@@ -49,7 +49,7 @@ export const TagSelect = (props: TagSelectProps) => {
 			itemPredicate={filterTag}
 			tagRenderer={item => item.title}
 			placeholder='Выбор тэгов'
-			popoverProps={{ matchTargetWidth:true, position:'top' }}
+			popoverProps={{ matchTargetWidth:true, position:'bottom' }}
 			className={C.select}
 		/>
 	)

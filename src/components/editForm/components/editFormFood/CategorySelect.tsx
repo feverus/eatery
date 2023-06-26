@@ -1,7 +1,7 @@
 import { Button, MenuItem } from "@blueprintjs/core";
 import { ItemRenderer, Select } from "@blueprintjs/select";
-import C from '../editFormFood.module.scss';
-import { SectionSelectItem, CategorySelectProps } from '../editFormFood.props';
+import C from './editFormFood.module.scss';
+import { SectionSelectItem, CategorySelectProps } from './editFormFood.props';
 import { useEffect, useState } from 'react';
 
 const renderSections: ItemRenderer<SectionSelectItem> = (item, { handleClick, handleFocus, modifiers, query }) => {
@@ -24,11 +24,12 @@ export const CategorySelect = (props: CategorySelectProps) => {
 
 	useEffect(() => {
 		if (items.length > 0)
-			if (selectedId === '')
-				setSelected(items[0]);
-			else {
-				setSelected(items.find(item => item.id === selectedId));
-				onSelect('section', selectedId);
+			if (selectedId === '') {
+				setSelected(items[0])
+				onSelect('section', items[0].id)
+			} else {
+				setSelected(items.find(item => item.id === selectedId))
+				onSelect('section', selectedId)
 			}
 	}, [items])
 

@@ -1,9 +1,9 @@
-import editFormStore from "~Store/editFormStore"
-import EditFormFood from "./components/editFormFood"
-import EditFormSection from "./components/editFormSection"
-import EditFormTag from "./components/editFormTag"
+import {observer} from "mobx-react"
 
-export function EditForm() {
+import editFormStore from "~Store/editFormStore"
+import { EditFormFood, EditFormSection, EditFormTag } from "./"
+
+function EditForm() {
     if (editFormStore.open===true) {
         switch (editFormStore.type) {
             case 'food':
@@ -20,3 +20,5 @@ export function EditForm() {
         return <></>
     }
 }
+
+export default (observer(EditForm))

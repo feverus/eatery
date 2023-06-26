@@ -5,8 +5,8 @@ import * as I from '~Store/storeInterfaces'
 import setStore from '~Store/setStore'
 import menuStore from "~Store/menuStore"
 import Slider from '~Components/slider'
-import EditForm from '~Components/editForm'
-import {useFoodCard} from '~Components/foodList'
+import { EditForm } from '~Components/editForm'
+import { useFoodCard } from '~Components/foodList'
 
 type P = {
 	item:I.Food

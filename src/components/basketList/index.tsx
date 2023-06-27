@@ -1,6 +1,4 @@
-import { observer} from "mobx-react";
-import { BasketList } from './basketList'
+import BasketList from './basketList'
+export { BasketList }
 
 export type { BasketListItem } from './basketList.props'
-export default
-	(observer(BasketList));

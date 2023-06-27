@@ -37,12 +37,20 @@ export interface OrderDataItem {
 }
 
 /** данные заказа для хранения в store */
-export interface OrderData extends ItemWithId, VersionsItem {
+export interface OrderData extends ItemWithId {
     food: OrderDataItem[];
 }
 
 /** сырые данные заказа получаемые от api */
-export interface OrderFromApi extends ItemWithId, VersionsItem {
+export interface OrderFromApi extends ItemWithId {
+    foodid: string[];
+    price: number[];
+    status: number[];
+}
+
+
+/** сырые данные заказа для отправки к api*/
+export interface OrderToApi extends Pick<ItemWithId , 'id' | 'version'> {
     foodid: string[];
     price: number[];
     status: number[];

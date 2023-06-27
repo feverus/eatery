@@ -18,8 +18,8 @@ const convertRawToStore = (json:I.OrderFromApi):I.OrderData => {
 }
 
 /** разделяет массив объектов на несколько массивов по полям */
-const convertStoreToRaw = (json:I.OrderData):I.OrderFromApi => {
-	let result:I.OrderFromApi = {id: json.id, name: json.name, version: json.version, foodid: [], price: [], status: []}
+const convertStoreToRaw = (json:I.OrderData):I.OrderToApi => {
+	let result:I.OrderToApi = {id: json.id, version: json.version, foodid: [], price: [], status: []}
 	json.food.forEach(food => {
 		result.foodid.push(food.foodid)
 		result.price.push(food.price)
@@ -33,8 +33,8 @@ export const getOrderApi = async (id: string): Promise<I.OrderData|string> => {
 		const json:I.OrderFromApi = await ky.get(urlApi+"order/" + id).json()
 		return convertRawToStore(json)
 	} catch (error) {
-        return (error as Error).message
-    }
+		return (error as Error).message
+	}
 }
 
 export const createOrderApi = async (name: string): Promise<I.OrderData|string> => {
@@ -42,14 +42,14 @@ export const createOrderApi = async (name: string): Promise<I.OrderData|string> 
 		const json:I.OrderFromApi = await ky.post(urlApi+"order", { json: {name: name} }).json()
 		return convertRawToStore(json)
 	} catch (error) {
-        return (error as Error).message
-    }
+		return (error as Error).message
+	}
 }
 
 export const addToOrderApi = async (order:I.OrderData): Promise<I.OrderData|string> => {
 	try {
 		const readyJson = convertStoreToRaw(order)
-		const json:I.OrderFromApi = await ky.post(urlApi+"order", { json: readyJson }).json()
+		const json:I.OrderFromApi = await ky.put(urlApi+"order/" + order.id, { json: readyJson }).json()
 		return convertRawToStore(json)
 	} catch (error) {
         return (error as Error).message

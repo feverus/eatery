@@ -1,4 +1,3 @@
-import {observer} from "mobx-react";
-import {BasketCard as BasketCardBefore} from './basketCard'
 
-export const BasketCard = (observer(BasketCardBefore))
+import BasketCard from './basketCard'
+export { BasketCard }

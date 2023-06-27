@@ -10,6 +10,7 @@ export class SetStore {
 	mobileView: boolean = false
 	
 	order:I.OrderDataItem[] = []
+	orderVersion: number = 0
 
 	sortType:undefined | string = undefined
 	sortDirection:boolean = false
@@ -29,6 +30,7 @@ export class SetStore {
 			searchPrompt: observable,
 			sortType: observable,
 			sortDirection: observable,
+			orderVersion: observable,
 
 			orderTotal: computed,
 			orderStatus: computed,
@@ -85,8 +87,9 @@ export class SetStore {
 	setDisabledInteractions(mode:boolean) {
 		this.disabledInteractions = mode
 	}
-	setOrder(newOrder:I.OrderDataItem[]) {
+	setOrder(newOrder:I.OrderDataItem[], newVersion: number) {
 		this.order = newOrder
+		this.orderVersion = newVersion
 	}
 	setMobileView(newView:boolean) {
 		this.mobileView = newView

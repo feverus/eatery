@@ -83,9 +83,9 @@ export async function uploadImageApi (data:ImageListType, id: string): Promise<A
 	const url = urlApi + "_images/" +id
 	const formData = new FormData()
 	let tempBlob:Blob|undefined
-	data.forEach(async ({ dataURL, file }, index) => {
-		if (dataURL!==undefined)  {
-			tempBlob = converterDataURItoBlob(dataURL)			
+	data.forEach(({ dataURL, file }, index) => {
+		if (dataURL!==undefined) {
+			tempBlob = converterDataURItoBlob(dataURL)
 			if (tempBlob!==undefined) formData.append(index.toString(), tempBlob, Date.now().toString() + '_' + index.toString() + '_' + file?.name)
 		}
 	})

@@ -6,7 +6,7 @@ import menuStore from '~Store/menuStore'
 import { ORDER_RECIEVE_TIMEOUT } from '~Store/consts'
 import useToast from '~Components/toast'
 import FoodList, { FoodDetail } from "~Components/foodList"
-import BasketList from '~Components/basketList'
+import { BasketList } from '~Components/basketList'
 import { loginWithTokenApi } from '~Api/loginApi'
 import { getOrderApi, createOrderApi }  from '~Api/orderApi'
 import { getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
@@ -82,7 +82,7 @@ const useMain:UseMain = (page) => {
           } else {
             console.log('Привет, '+(result as I.OrderData).name)
             setStore.setRole('client')
-            setStore.setOrder((result as I.OrderData).food)
+            setStore.setOrder((result as I.OrderData).food, (result as I.OrderData).version)
             setStore.setName((result as I.OrderData).name)
           }
         })                
@@ -197,10 +197,10 @@ const useMain:UseMain = (page) => {
 		if (setStore.token!=='') {
 			let timerUpdateOrder: number | NodeJS.Timeout
 			if (setStore.role === 'client') {
-				timerUpdateOrder = setInterval(async () => {
-					await getOrderApi(setStore.token)
+				timerUpdateOrder = setInterval(() => {
+					getOrderApi(setStore.token)
 					.then(result => {
-						setStore.setOrder((result as I.OrderData).food)
+						setStore.setOrder((result as I.OrderData).food, (result as I.OrderData).version)
 					})
 					.catch(error => {  
 						console.log(error)

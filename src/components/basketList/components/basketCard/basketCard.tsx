@@ -1,9 +1,10 @@
+import {observer} from "mobx-react"
 import { Card, Elevation, Icon, ButtonGroup } from "@blueprintjs/core"
 import setStore from "~Store/setStore"
 import { statusClasses } from "~Store/consts"
-import C from './basketCard.module.scss'
 import {useFoodCard} from "~Components/foodList"
 import { BasketListItem } from "~Components/basketList"
+import C from './basketCard.module.scss'
 import { ClientsButtons } from "./ClientsButtons"
 
 type P = {
@@ -11,7 +12,7 @@ type P = {
   withButtons?:boolean,
 }
 
-export function BasketCard({item, withButtons = true}:P) {
+function BasketCard({item, withButtons = true}:P) {
   const [foodCardState, foodCardApi] = useFoodCard(item.id)
   const priceString:JSX.Element = (item.oldPrice === item.price) ?
     <>{item.price}</>
@@ -44,3 +45,5 @@ export function BasketCard({item, withButtons = true}:P) {
     </div>
   )
 }
+
+export default (observer(BasketCard))

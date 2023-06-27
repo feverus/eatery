@@ -76,11 +76,11 @@ GET http://localhost/eatery/api/section/253979
 
 ###
 
-PUT http://localhost/api/order/aDjhfM9piuY HTTP/1.1
+PUT http://localhost/api/order/22189932Wlao6kCo0jp HTTP/1.1
 content-type: application/json
 
 {
-    "version": "3",
+    "version": "8",
     "foodid": [1],
     "price": [50],
     "status": [0]   

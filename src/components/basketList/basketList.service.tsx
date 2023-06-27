@@ -68,7 +68,10 @@ const useBasketList:UseBasketList = () => {
 		console.log(basketItems)
 		console.log(setStore)
 		addToOrderApi({
-			food: basketItems.map(item => ({...item, "foodid": item.id})),
+			food: basketItems.map(item => ({
+				...item,
+				"foodid": item.id
+			})),
 			id: setStore.token,
 			name: setStore.name,
 			version: setStore.orderVersion + 1

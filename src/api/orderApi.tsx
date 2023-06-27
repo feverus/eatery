@@ -23,7 +23,7 @@ const convertStoreToRaw = (json:I.OrderData):I.OrderToApi => {
 	json.food.forEach(food => {
 		result.foodid.push(food.foodid)
 		result.price.push(food.price)
-		result.status.push(0)
+		result.status.push(1)
 	})
 	return result
 }

@@ -33,7 +33,7 @@ const useTopNavigation:UseTopNavigation = () => {
 
   useEffect(() => {
     if (dbStateBasket.basket !== undefined) {
-      setBasketStatus((dbStateBasket.count === 0)?
+      setBasketStatus((dbStateBasket.count === 0) ?
         defaultStatus.basket
         :
         dbStateBasket.count.toString() + ' / ' + dbStateBasket.total.toString() + ' '+ currency)
@@ -60,18 +60,21 @@ const useTopNavigation:UseTopNavigation = () => {
   }, [setStore.orderStatus, setStore.orderTotal])
   
   useEffect(() => {
-    setLoginButtonText((setStore.role==='client')
-		? 'Войти'
-		: 'Сменить пользователя')
+    setLoginButtonText((setStore.role==='client') ?
+      'Войти'
+      :
+      'Сменить пользователя')
   }, [setStore.role])
 
-  const basketWidget = (setStore.role==='client')
-    ? <TopNavWidget icon={"shopping-cart"} url={'/basket'} title={basketStatus} />
-    : <></>
+  const basketWidget = (setStore.role==='client') ?
+    <TopNavWidget icon={"shopping-cart"} url={'/basket'} title={basketStatus} />
+    :
+    <></>
     
-  const orderWidget = (setStore.role==='client')
-    ? <TopNavWidget icon={"shop"} url={'/basket'} title={orderStatus}  className={true}/>
-    : <></>
+  const orderWidget = (setStore.role==='client') ?
+    <TopNavWidget icon={"shop"} url={'/basket'} title={orderStatus}  className={true}/>
+    :
+    <></>
 
 	const state = {
 		loginButtonText: loginButtonText,

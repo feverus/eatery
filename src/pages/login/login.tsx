@@ -3,8 +3,9 @@ import { Button, Card, Elevation, Icon, InputGroup } from "@blueprintjs/core"
 import {Link} from 'react-router-dom'
 import C from './login.module.scss'
 import setStore from "~Store/setStore"
+import {observer} from "mobx-react"
 
-export function Login() {
+function Login() {
 	const [state, api] = useLogin() 
 
 	return (
@@ -45,3 +46,6 @@ export function Login() {
 		</div>
 	)
 }
+
+export default
+	(observer(Login))

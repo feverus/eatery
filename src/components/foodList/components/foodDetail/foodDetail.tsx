@@ -47,7 +47,7 @@ export function ShowDetail({item}: P) {
 				<Divider />
 				<ControlGroup fill={false} vertical={false} className={C.footerButtons}>
 
-					{setStore.role=='client' && 
+					{setStore.role === 'client' && 
 					<>
 					<Button 
 						icon="remove"
@@ -68,7 +68,7 @@ export function ShowDetail({item}: P) {
 					</>
 					}
 
-					{setStore.role=='admin' && 
+					{setStore.role === 'admin' && 
 					<ButtonGroup minimal={true}>
 						<Button icon="edit"
 							onClick={api.openEditForm}

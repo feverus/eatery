@@ -10,7 +10,7 @@ import BasketList from '~Components/basketList'
 import { loginWithTokenApi } from '~Api/loginApi'
 import { getOrderApi, createOrderApi }  from '~Api/orderApi'
 import { getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
-import { useDbMenu, useDbBasket } from '~/db'
+import { useDbMenu } from '~/db'
 import { UseMain } from './main.props'
 import { checkCookieToken } from '~Api/checkCookieToken'
 

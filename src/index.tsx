@@ -2,8 +2,8 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'mobx-react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Main from '~Pages/main/'
-import Login from '~Pages/login/'
+import { Main } from '~Pages/main/'
+import { Login } from '~Pages/login/'
 
 import setStore from "~Store/setStore";
 import menuStore from '~Store/menuStore'

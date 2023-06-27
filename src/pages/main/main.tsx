@@ -3,8 +3,9 @@ import useMain from './main.service'
 import { AskNameDialog } from './components/askNameDialog'
 import TopNavigation from '~Components/topNavigation'
 import GlobalSpinner from '~Components/spinner'
+import {observer} from "mobx-react"
 
-export function Main(props: {page:string}) {  
+function Main(props: {page:string}) {  
 	const [state, api] = useMain(props.page)
 	
 	FocusStyleManager.onlyShowFocusOnTabs();
@@ -23,4 +24,4 @@ export function Main(props: {page:string}) {
 	)
 }
 
-
+export default (observer(Main))

@@ -4,16 +4,16 @@ import editFormStore from "~Store/editFormStore"
 import { EditFormFood, EditFormSection, EditFormTag } from "./"
 
 function EditForm() {
-    if (editFormStore.open===true) {
+    if (editFormStore.open === true) {
         switch (editFormStore.type) {
             case 'food':
-                return (<EditFormFood />); break;
+                return (<EditFormFood />);
             case 'section':
-                return (<EditFormSection />); break;
+                return (<EditFormSection />);
             case 'tag':
-                return (<EditFormTag />); break;
+                return (<EditFormTag />);
             default:
-                return (<EditFormFood />); break;
+                return (<EditFormFood />);
         }
     }
     else {

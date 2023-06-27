@@ -3,7 +3,6 @@ import { useState } from 'react'
 import C from '../main.module.scss'
 import { cleanInput } from "~Api/functions"
 
-
 export function AskNameDialog(props:{go: (name:string)=>void}) {
 	const [name, setName] = useState('')
 
@@ -22,7 +21,7 @@ export function AskNameDialog(props:{go: (name:string)=>void}) {
 				<InputGroup
 					placeholder="Гость"
 					onChange={el => setName(cleanInput(el.target.value))}
-                    value = {name}
+          value = {name}
 				/>				
 				<Button
 					onClick={event => checkNameAndGo(name)}

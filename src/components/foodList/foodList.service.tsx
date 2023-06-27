@@ -46,7 +46,7 @@ const useFoodList:UseFoodList = () => {
 			menuStore.section.forEach(
 				(item) => {
 					tempSection = menuStore.food.filter((el)=>
-						el.section==item.id)
+						el.section === item.id)
 						
 					if (setStore.sortType !== undefined)  tempSection = menuSort(tempSection)
 
@@ -57,7 +57,7 @@ const useFoodList:UseFoodList = () => {
 		   
 			menuStore.food.forEach(
 				(item) => {
-					if (menuStore.section.find(el => el.id==item.section)===undefined) {
+					if (menuStore.section.find(el => el.id === item.section) === undefined) {
 						if (noSectionFinded === false) {
 							noSectionFinded = true
 							tempFull.push('Без категории')

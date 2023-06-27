@@ -7,7 +7,6 @@ import { AdminPanelFood } from './components/adminPanelFood'
 import C from './foodList.module.scss'
 import useFoodList from './foodList.service'
 import { NonIdealState, NonIdealStateIconSize } from '@blueprintjs/core'
-import { LARGE } from '@blueprintjs/core/lib/esm/common/classes'
 
 export function FoodList() {
 	const [food, api] = useFoodList()
@@ -39,7 +38,7 @@ export function FoodList() {
 
 	return (
 		<div className={C.list}>
-			{setStore.role=='admin' &&  AdminPanelFood(api)}
+			{setStore.role==='admin' &&  AdminPanelFood(api)}
 
 			<FilterPanel />
 

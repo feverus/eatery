@@ -1,6 +1,6 @@
 import { Button, Collapse, ControlGroup, Label, HTMLSelect, Switch, InputGroup, Card } from '@blueprintjs/core'
 import setStore from '~/store/setStore'
-import { TagSelect, useTags, IeditFormFood } from '~Components/editForm'
+import { TagSelect, useTags } from '~Components/editForm'
 import C from './filterPanel.module.scss'
 import useFilterPanel from './filterPanel.service'
 

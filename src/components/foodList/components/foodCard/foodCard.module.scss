@@ -3,6 +3,9 @@
 .section {
     padding: 10px 5px;
     width: 250px;
+    &.hidden {
+        opacity: 50%;
+    }
 
     @each $maxWidth, $parts in (1920px, 6), (1600px, 5), (1000px, 4), (800px, 3),(400px, 2) {
         @media (max-width: $maxWidth) {

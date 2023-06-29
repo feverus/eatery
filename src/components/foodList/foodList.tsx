@@ -18,7 +18,7 @@ export function FoodList() {
 			icon={'search'}
 			iconSize={NonIdealStateIconSize.STANDARD}
 			title='Поиск не дал результатов'
-			description='Попробуйте задать менее стргие критерии для поиска'
+			description='Попробуйте задать менее строгие критерии для поиска'
 			className={C.notFound}
 		/>
 

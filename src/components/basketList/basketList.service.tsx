@@ -70,7 +70,8 @@ const useBasketList:UseBasketList = () => {
 		addToOrderApi({
 			food: basketItems.map(item => ({
 				...item,
-				"foodid": item.id
+				"foodid": item.id,
+				"time": 0,//ставится на сервере
 			})),
 			id: setStore.token,
 			name: setStore.name,

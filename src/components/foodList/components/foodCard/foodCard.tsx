@@ -8,8 +8,10 @@ import {Link} from 'react-router-dom'
 export function FoodCard(item:I.Food) {
 	const [state, api] = useFoodCard(item.id)
 
+	if (setStore.role=='client' && item.hidden === true) return (<></>)
+
 	return (
-		<div className={C.section}>
+		<div className={C.section + ' '+ (item.hidden ? C.hidden : '')}>
 			
 			<Card
 				interactive={false}

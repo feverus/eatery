@@ -2,7 +2,7 @@ import {observer} from "mobx-react"
 import * as I from '~Store/storeInterfaces'
 import editFormStore from "~Store/editFormStore"
 import {ImageUploader} from "~Components/editForm"
-import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup } from "@blueprintjs/core"
+import { Button, Classes, Overlay, Card, Divider, ControlGroup, ButtonGroup, InputGroup, Switch } from "@blueprintjs/core"
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import C from './editFormFood.module.scss'
@@ -36,12 +36,26 @@ export function EditFormFood() {
 					onSelect={api.handleInputChange}
 				/>
 
-				<h3>Цена</h3>
-				<InputGroup
-					id="text-input"
-					type="number"
-					value={state.data.price.toString()}
-					onChange={(e)=>api.handleInputChange('price', e.target.value)} />
+				<div className={C.twoColumn}>
+					<div className={C.column}>
+						<h3>Цена</h3>
+						<InputGroup
+							id="text-input"
+							type="number"
+							value={state.data.price.toString()}
+							onChange={(e)=>api.handleInputChange('price', e.target.value)} />
+					</div>
+
+					<div className={C.column}>
+						<h3>Доступно для заказа клиентом</h3>
+						<Switch
+							checked={state.data.hidden}
+							innerLabel="Доступно"
+							innerLabelChecked="Скрыто"
+							onChange={(e)=>api.handleInputChange('hidden', (!state.data.hidden).toString())}
+						/>
+					</div>
+				</div>
 
 				<h3>Фотографии</h3>
 				<ImageUploader />

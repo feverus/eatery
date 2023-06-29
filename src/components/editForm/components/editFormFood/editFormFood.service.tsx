@@ -84,6 +84,8 @@ export const useEditFormFood:UseEditFormFood = (data:I.Food) => {
 				editFormStore.setData({...state.data, price:Number(value)}); break;        
 			case 'section':
 				editFormStore.setData({...state.data, section:value}); break;        
+			case 'hidden':
+				editFormStore.setData({...state.data, hidden:(value === 'true')}); break;        
 			case 'tag':
 				const finded = state.data.tags.find(id => id === value)
 				const newTags = (finded === undefined) ?

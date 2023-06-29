@@ -12,6 +12,7 @@ export class EditFormStore {
     info: '',
     version: 0,
     tags: [],
+    hidden: false,
   }
 
   open: boolean = false
@@ -62,6 +63,7 @@ export class EditFormStore {
           images: data.images,
           info: data.info,
           tags: data.tags,
+          hidden: data.hidden || false,
         }
       } else this.formData = this.emptyFood
 

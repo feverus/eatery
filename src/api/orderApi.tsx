@@ -10,7 +10,8 @@ const convertRawToStore = (json:I.OrderFromApi):I.OrderData => {
 			result.food.push({
 				"foodid": json.foodid[n],
 				"price": json.price[n],
-				"status": json.status[n]
+				"status": json.status[n],
+				"time": json.time[n],
 			})
 		})
 	}

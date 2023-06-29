@@ -32,7 +32,8 @@ const FilterPanel = () => {
         checked={setStore.sortDirection}
         innerLabel="По возрастанию"
         innerLabelChecked="По убыванию"
-        onChange={() => setStore.toogleSortDirection()} />
+        onChange={() => setStore.toogleSortDirection()}
+      />
     </ControlGroup>
 
   const SearchBlock = 

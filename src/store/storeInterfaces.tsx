@@ -12,6 +12,7 @@ export interface Food extends ItemWithId {
     images: Array<string>;
     tags: Array<string>;
     info: string;
+    hidden: boolean;
 }
 export interface Section extends ItemWithId {
     position: number;
@@ -34,6 +35,7 @@ export interface OrderDataItem {
     foodid: string,
     price: number,
     status: number,
+    time: number,
 }
 
 /** данные заказа для хранения в store */
@@ -46,6 +48,7 @@ export interface OrderFromApi extends ItemWithId {
     foodid: string[];
     price: number[];
     status: number[];
+    time: number[];
 }
 
 

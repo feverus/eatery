@@ -29,6 +29,15 @@ const convertStoreToRaw = (json:I.OrderData):I.OrderToApi => {
 	return result
 }
 
+export const getAllOrdersApi = async (): Promise<I.OrderData[]|string> => {
+	try {
+		const jsonArray:I.OrderFromApi[] = await ky.get(urlApi+"order").json()
+		return jsonArray.map(json => convertRawToStore(json))
+	} catch (error) {
+		return (error as Error).message
+	}
+}
+
 export const getOrderApi = async (id: string): Promise<I.OrderData|string> => {
 	try {
 		const json:I.OrderFromApi = await ky.get(urlApi+"order/" + id).json()
@@ -51,8 +60,10 @@ export const addToOrderApi = async (order:I.OrderData): Promise<I.OrderData|stri
 	try {
 		const readyJson = convertStoreToRaw(order)
 		const json:I.OrderFromApi = await ky.put(urlApi+"order/" + order.id, { json: readyJson }).json()
+
 		return convertRawToStore(json)
 	} catch (error) {
         return (error as Error).message
     }
 }
+

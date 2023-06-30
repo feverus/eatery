@@ -8,11 +8,12 @@ import useToast from '~Components/toast'
 import FoodList, { FoodDetail } from "~Components/foodList"
 import { BasketList } from '~Components/basketList'
 import { loginWithTokenApi } from '~Api/loginApi'
-import { getOrderApi, createOrderApi }  from '~Api/orderApi'
+import { getOrderApi, createOrderApi, getAllOrdersApi }  from '~Api/orderApi'
 import { getFoodApi, getSectionApi, getTagApi, getVersionsApi }  from '~Api/getApi'
 import { useDbMenu } from '~/db'
 import { UseMain } from './main.props'
 import { checkCookieToken } from '~Api/checkCookieToken'
+import orderListStore from '~/store/orderListStore'
 
 const userLogined = (role: string) => {
 	console.log(role + ' logined')
@@ -22,18 +23,17 @@ const userLogined = (role: string) => {
 
 const setTimeDelta = (time: number) => {
 	let now = new Date()
-	console.log('time', time, ~~((now.getTime() - ZERO_TIME*1000) / 1000))
+	//console.log('time', time, ~~((now.getTime() - ZERO_TIME*1000) / 1000))
 	setStore.setTimeDelta(time - ~~((now.getTime() - ZERO_TIME*1000) / 1000))
 }
 
 const loginWithToken = async (cookieToken:string) => {
 	await loginWithTokenApi(cookieToken)
-		.then(result => {
-			console.log(result)			
+		.then(result => {	
 			if ('error' in result && (result.error.search('401 Unauthorized')!==-1)) {
 				console.log('user not found')
-				setTimeDelta(result.result.time)
 				setStore.setToken(cookieToken)
+				setTimeDelta(result.result.time)
 			} else {
 				setTimeDelta((result as I.AuthData).time)
 				userLogined((result as I.AuthData).role) 
@@ -202,6 +202,25 @@ const useMain:UseMain = (page) => {
 		}
 
 	}, [dbStateMenu.versions])
+
+	
+	useEffect(() => {
+		let timerUpdateOrdersList: number | NodeJS.Timeout
+		if (setStore.role !== 'client') {
+			timerUpdateOrdersList = setInterval(() => {
+				getAllOrdersApi()	
+				.then(result => {
+					if (typeof result!=='string') orderListStore.setOrders(result as I.OrderData[])
+				})
+				.catch(error => {  
+					console.log(error)
+				})				
+			}, ORDER_RECIEVE_TIMEOUT)
+		}
+		return(
+			() => clearInterval(timerUpdateOrdersList)
+		)			
+  }, [setStore.token, setStore.role])
 
 	useEffect(() => {
 		if (setStore.token!=='') {

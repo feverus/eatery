@@ -1,24 +1,26 @@
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'mobx-react'
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import { Main } from '~Pages/main/'
 import { Login } from '~Pages/login/'
 
-import setStore from "~Store/setStore";
+import setStore from "~Store/setStore"
 import menuStore from '~Store/menuStore'
-import editFormStore from "~Store/editFormStore";
+import editFormStore from "~Store/editFormStore"
+import orderListStore from "~Store/orderListStore"
 
 import './index.module.scss'
-import "normalize.css";
-import "@blueprintjs/core/lib/css/blueprint.css";
-import "@blueprintjs/icons/lib/css/blueprint-icons.css";
-import "@blueprintjs/select/lib/css/blueprint-select.css";
+import "normalize.css"
+import "@blueprintjs/core/lib/css/blueprint.css"
+import "@blueprintjs/icons/lib/css/blueprint-icons.css"
+import "@blueprintjs/select/lib/css/blueprint-select.css"
 
 const stores = {
   menuStore,
   setStore,
   editFormStore,
+  orderListStore,
 }
 
 const router = createBrowserRouter([

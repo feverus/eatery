@@ -7,6 +7,7 @@ import menuStore from "~Store/menuStore"
 import Slider from '~Components/slider'
 import { EditForm } from '~Components/editForm'
 import { useFoodCard } from '~Components/foodList'
+import { useEffect } from "react";
 
 type P = {
 	item:I.Food
@@ -14,6 +15,10 @@ type P = {
 
 export function ShowDetail({item}: P) {    
 	const [state, api] = useFoodCard(item.id)
+	
+	useEffect(() => {
+		setStore.setPage(item.name)
+	}, [])
 	
 	return (
 		<div className={C.section}>

@@ -29,6 +29,11 @@ export type EditFormFoodData = Food | Section | Tag | undefined
 export interface AuthData {
     token: string;
     role: string;
+    time: number;
+}
+export interface AuthDataWithError {
+    error: string;
+    result: AuthData;
 }
 
 export interface OrderDataItem {

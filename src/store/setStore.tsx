@@ -6,6 +6,8 @@ export class SetStore {
 	role:string = ''
 	name:string = ''
 	token:string = ''
+	timeDelta: number = 0
+
 	disabledInteractions: boolean = true
 	mobileView: boolean = false
 	
@@ -25,6 +27,7 @@ export class SetStore {
 			page: observable,
 			role: observable,
 			token: observable,
+			timeDelta: observable,
 			mobileView: observable,
 			foodFilterActive: observable,
 			searchPrompt: observable,
@@ -38,6 +41,7 @@ export class SetStore {
 			setRole: action,
 			setPage: action,
 			setToken: action,
+			setTimeDelta: action,
 			setOrder: action,
 			setMobileView: action,
 			setSortType: action,
@@ -83,6 +87,9 @@ export class SetStore {
 	}
 	setToken(newToken:string) {
 		this.token = newToken
+	}
+	setTimeDelta(newDelta:number) {
+		this.timeDelta = newDelta
 	}
 	setDisabledInteractions(mode:boolean) {
 		this.disabledInteractions = mode

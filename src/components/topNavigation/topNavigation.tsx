@@ -24,13 +24,13 @@ export function TopNavigation() {
 			<NavbarGroup className={C.group}>
 				<TopNavWidget icon={"person"} title={setStore.name} link={false} />
 
-				{setStore.page !== 'Меню' && 
-					<TopNavWidget icon={"home"} url={'/'} title={"Меню"} link={true} />
-				}
+				{ setStore.page !== 'Меню' && <TopNavWidget icon={"home"} url={'/'} title={"Меню"} link={true} /> }
 
 				<TopNavWidget icon={"page-layout"} title={setStore.page} link={false} />
 				
-				{setStore.role==='client' && <ClientMenu /> }
+				{ setStore.role==='client' && <ClientMenu /> }
+				
+				{ setStore.role!=='client' && <TopNavWidget icon={"clipboard"} url={'/order-list'} title={"Лист заказов"} link={true} /> }
 
 				<TopNavWidget url={'/login'} title={state.loginButtonText} link={true} />
 			</NavbarGroup>

@@ -3,7 +3,7 @@ import { setCookie } from 'react-use-cookie'
 import * as I from '~Store/storeInterfaces'
 import setStore from '~Store/setStore'
 import menuStore from '~Store/menuStore'
-import { ORDER_RECIEVE_TIMEOUT } from '~Store/consts'
+import { ORDER_RECIEVE_TIMEOUT, ZERO_TIME } from '~Store/consts'
 import useToast from '~Components/toast'
 import FoodList, { FoodDetail } from "~Components/foodList"
 import { BasketList } from '~Components/basketList'
@@ -20,13 +20,22 @@ const userLogined = (role: string) => {
 	setStore.setName(role)
 }
 
+const setTimeDelta = (time: number) => {
+	let now = new Date()
+	console.log('time', time, ~~((now.getTime() - ZERO_TIME*1000) / 1000))
+	setStore.setTimeDelta(time - ~~((now.getTime() - ZERO_TIME*1000) / 1000))
+}
+
 const loginWithToken = async (cookieToken:string) => {
 	await loginWithTokenApi(cookieToken)
 		.then(result => {
-			if ((typeof(result)==='string') && (result.search('401 Unauthorized')!==-1)) {
+			console.log(result)			
+			if ('error' in result && (result.error.search('401 Unauthorized')!==-1)) {
 				console.log('user not found')
+				setTimeDelta(result.result.time)
 				setStore.setToken(cookieToken)
 			} else {
+				setTimeDelta((result as I.AuthData).time)
 				userLogined((result as I.AuthData).role) 
 			}           
 		})                   
@@ -37,6 +46,7 @@ const loginWithToken = async (cookieToken:string) => {
 
 const definePage = (page:string):JSX.Element => {
 	if (page==='basket') return <BasketList />
+	if (page==='order-list') return <FoodDetail />
 	if (page==='foodDetail') return <FoodDetail />
 	return <FoodList />
 }

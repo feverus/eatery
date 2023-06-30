@@ -31,6 +31,10 @@ const router = createBrowserRouter([
       element: <Main page='basket' />,
     },
     {
+      path: "order-list",
+      element: <Main page='order-list' />,
+    },
+    {
       path: "food/:id",
       element: <Main page='foodDetail' />,
       loader: ({params}) => {return params.id ?? 'error404'},

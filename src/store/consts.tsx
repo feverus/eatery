@@ -8,3 +8,5 @@ export const statusClasses:GenericObject = {
 }
 
 export const ORDER_RECIEVE_TIMEOUT = 10000;
+
+export const ZERO_TIME = 1665684000;

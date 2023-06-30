@@ -16,8 +16,9 @@ export type UseTopNavigation = () => [
 ];
 
 export type WidgetType = {
-    icon: BlueprintIcons_16Id | MaybeElement,
-    url: string,
+    icon?: BlueprintIcons_16Id | MaybeElement,
+    url?: string,
     title: string,
+    link: boolean;
     className?: boolean,
 }

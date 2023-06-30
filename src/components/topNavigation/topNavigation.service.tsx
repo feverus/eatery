@@ -67,12 +67,12 @@ const useTopNavigation:UseTopNavigation = () => {
   }, [setStore.role])
 
   const basketWidget = (setStore.role==='client') ?
-    <TopNavWidget icon={"shopping-cart"} url={'/basket'} title={basketStatus} />
+    <TopNavWidget icon={"shopping-cart"} url={'/basket'} title={basketStatus} link={true} />
     :
     <></>
     
   const orderWidget = (setStore.role==='client') ?
-    <TopNavWidget icon={"shop"} url={'/basket'} title={orderStatus}  className={true}/>
+    <TopNavWidget icon={"shop"} url={'/basket'} title={orderStatus}  className={true} link={true} />
     :
     <></>
 

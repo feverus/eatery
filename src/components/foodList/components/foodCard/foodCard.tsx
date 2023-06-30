@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 export function FoodCard(item:I.Food) {
 	const [state, api] = useFoodCard(item.id)
 
-	if (setStore.role=='client' && item.hidden === true) return (<></>)
+	if (setStore.role === 'client' && item.hidden === true) return (<></>)
 
 	return (
 		<div className={C.section + ' '+ (item.hidden ? C.hidden : '')}>
@@ -26,12 +26,12 @@ export function FoodCard(item:I.Food) {
 				</Link>
 
 				<Link to = {`food/${item.id}`}>
-					{item.images.length > 0 && <img src={item.images[0]}/>}
+					{item.images.length > 0 && <img src={item.images[0]} alt={`Изображение блюда ${item.name}`} />}
 				</Link>
 
 				<ControlGroup fill={false} vertical={false} className={C.footerButtons}>
 
-					{setStore.role=='client' && 
+					{setStore.role === 'client' && 
 					<>
 					<Button 
 						icon="remove"
@@ -52,7 +52,7 @@ export function FoodCard(item:I.Food) {
 					</>
 					}
 
-					{setStore.role=='admin' && 
+					{setStore.role === 'admin' && 
 					<ButtonGroup minimal={true}>
 						<Button icon="edit"
 							onClick={api.openEditForm}
